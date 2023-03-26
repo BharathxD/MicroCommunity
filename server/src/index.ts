@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import { StatusCodes } from "http-status-codes";
+import logger from "./utils/logger";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -11,14 +12,14 @@ app.get("/healthcheck", (req: Request, res: Response) => {
 });
 
 const server = app.listen(PORT, async () => {
-  // logger.log(`The server is running at http://localhost:${PORT}`);
+  logger.info(`The server is running at http://localhost:${PORT}`);
   // await connect();
   // routes(app);
 });
 
 const SIGNALS = ["SIGINT", "SIGTERM"];
 
-const gracefulshutdown = (signal: string) => {
+const gracefulShutdown = (signal: string) => {
   process.once(signal, async () => {
     console.log(`Recieved ${signal}, implementing graceful shutdown...`);
     try {
@@ -42,5 +43,5 @@ const gracefulshutdown = (signal: string) => {
 };
 
 for (const SIGNAL in SIGNALS) {
-  // gracefulshutdown(SIGNAL);
+  // gracefulShutdown(SIGNAL);
 }
