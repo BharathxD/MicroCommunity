@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ESNext",
+    /* Modules */
+    "module": "CommonJS",
+    // "rootDir": "./src",
+    "moduleResolution": "node",
+    /* Emit */
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    /* Type Checking */
+    "strict": true,
+    /* Completeness */
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
