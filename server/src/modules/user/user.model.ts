@@ -1,5 +1,13 @@
-import { getModelForClass, prop } from "@typegoose/typegoose";
+import { getModelForClass, prop, pre } from "@typegoose/typegoose";
+import argon2 from "argon2";
 
+@pre<User>("save", async function (this, next) {
+  if (!this.isModified("password") || this.isNew) {
+    const hash = await argon2.hash(this.password);
+    this.password = hash;
+    return next();
+  }
+})
 export class User {
   @prop({ required: true, type: String, min: 2, max: 50 })
   public fname!: string;
@@ -21,6 +29,9 @@ export class User {
   public viewedProfile!: number;
   @prop({ type: Number })
   public impressions!: number;
+  public async comparePassword(password: string): Promise<boolean> {
+    return argon2.verify(this.password, password);
+  }
 }
 
 const UserModel = getModelForClass(User, {
