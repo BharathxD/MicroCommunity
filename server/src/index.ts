@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import { StatusCodes } from "http-status-codes";
 import logger from "./utils/logger";
+import { connect, disconnect } from "./utils/connect";
 
 dotenv.config();
 const PORT = process.env.PORT;
