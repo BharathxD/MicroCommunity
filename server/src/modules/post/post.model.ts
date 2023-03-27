@@ -1,8 +1,9 @@
-import { prop, getModelForClass } from "@typegoose/typegoose";
+import { prop, getModelForClass, Ref } from "@typegoose/typegoose";
+import { User } from "../user/post.model";
 
 export class Post {
-  @prop({ required: true })
-  public userId!: string;
+  @prop({ required: true, ref: () => User })
+  public userId!: Ref<User>;
   @prop({ required: true, type: String })
   public fname!: string;
   @prop({ required: true, type: String })
