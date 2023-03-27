@@ -14,8 +14,7 @@ app.get("/healthcheck", (req: Request, res: Response) => {
 
 const server = app.listen(PORT, async () => {
   logger.info(`The server is running at http://localhost:${PORT}`);
-  // await connect();
-  // routes(app);
+  await connect();
 });
 
 const SIGNALS = ["SIGINT", "SIGTERM"];
@@ -34,7 +33,7 @@ const gracefulShutdown = (signal: string) => {
             }
           });
         }),
-        // disconnect();
+        disconnect(),
       ]);
       console.log(`Shutdown Completed`);
     } catch (error: any) {
@@ -44,5 +43,5 @@ const gracefulShutdown = (signal: string) => {
 };
 
 for (const SIGNAL in SIGNALS) {
-  // gracefulShutdown(SIGNAL);
+  gracefulShutdown(SIGNAL);
 }
