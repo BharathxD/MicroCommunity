@@ -9,17 +9,17 @@ export class Post {
   @prop({ required: true, type: String })
   public lname!: string;
   @prop({ type: String })
-  public location!: string;
+  public location?: string;
   @prop({ type: String })
-  public description!: string;
+  public description?: string;
   @prop({ type: String })
-  public picturePath!: string;
+  public picturePath?: string;
   @prop({ type: String })
-  public userPicturePath!: string;
-  @prop({ type: Map })
-  public likes!: Map<string, boolean>;
+  public userPicturePath?: string;
+  @prop({ map: { of: Boolean } })
+  public likes?: Map<string, boolean>;
   @prop({ type: Array<String>, default: [] })
-  public comments!: Array<string>;
+  public comments?: Array<string>;
 }
 
 const PostModel = getModelForClass(Post, {

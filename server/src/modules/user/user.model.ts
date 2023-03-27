@@ -20,15 +20,15 @@ export class User {
   @prop({ required: true, type: String, default: "" })
   public picturePath!: string;
   @prop({ type: Array<User>, default: [] })
-  public connections!: Array<User>;
+  public connections?: Array<User>;
   @prop({ type: String })
-  public location!: string;
+  public location?: string;
   @prop({ type: String })
-  public occupation!: string;
+  public occupation?: string;
   @prop({ type: Number })
-  public viewedProfile!: number;
+  public viewedProfile?: number;
   @prop({ type: Number })
-  public impressions!: number;
+  public impressions?: number;
   public async comparePassword(password: string): Promise<boolean> {
     return argon2.verify(this.password, password);
   }
