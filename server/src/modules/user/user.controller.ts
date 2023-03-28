@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createUser } from "./user.service";
 
-const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response) => {
   try {
     const {
       fname,
@@ -23,6 +23,8 @@ const registerUser = async (req: Request, res: Response) => {
       connections,
       location,
       occupation,
+      viewedProfile: Math.floor(Math.random() * 10000),
+      impressions: Math.floor(Math.random() * 10000),
     });
     res.status(StatusCodes.CREATED).send(createdUser);
   } catch (error: any) {

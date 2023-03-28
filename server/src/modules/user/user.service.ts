@@ -1,9 +1,7 @@
 import UserModel, { User } from "./user.model";
 import { omit } from "lodash";
 
-export const createUser = async (
-  user: Omit<User, "comparePassword" | "viewedProfile" | "impressions">
-) => {
+export const createUser = async (user: Omit<User, "comparePassword">) => {
   const createdUser = await UserModel.create(user);
   return omit(createdUser.toJSON(), "password");
 };
