@@ -1,10 +1,9 @@
-import express, { Response } from "express";
+import express from "express";
 import dotenv from "dotenv";
-import { StatusCodes } from "http-status-codes";
 import logger from "./utils/logger";
 import { connect, disconnect } from "./utils/connect";
 import { configureApp } from "./config/config";
-import UserRoute from "../src/modules/user/user.route";
+import routes from "./routes";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -13,18 +12,13 @@ const app = express();
 /* CONFIGURATION */
 configureApp(app);
 
-app.get("/healthcheck", (_, res: Response) => {
-  res.status(StatusCodes.OK).send({ message: "ok" });
-});
-
 const server = app.listen(PORT, async () => {
   logger.info(`The server is running at http://localhost:${PORT}`);
   await connect();
+  routes(app);
 });
 
-app.use("/api/user", UserRoute);
-
-const SIGNALS = ["SIGINT", "SIGTERM"];
+const SIGNALS = ["SIGTERM", "SIGINT"];
 
 const gracefulShutdown = (signal: string) => {
   process.once(signal, async () => {
@@ -43,8 +37,10 @@ const gracefulShutdown = (signal: string) => {
         disconnect(),
       ]);
       console.log(`Shutdown Completed`);
+      process.exit(0);
     } catch (error: any) {
       console.log(`Something went wrong: `, error.message);
+      process.exit(1);
     }
   });
 };

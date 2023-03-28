@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import logger from "./logger";
 
-
 export const connect = async () => {
   try {
     const MONGO_URI = process.env.MONGO_URI;
@@ -14,13 +13,14 @@ export const connect = async () => {
     logger.info("Successfully connected to the Database");
   } catch (error: any) {
     logger.error(`Something went wrong: ${error.message}`);
+    process.exit(1);
   }
 };
 
 export const disconnect = async () => {
   try {
-    await mongoose.disconnect();
+    return await mongoose.disconnect();
   } catch (error: any) {
-    logger.error(`Error disconnecting from the Database: ${error.message}`);
+    return error.message;
   }
 };
