@@ -1,7 +1,7 @@
 import { TypeOf, array, object, string } from "zod";
 import { User } from "./user.model";
 
-const UserSchema = {
+export const RegisterSchema = {
   body: object({
     fname: string({
       required_error: "Enter a valid First Name",
@@ -22,13 +22,23 @@ const UserSchema = {
         64,
         "Password is too long, it should not be longer than 64 Characters"
       ),
+    confirmPassword: string({
+      required_error: "Enter a Valid Confirm Password",
+    }),
     picturePath: string({
       required_error: "Picture path is invalid",
     }),
-    connections: array(string({})),
-    location: string({}).optional(),
-    occupation: string({}).optional(),
+    connections: array(string({})).optional(),
+    location: string({
+      required_error: "Enter a valid location",
+    }),
+    occupation: string({
+      required_error: "Enter a valid Occupation",
+    }),
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
   }),
 };
 
-export type RegisterInput = TypeOf<typeof UserSchema.body>;
+export type RegisterInput = TypeOf<typeof RegisterSchema.body>;

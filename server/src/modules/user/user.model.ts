@@ -25,7 +25,7 @@ export class User {
   public password!: string;
   @prop({ required: true, type: String })
   public picturePath!: string;
-  @prop({ required: true, type: Array<String> })
+  @prop({ required: true, type: [String] })
   public connections!: Array<string>;
   @prop({ type: String })
   public location?: string;

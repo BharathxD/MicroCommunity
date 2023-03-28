@@ -8,6 +8,7 @@ export const registerUser = async (
   res: Response
 ) => {
   try {
+    console.log(req.body);
     const createdUser = await createUser({
       ...req.body,
       viewedProfile: Math.floor(Math.random() * 10000),

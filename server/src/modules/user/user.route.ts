@@ -1,9 +1,16 @@
 import { Router } from "express";
 import { registerUser } from "./user.controller";
 import upload from "../../utils/fileUpload";
+import { processRequestBody } from "zod-express-middleware";
+import { RegisterSchema } from "./user.schema";
 
 const router = Router();
 
-router.post("/", upload.single("picture"), registerUser);
+router.post(
+  "/",
+  processRequestBody(RegisterSchema.body),
+  upload.single("picture"),
+  registerUser
+);
 
 export default router;
