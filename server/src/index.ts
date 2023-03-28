@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import logger from "./utils/logger";
 import { connect, disconnect } from "./utils/connect";
 import { configureApp } from "./config/config";
+import UserRoute from "../src/modules/user/user.route";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -20,6 +21,8 @@ const server = app.listen(PORT, async () => {
   logger.info(`The server is running at http://localhost:${PORT}`);
   await connect();
 });
+
+app.use("/api/user", UserRoute);
 
 const SIGNALS = ["SIGINT", "SIGTERM"];
 

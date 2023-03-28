@@ -1,4 +1,10 @@
-import { getModelForClass, prop, pre } from "@typegoose/typegoose";
+import {
+  getModelForClass,
+  prop,
+  pre,
+  mongoose,
+  Ref,
+} from "@typegoose/typegoose";
 import argon2 from "argon2";
 
 @pre<User>("save", async function (this, next) {
@@ -9,20 +15,20 @@ import argon2 from "argon2";
   }
 })
 export class User {
-  @prop({ required: true, type: String, min: 2, max: 50 })
+  @prop({ required: true, type: String })
   public fname!: string;
-  @prop({ required: true, type: String, min: 2, max: 50 })
+  @prop({ required: true, type: String })
   public lname!: string;
-  @prop({ required: true, type: String, max: 50 })
+  @prop({ required: true, type: String, unique: true })
   public email!: string;
-  @prop({ required: true, type: String, min: 6 })
+  @prop({ required: true, type: String })
   public password!: string;
-  @prop({ required: true, type: String, default: "" })
+  @prop({ required: true, type: String })
   public picturePath!: string;
-  @prop({ type: Array<User>, default: [] })
-  public connections?: Array<User>;
+  @prop({ required: true, type: Array<String> })
+  public connections!: Array<string>;
   @prop({ type: String })
-  public location?: string; 
+  public location?: string;
   @prop({ type: String })
   public occupation?: string;
   @prop({ type: Number })

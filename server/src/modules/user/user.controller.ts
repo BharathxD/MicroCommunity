@@ -1,28 +1,15 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createUser } from "./user.service";
+import { RegisterInput } from "./user.schema";
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (
+  req: Request<{}, {}, RegisterInput>,
+  res: Response
+) => {
   try {
-    const {
-      fname,
-      lname,
-      email,
-      password,
-      picturePath,
-      connections,
-      location,
-      occupation,
-    } = req.body;
     const createdUser = await createUser({
-      fname,
-      lname,
-      email,
-      password,
-      picturePath,
-      connections,
-      location,
-      occupation,
+      ...req.body,
       viewedProfile: Math.floor(Math.random() * 10000),
       impressions: Math.floor(Math.random() * 10000),
     });

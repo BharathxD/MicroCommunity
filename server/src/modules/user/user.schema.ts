@@ -1,4 +1,5 @@
-import { object, string } from "zod";
+import { TypeOf, array, object, string } from "zod";
+import { User } from "./user.model";
 
 const UserSchema = {
   body: object({
@@ -24,8 +25,10 @@ const UserSchema = {
     picturePath: string({
       required_error: "Picture path is invalid",
     }),
-    connections: string({}),
-    location: string({}),
-    occupation: string({}),
+    connections: array(string({})),
+    location: string({}).optional(),
+    occupation: string({}).optional(),
   }),
 };
+
+export type RegisterInput = TypeOf<typeof UserSchema.body>;
