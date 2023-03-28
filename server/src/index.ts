@@ -1,14 +1,18 @@
-import express, { Request, Response } from "express";
+import express, { Response } from "express";
 import dotenv from "dotenv";
 import { StatusCodes } from "http-status-codes";
 import logger from "./utils/logger";
 import { connect, disconnect } from "./utils/connect";
+import { configureApp } from "./config/config";
 
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
 
-app.get("/healthcheck", (req: Request, res: Response) => {
+/* CONFIGURATION */
+configureApp(app);
+
+app.get("/healthcheck", (_, res: Response) => {
   res.status(StatusCodes.OK).send({ message: "ok" });
 });
 
