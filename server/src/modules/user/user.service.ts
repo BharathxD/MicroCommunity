@@ -1,17 +1,19 @@
 import UserModel, { User } from "./user.model";
 import { omit } from "lodash";
 
-const createUser = async (user: Omit<User, "comparePassword">) => {
+export const createUser = async (
+  user: Omit<User, "comparePassword" | "viewedProfile" | "impressions">
+) => {
   const createdUser = await UserModel.create(user);
   return omit(createdUser.toJSON(), "password");
 };
 
-const findUserByEmail = async (email: User["email"]) => {
+export const findUserByEmail = async (email: User["email"]) => {
   const user = await UserModel.findOne({ email });
   return user;
 };
 
-const validateUser = async ({
+export const validateUser = async ({
   email,
   password,
 }: {

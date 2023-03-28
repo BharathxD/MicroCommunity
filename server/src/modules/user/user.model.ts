@@ -22,7 +22,7 @@ export class User {
   @prop({ type: Array<User>, default: [] })
   public connections?: Array<User>;
   @prop({ type: String })
-  public location?: string;
+  public location?: string; 
   @prop({ type: String })
   public occupation?: string;
   @prop({ type: Number })
