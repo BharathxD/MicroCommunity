@@ -1,5 +1,4 @@
 import { TypeOf, array, object, string } from "zod";
-import { User } from "./user.model";
 
 export const RegisterSchema = {
   body: object({
@@ -41,4 +40,7 @@ export const RegisterSchema = {
   }),
 };
 
-export type RegisterInput = TypeOf<typeof RegisterSchema.body>;
+export type RegisterInput = Omit<
+  TypeOf<typeof RegisterSchema.body>,
+  "passwordConfirmation"
+>;

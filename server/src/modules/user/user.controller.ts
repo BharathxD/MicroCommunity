@@ -13,10 +13,18 @@ export const registerUserHandler = async (
       viewedProfile: Math.floor(Math.random() * 10000),
       impressions: Math.floor(Math.random() * 10000),
     });
-    res.status(StatusCodes.CREATED).send(createdUser);
-  } catch (error: any) {
     res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: error.message });
+      .status(StatusCodes.CREATED)
+      .send({ message: "User created successfully", user: createdUser });
+  } catch (error: any) {
+    if (error.code === 11000) {
+      return res
+        .status(StatusCodes.CONFLICT)
+        .send({ message: "User already exists" });
+    } else {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send({ message: error.message });
+    }
   }
 };

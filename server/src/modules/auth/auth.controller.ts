@@ -3,6 +3,7 @@ import { LoginInput } from "./auth.schema";
 import { Request, Response } from "express";
 import { validateUser } from "../user/user.service";
 import { StatusCodes } from "http-status-codes";
+import logger from "../../utils/logger";
 
 export const loginUserHandler = async (
   req: Request<{}, {}, LoginInput>,
@@ -10,14 +11,15 @@ export const loginUserHandler = async (
 ) => {
   try {
     const { email, password } = req.body;
-    const user = validateUser({ email, password });
+    const user = await validateUser({ email, password });
     if (!user) {
-      res
+      return res
         .status(StatusCodes.UNAUTHORIZED)
         .send({ message: "Invalid login and password" });
     }
     //? Generate Token
-    const token = new JWTService().generateToken(user);
+    const jwt = new JWTService();
+    const token = jwt.generateToken(user);
     //? Adding the Cookie to response
     res.cookie("accessToken", token, {
       maxAge: 3.154e10, //? 1 Year
@@ -27,10 +29,8 @@ export const loginUserHandler = async (
       sameSite: "strict",
       secure: false, //? Development Environment
     });
-    return res.status(StatusCodes.OK).send(token);
+    return res.status(StatusCodes.OK).send({ token: token });
   } catch (error: any) {
-    res
-      .send(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: "Something went wrong" });
+    logger.error(error);
   }
 };

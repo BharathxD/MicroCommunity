@@ -5,17 +5,17 @@ import jwt, {
 } from "jsonwebtoken";
 import { privateKey, publicKey } from "../../utils/pemToString";
 
-type JwtPayload = object | Buffer | string;
+type JwtPayload = Object | Buffer | string;
 
 export class JWTService {
-  private readonly privateKey: Buffer;
-  private readonly publicKey: Buffer;
+  private readonly privateKey: string;
+  private readonly publicKey: string;
 
   constructor() {
     try {
       // Load the keys from files and store them in memory
-      this.privateKey = privateKey;
-      this.publicKey = publicKey;
+      this.privateKey = Buffer.from(privateKey).toString();
+      this.publicKey = Buffer.from(publicKey).toString();
     } catch (error: any) {
       throw new Error(
         `Failed to load JWT key files: ${error.message}. \nPlease generate public and private key pairs.`

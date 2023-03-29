@@ -2,14 +2,14 @@ import { Request, Response, NextFunction } from "express";
 import JWTService from "../modules/auth/auth.utils";
 
 const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.headers.authorization || !req.cookies.accessToken) {
+    return next();
+  }
   const accessToken = (
     req.headers.authorization ||
     req.cookies.accessToken ||
     ""
   ).replace(/^Bearer\s/, "");
-  if (!accessToken) {
-    return next();
-  }
   try {
     const decoded = new JWTService().verifyToken(accessToken);
     res.locals.user = decoded;
