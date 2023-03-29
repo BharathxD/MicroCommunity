@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { validateUser } from "../user/user.service";
 import { StatusCodes } from "http-status-codes";
 
-export const loginHandler = async (
+export const loginUserHandler = async (
   req: Request<{}, {}, LoginInput>,
   res: Response
 ) => {

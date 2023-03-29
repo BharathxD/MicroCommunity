@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import { createUser } from "./user.service";
 import { RegisterInput } from "./user.schema";
 
-export const registerUser = async (
+export const registerUserHandler = async (
   req: Request<{}, {}, RegisterInput>,
   res: Response
 ) => {
