@@ -7,7 +7,12 @@ const LoginSchema = {
     }).includes("@"),
     password: string({
       required_error: "Enter a valid password",
-    }),
+    })
+      .min(6, "The length of the password should atleast 6 Characters long")
+      .max(
+        64,
+        "Password is too long, it should not be longer than 64 Characters"
+      ),
   }),
 };
 
