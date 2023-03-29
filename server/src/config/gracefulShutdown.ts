@@ -1,5 +1,5 @@
 import { Server, IncomingMessage, ServerResponse } from "http";
-import { disconnect } from "./connect";
+import { disconnect } from "../utils/connect";
 
 const gracefulShutdown = (
   signal: string,

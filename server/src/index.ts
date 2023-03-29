@@ -4,11 +4,11 @@ import logger from "./utils/logger";
 import { connect } from "./utils/connect";
 import { configureApp } from "./config/config";
 import routes from "./routes";
-import gracefulShutdown from "./utils/gracefulShutdown";
+import gracefulShutdown from "./config/gracefulShutdown";
 
 dotenv.config();
-const PORT = process.env.PORT;
 const app = express();
+const PORT = process.env.PORT;
 
 /* CONFIGURATION */
 configureApp(app);
@@ -23,6 +23,6 @@ const server = app.listen(PORT, async () => {
 
 const SIGNALS = ["SIGTERM", "SIGINT"];
 
-for (const SIGNAL of SIGNALS) {
-  gracefulShutdown(SIGNAL, server);
-}
+SIGNALS.forEach((signal) => {
+  gracefulShutdown(signal, server);
+});
