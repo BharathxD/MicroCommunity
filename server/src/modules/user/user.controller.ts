@@ -8,8 +8,23 @@ export const registerUserHandler = async (
   res: Response
 ) => {
   try {
+    const {
+      fname,
+      lname,
+      email,
+      password,
+      picturePath,
+      connections,
+      location,
+    } = req.body;
     const createdUser = await createUser({
-      ...req.body,
+      fname,
+      lname,
+      email,
+      password,
+      picturePath,
+      connections,
+      location,
       viewedProfile: Math.floor(Math.random() * 10000),
       impressions: Math.floor(Math.random() * 10000),
     });
