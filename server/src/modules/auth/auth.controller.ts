@@ -16,8 +16,9 @@ export const loginHandler = async (
         .status(StatusCodes.UNAUTHORIZED)
         .send({ message: "Invalid login and password" });
     }
-    const jwt = new JWTService();
-    const token = jwt.generateToken(user);
+    //? Generate Token
+    const token = new JWTService().generateToken(user);
+    //? Adding the Cookie to response
     res.cookie("accessToken", token, {
       maxAge: 3.154e10, //? 1 Year
       httpOnly: true,
@@ -26,7 +27,7 @@ export const loginHandler = async (
       sameSite: "strict",
       secure: false, //? Development Environment
     });
-    return res.status(StatusCodes.OK).send(jwt);
+    return res.status(StatusCodes.OK).send(token);
   } catch (error: any) {
     res
       .send(StatusCodes.INTERNAL_SERVER_ERROR)
