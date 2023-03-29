@@ -7,6 +7,7 @@ const routes = (app: Express) => {
     res.status(StatusCodes.OK).send({ message: "ok" });
   });
   app.use("/api/user", UserRoute);
+  app.use("/api/auth");
 };
 
 export default routes;

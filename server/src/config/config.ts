@@ -2,7 +2,7 @@ import path from "path";
 import express from "express";
 import helmet from "helmet";
 import { Express } from "express";
-import { deserializeUser } from "../middlewares/deserializeUser";
+import deserializeUser from "../middlewares/deserializeUser";
 
 export const configureApp = (app: Express) => {
   app.use(express.json({ limit: "30mb" }));

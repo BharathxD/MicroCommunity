@@ -1,11 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import JWTService from "../modules/auth/auth.utils";
 
-export const deserializeUser = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
   const accessToken = (
     req.headers.authorization ||
     req.cookies.accessToken ||
@@ -21,3 +17,5 @@ export const deserializeUser = (
     res.status(401).json({ message: "Invalid access token" });
   }
 };
+
+export default deserializeUser;
