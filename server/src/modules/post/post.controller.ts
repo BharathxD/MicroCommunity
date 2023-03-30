@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createPostInput } from "./post.schema";
 import { findUserById } from "../user/user.service";
-import { createPost } from "./post.service";
+import { createPost, getAllPosts } from "./post.service";
 import logger from "../../utils/logger";
 
 export const createPostHandler = async (
@@ -37,5 +37,14 @@ export const createPostHandler = async (
     res.status(StatusCodes.CREATED).send(createdPost);
   } catch (error: any) {
     logger.error(error.message);
+  }
+};
+
+export const getFeedPostsHandler = async (req: Request, res: Response) => {
+  try {
+    const post = await getAllPosts();
+    res.status(StatusCodes.OK).send(post);
+  } catch (error: any) {
+    res.status(StatusCodes.NOT_FOUND).send({ message: error.message });
   }
 };
