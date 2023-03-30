@@ -12,4 +12,16 @@ export const PostSchema = {
   }),
 };
 
+const params = {
+  params: object({
+    userId: string({
+      required_error: "Product ID is required",
+    }),
+  }),
+};
+
+export const getUserPostsSchema = object({ ...params });
+
+export type GetUserPostsInput = TypeOf<typeof getUserPostsSchema>;
+
 export type createPostInput = TypeOf<typeof PostSchema.body>;

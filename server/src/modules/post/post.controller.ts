@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { createPostInput } from "./post.schema";
+import { GetUserPostsInput, createPostInput } from "./post.schema";
 import { findUserById } from "../user/user.service";
-import { createPost, getAllPosts } from "./post.service";
+import { createPost, getAllPosts, getPostByUserId } from "./post.service";
 import logger from "../../utils/logger";
 
 export const createPostHandler = async (
@@ -46,5 +46,18 @@ export const getFeedPostsHandler = async (req: Request, res: Response) => {
     res.status(StatusCodes.OK).send(post);
   } catch (error: any) {
     res.status(StatusCodes.NOT_FOUND).send({ message: error.message });
+  }
+};
+
+export const getUserPostsHandler = async (
+  req: Request<GetUserPostsInput["params"]>,
+  res: Response
+) => {
+  try {
+    const { userId } = req.params;
+    const foundPost = await getPostByUserId(userId);
+    res.status(StatusCodes.OK).json(foundPost);
+  } catch (error: any) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: error.message });
   }
 };
