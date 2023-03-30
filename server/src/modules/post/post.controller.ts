@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import { GetUserPostsInput, createPostInput } from "./post.schema";
 import { findUserById } from "../user/user.service";
 import {
-  UpdatePost,
+  updatePost,
   createPost,
   getAllPosts,
   getPostById,
@@ -70,36 +70,47 @@ export const getUserPostsHandler = async (
 
 export const likePostHandler = async (req: Request, res: Response) => {
   try {
-    const { postId } = req.params;
+    //? Get the post ID and user ID from the request
+    const { postId } = req.body;
     const { userId } = req.body;
-    console.log(req);
+    console.log(res.locals.user);
+
+    //? Retrieve the post from the database
     const post = await getPostById(postId);
     if (!post) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .send({ message: "Post not Found" });
+      //? If the post is not found, return an error response
+      return res.status(StatusCodes.NOT_FOUND).json({
+        error: "Post not found",
+      });
     }
+
     //? Check if the user has already liked the post
     const isLiked = post.likes.has(userId);
+
+    //? Update the post's likes based on the user's action
     if (isLiked) {
-      //? If the user has already liked the post, remove the like
       post.likes.delete(userId);
     } else {
-      //? If the user hasn't liked the post yet, add the like
       post.likes.set(userId, true);
     }
-    const updatedPost = await UpdatePost(
+
+    //? Save the updated post to the database
+    const updatedPost = await updatePost(
       postId,
       { likes: post.likes },
       { new: true }
     );
     if (!updatedPost) {
-      throw new Error("Cannot update the post, try again later");
+      //? If the post cannot be updated, throw an error
+      throw new Error("Could not update post");
     }
+
+    //? Return a success response with the updated post
     res.status(StatusCodes.OK).json(updatedPost);
   } catch (error: any) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: error.message });
+    //? If an error occurs, return an error response with the message
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: error.message,
+    });
   }
 };

@@ -20,7 +20,7 @@ export const getPostById = async (postId: string) => {
   return post;
 };
 
-export const UpdatePost = async (
+export const updatePost = async (
   id: string,
   likes: { likes: Map<string, boolean> },
   options: QueryOptions

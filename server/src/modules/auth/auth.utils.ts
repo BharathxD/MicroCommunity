@@ -38,10 +38,7 @@ export class JWTService {
 
   verifyToken(token: string): JwtPayload {
     try {
-      const options: jwt.VerifyOptions = {
-        algorithms: ["RS256"],
-      };
-      return jwt.verify(token, this.publicKey, options) as JwtPayload;
+      return jwt.verify(token, this.publicKey) as JwtPayload;
     } catch (err) {
       if (err instanceof JsonWebTokenError) {
         throw new Error("Invalid JWT token.");
