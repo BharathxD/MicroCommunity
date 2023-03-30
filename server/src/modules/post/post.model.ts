@@ -1,9 +1,9 @@
-import { prop, getModelForClass, Ref } from "@typegoose/typegoose";
+import { prop, getModelForClass } from "@typegoose/typegoose";
 import { User } from "../user/user.model";
 
 export class Post {
   @prop({ required: true, ref: () => User })
-  public userId!: Ref<User>;
+  public userId!: string;
   @prop({ required: true, type: String })
   public fname!: string;
   @prop({ required: true, type: String })
@@ -16,9 +16,9 @@ export class Post {
   public picturePath?: string;
   @prop({ type: String })
   public userPicturePath?: string;
-  @prop({ map: { of: Boolean } })
+  @prop({ type: Map<String, Boolean> })
   public likes?: Map<string, boolean>;
-  @prop({ type: Array<String>, default: [] })
+  @prop({ type: [String], default: [] })
   public comments?: Array<string>;
 }
 

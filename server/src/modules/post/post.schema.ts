@@ -1,37 +1,15 @@
-import { TypeOf, object, string } from "zod";
+import { object, string, TypeOf } from "zod";
 
-const RegisterSchema = {
+export const PostSchema = {
   body: object({
-    fname: string({
-      required_error: "Enter a valid first name",
-    })
-      .min(2)
-      .max(50),
-    lname: string({
-      required_error: "Enter a valid last name",
-    })
-      .min(2)
-      .max(50),
-    email: string({
-      required_error: "Enter a valid email",
-    })
-      .min(2)
-      .includes("@"),
-    password: string({
-      required_error: "Enter a valid password",
-    })
-      .min(6, "The length of the password should be atleast 6 Characters long")
-      .max(
-        64,
-        "Password is too long, it should not be longer than 64 Characters"
-      ),
-    confirmPassword: string({
-      required_error: "Passeword confirmation is required",
+    userId: string({
+      required_error: "Enter a valid User ID",
     }),
-  }).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
+    description: string({
+      required_error: "Enter a valid Description",
+    }),
+    picturePath: string({}),
   }),
 };
 
-export type RegisterInput = TypeOf<typeof RegisterSchema.body>;
+export type createPostInput = TypeOf<typeof PostSchema.body>;
