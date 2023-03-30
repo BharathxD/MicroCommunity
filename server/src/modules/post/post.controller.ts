@@ -2,7 +2,13 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { GetUserPostsInput, createPostInput } from "./post.schema";
 import { findUserById } from "../user/user.service";
-import { createPost, getAllPosts, getPostByUserId } from "./post.service";
+import {
+  UpdatePost,
+  createPost,
+  getAllPosts,
+  getPostById,
+  getPostByUserId,
+} from "./post.service";
 import logger from "../../utils/logger";
 
 export const createPostHandler = async (
@@ -59,5 +65,41 @@ export const getUserPostsHandler = async (
     res.status(StatusCodes.OK).json(foundPost);
   } catch (error: any) {
     res.status(StatusCodes.NOT_FOUND).json({ message: error.message });
+  }
+};
+
+export const likePostHandler = async (req: Request, res: Response) => {
+  try {
+    const { postId } = req.params;
+    const { userId } = req.body;
+    console.log(req);
+    const post = await getPostById(postId);
+    if (!post) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .send({ message: "Post not Found" });
+    }
+    //? Check if the user has already liked the post
+    const isLiked = post.likes.has(userId);
+    if (isLiked) {
+      //? If the user has already liked the post, remove the like
+      post.likes.delete(userId);
+    } else {
+      //? If the user hasn't liked the post yet, add the like
+      post.likes.set(userId, true);
+    }
+    const updatedPost = await UpdatePost(
+      postId,
+      { likes: post.likes },
+      { new: true }
+    );
+    if (!updatedPost) {
+      throw new Error("Cannot update the post, try again later");
+    }
+    res.status(StatusCodes.OK).json(updatedPost);
+  } catch (error: any) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: error.message });
   }
 };

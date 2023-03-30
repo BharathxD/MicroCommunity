@@ -1,5 +1,5 @@
 import PostModel, { Post } from "./post.model";
-import { FilterQuery } from "mongoose";
+import { QueryOptions } from "mongoose";
 
 export const createPost = async (input: Post) => {
   return await PostModel.create(input);
@@ -13,4 +13,18 @@ export const getAllPosts = async () => {
 export const getPostByUserId = async (query: string) => {
   const post = await PostModel.find({ query });
   return post;
+};
+
+export const getPostById = async (postId: string) => {
+  const post = await PostModel.findById(postId);
+  return post;
+};
+
+export const UpdatePost = async (
+  id: string,
+  likes: { likes: Map<string, boolean> },
+  options: QueryOptions
+) => {
+  const updatedPost = await PostModel.findByIdAndUpdate(id, likes, options);
+  return updatedPost;
 };

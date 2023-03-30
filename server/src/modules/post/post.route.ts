@@ -1,5 +1,5 @@
 import express from "express";
-import { createPostHandler } from "./post.controller";
+import { createPostHandler, likePostHandler } from "./post.controller";
 import upload from "../../utils/fileUpload";
 import { PostSchema } from "./post.schema";
 import { processRequestBody } from "zod-express-middleware";
@@ -12,5 +12,7 @@ router.post(
   upload.single("picture"),
   createPostHandler
 );
+
+router.patch("/", likePostHandler);
 
 export default router;

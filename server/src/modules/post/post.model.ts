@@ -17,7 +17,7 @@ export class Post {
   @prop({ type: String })
   public userPicturePath?: string;
   @prop({ type: Map<String, Boolean> })
-  public likes?: Map<string, boolean>;
+  public likes!: Map<string, boolean>;
   @prop({ type: [String], default: [] })
   public comments?: Array<string>;
 }
