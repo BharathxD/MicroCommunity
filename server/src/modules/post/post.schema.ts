@@ -20,7 +20,7 @@ const params = {
   }),
 };
 
-const LikePostSchema = {
+export const LikePostSchema = {
   params: object({
     postId: string({
       required_error: "Input a valid Post ID",

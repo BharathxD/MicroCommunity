@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { GetUserPostsInput, createPostInput } from "./post.schema";
+import {
+  GetUserPostsInput,
+  LikePostInput,
+  LikePostParams,
+  createPostInput,
+} from "./post.schema";
 import { findUserById } from "../user/user.service";
 import {
   updatePost,
@@ -68,7 +73,10 @@ export const getUserPostsHandler = async (
   }
 };
 
-export const likePostHandler = async (req: Request, res: Response) => {
+export const likePostHandler = async (
+  req: Request<LikePostParams, {}, LikePostInput>,
+  res: Response
+) => {
   try {
     //? Get the post ID and user ID from the request
     const { postId } = req.params;
