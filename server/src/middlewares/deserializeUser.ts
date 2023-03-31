@@ -13,6 +13,7 @@ const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
   try {
     const decoded = new JWTService().verifyToken(accessToken);
     res.locals.user = decoded;
+    next();
   } catch (error: any) {
     res.status(401).json({ message: error.message });
   }

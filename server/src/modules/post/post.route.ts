@@ -29,7 +29,7 @@ router.post(
 
 // Like or dislike a post
 router.patch(
-  "/:postId",
+  "/like/:postId",
   requireUser,
   processRequestBody(LikePostSchema.body),
   likePostHandler

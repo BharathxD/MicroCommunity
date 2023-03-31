@@ -12,14 +12,6 @@ export const PostSchema = {
   }),
 };
 
-const params = {
-  params: object({
-    userId: string({
-      required_error: "Product ID is required",
-    }),
-  }),
-};
-
 export const LikePostSchema = {
   params: object({
     postId: string({
@@ -29,6 +21,14 @@ export const LikePostSchema = {
   body: object({
     userId: string({
       required_error: "Enter a valid userId",
+    }),
+  }),
+};
+
+const params = {
+  params: object({
+    userId: string({
+      required_error: "Product ID is required",
     }),
   }),
 };
