@@ -82,6 +82,12 @@ export const likePostHandler = async (
     const { postId } = req.params;
     const { userId } = req.body;
 
+    if (userId === res.locals.user._id) {
+      return res.send(StatusCodes.UNAUTHORIZED).send({
+        message: "You are not authorized to make this operation",
+      });
+    }
+
     //? Retrieve the post from the database
     const post = await getPostById(postId);
     if (!post) {
