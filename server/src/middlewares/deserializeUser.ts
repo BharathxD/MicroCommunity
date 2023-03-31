@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import JWTService from "../modules/auth/auth.utils";
+import { StatusCodes } from "http-status-codes";
 
 const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
   const accessToken = (
@@ -15,7 +16,7 @@ const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
     res.locals.user = decoded;
     next();
   } catch (error: any) {
-    res.status(401).json({ message: error.message });
+    res.status(StatusCodes.UNAUTHORIZED).send({ message: error.message });
   }
 };
 

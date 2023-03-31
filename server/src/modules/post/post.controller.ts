@@ -3,8 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import {
   GetUserPostsInput,
   LikePostInput,
-  LikePostParams,
-  createPostInput,
+  CreatePostInput,
 } from "./post.schema";
 import { findUserById } from "../user/user.service";
 import {
@@ -17,7 +16,7 @@ import {
 import logger from "../../utils/logger";
 
 export const createPostHandler = async (
-  req: Request<{}, {}, createPostInput>,
+  req: Request<{}, {}, CreatePostInput>,
   res: Response
 ) => {
   try {
@@ -61,28 +60,34 @@ export const getFeedPostsHandler = async (req: Request, res: Response) => {
 };
 
 export const getUserPostsHandler = async (
-  req: Request<GetUserPostsInput["params"]>,
+  req: Request<GetUserPostsInput>,
   res: Response
 ) => {
   try {
+    console.log("TRIGGERED");
     const { userId } = req.params;
     const foundPost = await getPostByUserId(userId);
-    res.status(StatusCodes.OK).json(foundPost);
+    if (!foundPost) {
+      return res.status(StatusCodes.NOT_FOUND).send({ message: "Not Found" });
+    }
+    return res.status(StatusCodes.OK).send(foundPost);
   } catch (error: any) {
-    res.status(StatusCodes.NOT_FOUND).json({ message: error.message });
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send({ message: error.message });
   }
 };
 
 export const likePostHandler = async (
-  req: Request<LikePostParams, {}, LikePostInput>,
+  req: Request<LikePostInput>,
   res: Response
 ) => {
   try {
     //? Get the post ID and user ID from the request
     const { postId } = req.params;
-    const { userId } = req.body;
+    const userId = res.locals.user._id;
 
-    if (userId === res.locals.user._id) {
+    if (!userId) {
       return res.send(StatusCodes.UNAUTHORIZED).send({
         message: "You are not authorized to make this operation",
       });
@@ -92,7 +97,7 @@ export const likePostHandler = async (
     const post = await getPostById(postId);
     if (!post) {
       //? If the post is not found, return an error response
-      return res.status(StatusCodes.NOT_FOUND).json({
+      return res.status(StatusCodes.NOT_FOUND).send({
         error: "Post not found",
       });
     }
@@ -119,10 +124,10 @@ export const likePostHandler = async (
     }
 
     //? Return a success response with the updated post
-    res.status(StatusCodes.OK).json(updatedPost);
+    res.status(StatusCodes.OK).send(updatedPost);
   } catch (error: any) {
     //? If an error occurs, return an error response with the message
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       error: error.message,
     });
   }
