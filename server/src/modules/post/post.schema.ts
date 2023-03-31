@@ -20,6 +20,23 @@ const params = {
   }),
 };
 
+const LikePostSchema = {
+  params: object({
+    postId: string({
+      required_error: "Input a valid Post ID",
+    }),
+  }),
+  body: object({
+    userId: string({
+      required_error: "Enter a valid userId",
+    }),
+  }),
+};
+
+export type LikePostInput = TypeOf<typeof LikePostSchema.body>;
+
+export type LikePostParams = TypeOf<typeof LikePostSchema.params>;
+
 export const getUserPostsSchema = object({ ...params });
 
 export type GetUserPostsInput = TypeOf<typeof getUserPostsSchema>;

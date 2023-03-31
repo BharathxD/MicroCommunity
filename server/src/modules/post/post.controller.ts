@@ -71,9 +71,8 @@ export const getUserPostsHandler = async (
 export const likePostHandler = async (req: Request, res: Response) => {
   try {
     //? Get the post ID and user ID from the request
-    const { postId } = req.body;
+    const { postId } = req.params;
     const { userId } = req.body;
-    console.log(res.locals.user);
 
     //? Retrieve the post from the database
     const post = await getPostById(postId);
