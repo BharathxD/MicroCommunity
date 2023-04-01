@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   connectionHandler,
   getUserConnectionsHandler,
-  getUserHandler,
+  getUserHandlerHandler,
   registerUserHandler,
 } from "./user.controller";
 import upload from "../../utils/fileUpload";
@@ -19,7 +19,7 @@ router.post(
   registerUserHandler
 );
 
-router.get("/search/:userId", requireUser, getUserHandler);
+router.get("/search/:userId", requireUser, getUserHandlerHandler);
 
 router.get("/connections", requireUser, getUserConnectionsHandler);
 

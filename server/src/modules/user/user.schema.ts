@@ -40,6 +40,22 @@ export const RegisterSchema = {
   }),
 };
 
+export const getUserConnectionsSchema = object({
+  userId: string({
+    required_error: "User ID is required",
+  }),
+});
+
+export const connectionsSchema = object({
+  connectionId: string({
+    required_error: "Connection ID is required",
+  }),
+});
+
+export type GetUserConnectionParams = TypeOf<typeof getUserConnectionsSchema>;
+
+export type HandleConnectionsParams = TypeOf<typeof connectionsSchema>;
+
 export type RegisterInput = Omit<
   TypeOf<typeof RegisterSchema.body>,
   "passwordConfirmation"

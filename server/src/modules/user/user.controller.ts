@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createUser, findUserById } from "./user.service";
-import { RegisterInput } from "./user.schema";
+import {
+  GetUserConnectionParams,
+  HandleConnectionsParams,
+  RegisterInput,
+} from "./user.schema";
 import logger from "../../utils/logger";
 import { omit } from "lodash";
 
@@ -46,7 +50,10 @@ export const registerUserHandler = async (
   }
 };
 
-export const getUserHandler = async (req: Request, res: Response) => {
+export const getUserHandlerHandler = async (
+  req: Request<GetUserConnectionParams>,
+  res: Response
+) => {
   try {
     const { userId } = req.params;
     const user = await findUserById(userId);
@@ -60,10 +67,7 @@ export const getUserHandler = async (req: Request, res: Response) => {
   }
 };
 
-export const getUserConnectionsHandler = async (
-  req: Request,
-  res: Response
-) => {
+export const getUserConnectionsHandler = async (_: Request, res: Response) => {
   try {
     const userId = res.locals.user._id;
     const user = await findUserById(userId);
@@ -101,7 +105,10 @@ export const getUserConnectionsHandler = async (
   }
 };
 
-export const connectionHandler = async (req: Request, res: Response) => {
+export const connectionHandler = async (
+  req: Request<HandleConnectionsParams>,
+  res: Response
+) => {
   try {
     const { connectionId } = req.params;
     const userId = res.locals.user._id;
