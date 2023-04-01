@@ -8,9 +8,6 @@ export const createUser = async (user: Omit<User, "comparePassword">) => {
 
 export const findUserById = async (userId: string) => {
   const foundUser = await UserModel.findById(userId);
-  if (!foundUser) {
-    return null;
-  }
   return foundUser;
 };
 

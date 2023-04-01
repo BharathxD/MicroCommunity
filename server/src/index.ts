@@ -10,9 +10,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-/**
- *? Server Configuration
- */
+//? Server Configuration
 configureApp(app);
 
 const server = app.listen(PORT, async () => {
@@ -23,9 +21,7 @@ const server = app.listen(PORT, async () => {
   routes(app);
 });
 
-/**
- *? Implement Graceful Shutdown
- */
+//? Implement Graceful Shutdown
 const SIGNALS = ["SIGTERM", "SIGINT"];
 
 SIGNALS.forEach((signal) => {

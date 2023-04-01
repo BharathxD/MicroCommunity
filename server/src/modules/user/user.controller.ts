@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { createUser } from "./user.service";
+import { createUser, findUserById } from "./user.service";
 import { RegisterInput } from "./user.schema";
 
 export const registerUserHandler = async (
@@ -39,7 +39,20 @@ export const registerUserHandler = async (
     } else {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send({ message: error.message });
+        .send({ message: "Something went wrong" });
     }
+  }
+};
+
+export const getUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await findUserById(id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    res.status(200).json(user);
+  } catch (error: any) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: error.message });
   }
 };
