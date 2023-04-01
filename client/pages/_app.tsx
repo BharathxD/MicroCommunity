@@ -6,8 +6,12 @@ import { ReactElement, ReactNode } from "react";
 import { Notifications } from "@mantine/notifications";
 import Head from "next/head";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Provider } from "react-redux";
+import store from "@/state";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 
-//? Addign get Layout into the NextPage props
+//? Adding get Layout into the NextPage props
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -35,15 +39,18 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         withNormalizeCSS
         theme={{ colorScheme: "light" }}
       >
-        <Notifications />
-        <CssBaseline />
-        <ThemeProvider theme={{}}>
-          {getLayout(
-            <main>
-              <Component {...pageProps} />
-            </main>
-          )}
-        </ThemeProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistStore(store)} />
+          <Notifications />
+          <CssBaseline />
+          <ThemeProvider theme={{}}>
+            {getLayout(
+              <main>
+                <Component {...pageProps} />
+              </main>
+            )}
+          </ThemeProvider>
+        </Provider>
       </MantineProvider>
     </>
   );
