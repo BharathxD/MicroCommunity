@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createUser, findUserById } from "./user.service";
 import { RegisterInput } from "./user.schema";
+import logger from "../../utils/logger";
 
 export const registerUserHandler = async (
   req: Request<{}, {}, RegisterInput>,
@@ -44,7 +45,7 @@ export const registerUserHandler = async (
   }
 };
 
-export const getUser = async (req: Request, res: Response) => {
+export const getUserHandler = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const user = await findUserById(id);
@@ -53,6 +54,44 @@ export const getUser = async (req: Request, res: Response) => {
     }
     res.status(200).json(user);
   } catch (error: any) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: error.message });
+  }
+};
+
+export const getUserConnectionsHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { id } = req.params;
+    const user = await findUserById(id);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const connections = user.connections;
+
+    if (!connections) {
+      throw new Error("No connections found");
+    }
+
+    const friends = await Promise.all(
+      connections.map((id) => findUserById(id))
+    );
+
+    const formattedFriends = friends.map((friend) => {
+      if (friend !== null && "_id" in friend) {
+        const { _id, fname, lname, occupation, location, picturePath } = friend;
+        return { _id, fname, lname, occupation, location, picturePath };
+      }
+      return null;
+    });
+    res
+      .status(StatusCodes.OK)
+      .json(formattedFriends.filter((friend) => friend !== null));
+  } catch (error: any) {
+    logger.error(error);
     res.status(StatusCodes.NOT_FOUND).json({ message: error.message });
   }
 };
