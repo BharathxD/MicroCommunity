@@ -1,3 +1,4 @@
+import HomePageLayout from "@/components/layout/HomePageLayout";
 import styles from "@/styles/Home.module.css";
 import { ReactElement } from "react";
 
@@ -6,5 +7,5 @@ export default function Home() {
 }
 
 Home.getLayout = function (page: ReactElement) {
-  return <>{page}</>;
+  return <HomePageLayout>{page}</HomePageLayout>;
 };
