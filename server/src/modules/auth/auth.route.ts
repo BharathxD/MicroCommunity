@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { processRequestBody } from "zod-express-middleware";
 import { LoginSchema } from "./auth.schema";
-import { loginUserHandler } from "./auth.controller";
+import { loginUserHandler, logoutHandler } from "./auth.controller";
 
 const router = Router();
 
-router.post("/", processRequestBody(LoginSchema.body), loginUserHandler);
+router.post("/login", processRequestBody(LoginSchema.body), loginUserHandler);
+
+router.post("/logout", logoutHandler);
 
 export default router;

@@ -34,3 +34,17 @@ export const loginUserHandler = async (
     logger.error(error);
   }
 };
+
+export const logoutHandler = async (_: Request, res: Response) => {
+  // TODO: Clear locals
+  res.locals.user = null;
+  // TODO: Remove the access token cookie
+  res.clearCookie("accessToken", {
+    domain: "localhost", //? Dev Environment
+    path: "/",
+  });
+  // TODO: RESPOND
+  return res
+    .status(StatusCodes.OK)
+    .send({ message: "Logged out successfully" });
+};
