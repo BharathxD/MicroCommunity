@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/core": "^6.0.5",
+    "@mantine/next": "^6.0.5",
+    "@mantine/notifications": "^6.0.5",
     "@types/node": "18.15.11",
     "@types/react": "18.0.31",
     "@types/react-dom": "18.0.11",
