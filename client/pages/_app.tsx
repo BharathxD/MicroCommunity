@@ -5,6 +5,7 @@ import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 import { Notifications } from "@mantine/notifications";
 import Head from "next/head";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 
 //? Addign get Layout into the NextPage props
 
@@ -35,11 +36,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         theme={{ colorScheme: "light" }}
       >
         <Notifications />
-        {getLayout(
-          <main>
-            <Component {...pageProps} />
-          </main>
-        )}
+        <CssBaseline />
+        <ThemeProvider theme={{}}>
+          {getLayout(
+            <main>
+              <Component {...pageProps} />
+            </main>
+          )}
+        </ThemeProvider>
       </MantineProvider>
     </>
   );
