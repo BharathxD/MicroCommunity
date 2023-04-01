@@ -1,4 +1,4 @@
-# Community Server
+# MicroCommunity Server
 
 This has been built with scalability in mind
 
