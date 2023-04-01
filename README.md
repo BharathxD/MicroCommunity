@@ -1,13 +1,6 @@
 # Community
 
-### Backend Dependencies
+A cutting-edge microblogging website designed to provide users with an social media experience. This website boasts a plethora of features, including seamless post uploading with image attachment capabilities, post liking, user registration and login functionality, connection management features, and connection removal options.
 
-```bash
-    npm install --save express @typegoose/typegoose@10.3.0 argon2 express@4.18.2 zod zod-express-middleware cors dotenv helmet http-status-codes jsonwebtoken lodash cookie-parser pino multer
-```
+This sophisticated website has been built with scalability in mind, utilizing advanced technologies to ensure high performance and reliability. The server-side components are powered by TypeScript, NodeJS, Express, and Zod, while the database is managed using MongoDB. The client-side is developed using state-of-the-art technologies such as React and Redux, ensuring a seamless and responsive user experience.
 
-## Backend Development Dependencies
-
-```bash
-    npm install --save-dev @types/express @types/node @types/cors @types/jsonwebtoken @types/lodash pino-pretty @types/cookie-parser ts-node-dev typescript @types/multer
-```
