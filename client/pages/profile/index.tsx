@@ -1,4 +1,4 @@
-import HomePageLayout from "@/components/layout/HomePageLayout";
+import HomePageLayout from "@/layout/HomePageLayout";
 import { ReactElement } from "react";
 
 const ProfilePage = () => {
