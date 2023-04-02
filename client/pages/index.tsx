@@ -12,9 +12,13 @@ export default function Home() {
   const changeModeHandler = () => {
     dispatch(setMode());
   };
+  const { mode } = useSelector((state: ReduxState) => state);
   return (
     <main className={styles.main}>
       Server Initialized
+      <h1>
+        Mode is: <span>{mode}</span>
+      </h1>
       <button onClick={changeModeHandler}>Change Mode</button>
     </main>
   );

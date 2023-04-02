@@ -33,12 +33,12 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           content="minimum-scalable=1, initial-scale=1, width=device-width"
         ></meta>
       </Head>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{ colorScheme: "light" }}
-      >
-        <Provider store={store}>
+      <Provider store={store}>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{ colorScheme: "light" }}
+        >
           <PersistGate loading={null} persistor={persistStore(store)} />
           <Notifications />
           {getLayout(
@@ -46,8 +46,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               <Component {...pageProps} />
             </main>
           )}
-        </Provider>
-      </MantineProvider>
+        </MantineProvider>
+      </Provider>
     </>
   );
 }
