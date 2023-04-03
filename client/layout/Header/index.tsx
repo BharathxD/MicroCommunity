@@ -29,16 +29,17 @@ import FlexBetween from "@/components/UI/FlexBetween";
 import Logo from "./Logo";
 import NavbarForm from "./NavbarForm";
 import NavIcons from "./NavIcons";
+import DesktopNav from "./DesktopNav";
 
 const Header = () => {
-  const [setMobileMenuToggled, setIsMobileMenuToggled] = useState<boolean>();
+  const [isMobileMenuToggled, setMobileMenuToggled] = useState<boolean>();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const theme = useTheme();
 
   const neutralLight = theme.palette.neutral.light;
   const primaryLight = theme.palette.primary.light;
   const dark = theme.palette.neutral.dark;
-  const background = theme.palette.background;
+  const background = theme.palette.background.default;
   const alt = theme.palette.background.alt;
 
   return (
@@ -48,11 +49,26 @@ const Header = () => {
           <Logo />
           {isNonMobileScreens && <Search />}
         </FlexBetween>
-        <FlexBetween gap="2rem">
-          {isNonMobileScreens && <SwitchMode />}
-          <NavIcons />
-          <NavbarForm />
-        </FlexBetween>
+        {isNonMobileScreens && <DesktopNav />}
+        {!isNonMobileScreens && (
+          <IconButton
+            onClick={() => setMobileMenuToggled(!isMobileMenuToggled)}
+          >
+            <Menu />
+          </IconButton>
+        )}
+        {!isNonMobileScreens && isMobileMenuToggled && (
+          <Box
+            left="0px"
+            bottom="0px"
+            height="100%"
+            zIndex="100"
+            position="fixed"
+            maxWidth="500px"
+            minWidth="300px"
+            bgcolor={background}
+          ></Box>
+        )}
       </FlexBetween>
     </>
   );
