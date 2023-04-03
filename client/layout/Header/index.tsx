@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Search from "./Search";
 import SwitchMode from "./SwitchMode";
 import {
   Box,
@@ -12,7 +13,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import {
-  Search,
   Message,
   DarkMode,
   LightMode,
@@ -29,7 +29,6 @@ import FlexBetween from "@/components/UI/FlexBetween";
 import Logo from "./Logo";
 
 const Header = () => {
-  const mode = useSelector((state: ReduxState) => state.mode);
   const [setMobileMenuToggled, setIsMobileMenuToggled] = useState<boolean>();
   const isNonMobileScreens = useMediaQuery("min-width: 1000px");
   const theme = useTheme();
@@ -44,7 +43,9 @@ const Header = () => {
     <>
       <FlexBetween padding="1rem 6%" bgcolor={alt}>
         <FlexBetween gap="1.75rem">
-          <Logo color={primaryLight} />
+          <Logo />
+          <Search />
+          <SwitchMode />
         </FlexBetween>
       </FlexBetween>
     </>
