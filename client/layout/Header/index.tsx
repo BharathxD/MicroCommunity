@@ -24,15 +24,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
 import { setMode, setLogin } from "@/state/auth";
 import Router from "next/router";
+import FlexBetween from "@/components/UI/FlexBetween";
 
 const Header = () => {
   const mode = useSelector((state: ReduxState) => state.mode);
   const [setMobileMenuToggled, setIsMobileMenuToggled] = useState<boolean>();
   const isNonMobileScreens = useMediaQuery("min-width: 1000px");
   const theme = useTheme();
-  const light = theme.palette.neutral.light;
+  const user = useSelector((state: ReduxState) => state.user);
+  const neutralLight = theme.palette.neutral.light;
+  const primaryLight = theme.palette.primary.light;
   const dark = theme.palette.neutral.dark;
-  return <></>;
+  const background = theme.palette.background;
+  const alt = theme.palette.background.alt;
+  const fullName = `${user?.fname} ${user?.lname}`;
+  return (
+    <>
+      <FlexBetween padding="1rem 6%" bgcolor={alt}>
+        <FlexBetween gap="1.75rem">
+          
+        </FlexBetween>
+      </FlexBetween>
+    </>
+  );
 };
 
 export default Header;
