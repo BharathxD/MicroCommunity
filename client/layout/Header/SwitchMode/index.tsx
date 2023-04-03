@@ -6,10 +6,11 @@ import { useDispatch } from "react-redux";
 const SwitchMode = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const mode = theme.palette.mode;
   const dark = theme.palette.neutral.dark;
   return (
     <IconButton onClick={() => dispatch(setMode())}>
-      {theme.palette.mode === "dark" ? (
+      {mode === "dark" ? (
         <DarkMode sx={{ fontSize: "25px" }} />
       ) : (
         <LightMode sx={{ color: dark, fontSize: "25px" }} />

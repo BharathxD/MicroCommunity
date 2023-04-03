@@ -9,17 +9,20 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
 import { setLogout } from "@/state/auth";
+import { useTheme } from "@mui/material";
 
-const NavbarForm = ({ color }: { color: string }) => {
+const NavbarForm = () => {
   const user = useSelector((state: ReduxState) => state.user);
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const neutralLight = theme.palette.neutral.light;
   const fullName = `${user?.fname} ${user?.lname}`;
   return (
     <FormControl variant="standard">
       <Select
         value={fullName}
         sx={{
-          backgroundColor: color,
+          backgroundColor: neutralLight,
           minWidth: "150px",
           width: "max-content",
           borderRadius: "0.25rem",
@@ -29,7 +32,7 @@ const NavbarForm = ({ color }: { color: string }) => {
             idth: "3rem",
           },
           "& .MuiSelect-select:focus": {
-            backgroundColor: color,
+            backgroundColor: neutralLight,
           },
         }}
         input={<InputBase />}

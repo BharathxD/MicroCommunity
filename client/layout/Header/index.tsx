@@ -28,6 +28,7 @@ import Router from "next/router";
 import FlexBetween from "@/components/UI/FlexBetween";
 import Logo from "./Logo";
 import NavbarForm from "./NavbarForm";
+import NavIcons from "./NavIcons";
 
 const Header = () => {
   const [setMobileMenuToggled, setIsMobileMenuToggled] = useState<boolean>();
@@ -49,10 +50,8 @@ const Header = () => {
         </FlexBetween>
         <FlexBetween gap="2rem">
           {isNonMobileScreens && <SwitchMode />}
-          <Message sx={{ fontSize: "25px" }} />
-          <Notifications sx={{ fontSize: "25px" }} />
-          <Help sx={{ fontSize: "25px" }} />
-          <NavbarForm color={neutralLight} />
+          <NavIcons />
+          <NavbarForm />
         </FlexBetween>
       </FlexBetween>
     </>
