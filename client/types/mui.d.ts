@@ -1,4 +1,4 @@
-import { Palette, PaletteColor, TypeBackground } from '@mui/material/styles';
+import { Palette, PaletteColor, TypeBackground } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
   interface PaletteColor {
@@ -12,6 +12,6 @@ declare module "@mui/material/styles" {
     };
   }
   interface TypeBackground {
-    alt: string
+    alt: string;
   }
 }

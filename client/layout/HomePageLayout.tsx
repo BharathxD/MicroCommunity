@@ -1,7 +1,6 @@
 import { AppShell } from "@mantine/core";
 import React, { useMemo } from "react";
 import Header from "./Header";
-import Footer from "./Footer";
 import { useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
 import { themeSettings } from "@/themes/theme";
@@ -12,7 +11,7 @@ const HomePageLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <ThemeProvider theme={theme}>
-      <AppShell padding={"md"} header={<Header />} footer={<Footer />}>
+      <AppShell padding={"md"} header={<Header />}>
         {children}
       </AppShell>
     </ThemeProvider>
