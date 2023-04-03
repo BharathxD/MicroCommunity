@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SwitchMode from "./SwitchMode";
 import {
   Box,
   IconButton,
