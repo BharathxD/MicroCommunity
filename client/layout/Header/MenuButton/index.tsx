@@ -3,7 +3,7 @@ import { Menu } from "@mui/icons-material";
 
 type Props = {
   setMobileMenuToggled: (arg1: boolean) => void;
-  isMobileMenuToggled: boolean;
+  isMobileMenuToggled: boolean | undefined;
 };
 
 const MenuButton = ({ setMobileMenuToggled, isMobileMenuToggled }: Props) => {
