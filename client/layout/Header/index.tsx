@@ -25,6 +25,7 @@ import { ReduxState } from "@/types/state.types";
 import { setMode, setLogin } from "@/state/auth";
 import Router from "next/router";
 import FlexBetween from "@/components/UI/FlexBetween";
+import Logo from "./Logo";
 
 const Header = () => {
   const mode = useSelector((state: ReduxState) => state.mode);
@@ -42,7 +43,7 @@ const Header = () => {
     <>
       <FlexBetween padding="1rem 6%" bgcolor={alt}>
         <FlexBetween gap="1.75rem">
-          
+          <Logo color={primaryLight} />
         </FlexBetween>
       </FlexBetween>
     </>
