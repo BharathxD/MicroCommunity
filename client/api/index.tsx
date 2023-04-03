@@ -29,16 +29,13 @@ export const registerUser = async (payload: {
   email: string;
   password: string;
   confirmPassword: string;
+  picturePath?: string;
 }) => {
   try {
-    const response = await axios.post(userBase, payload, {
-      withCredentials: true,
-    });
+    const response = await axios.post(userBase, payload);
+    console.log(response);
     const data = await response.data;
-    return {
-      userIsCreated: response.status === 200,
-      data,
-    };
+    return data;
   } catch (error: any) {
     console.log(error.message);
   }

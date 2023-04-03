@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/styled": "^11.10.6",
     "@mantine/core": "^6.0.5",
+    "@mantine/form": "^6.0.5",
     "@mantine/next": "^6.0.5",
     "@mantine/notifications": "^6.0.5",
     "@mui/icons-material": "^5.11.11",
@@ -28,6 +29,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
     "typescript": "5.0.3",

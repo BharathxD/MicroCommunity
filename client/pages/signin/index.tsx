@@ -1,5 +1,16 @@
+import HomePageLayout from "@/layout/HomePageLayout";
+import { ReactElement } from "react";
+
 const SignIn = () => {
-  return <div>Signin Page</div>;
+  return (
+    <>
+      <p>SignIn</p>
+    </>
+  );
+};
+
+SignIn.getLayout = function (page: ReactElement) {
+  return <HomePageLayout>{page}</HomePageLayout>;
 };
 
 export default SignIn;

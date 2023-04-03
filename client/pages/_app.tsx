@@ -9,6 +9,9 @@ import { Provider } from "react-redux";
 import store from "@/state";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 //? Adding get Layout into the NextPage props
 
@@ -34,19 +37,21 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         ></meta>
       </Head>
       <Provider store={store}>
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={{ colorScheme: "light" }}
-        >
-          <PersistGate loading={null} persistor={persistStore(store)} />
-          <Notifications />
-          {getLayout(
-            <main>
-              <Component {...pageProps} />
-            </main>
-          )}
-        </MantineProvider>
+        <QueryClientProvider client={queryClient}>
+          <MantineProvider
+            withGlobalStyles
+            withNormalizeCSS
+            theme={{ colorScheme: "light" }}
+          >
+            <PersistGate loading={null} persistor={persistStore(store)} />
+            <Notifications />
+            {getLayout(
+              <main>
+                <Component {...pageProps} />
+              </main>
+            )}
+          </MantineProvider>
+        </QueryClientProvider>
       </Provider>
     </>
   );
