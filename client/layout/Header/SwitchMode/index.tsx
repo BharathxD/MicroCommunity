@@ -8,15 +8,13 @@ const SwitchMode = () => {
   const dispatch = useDispatch();
   const dark = theme.palette.neutral.dark;
   return (
-    <>
-      <IconButton onClick={() => dispatch(setMode())}>
-        {theme.palette.mode === "dark" ? (
-          <DarkMode sx={{ fontSize: "25px" }} />
-        ) : (
-          <LightMode sx={{ color: dark, fontSize: "25px" }} />
-        )}
-      </IconButton>
-    </>
+    <IconButton onClick={() => dispatch(setMode())}>
+      {theme.palette.mode === "dark" ? (
+        <DarkMode sx={{ fontSize: "25px" }} />
+      ) : (
+        <LightMode sx={{ color: dark, fontSize: "25px" }} />
+      )}
+    </IconButton>
   );
 };
 
