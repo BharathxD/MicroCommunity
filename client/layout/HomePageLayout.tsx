@@ -6,14 +6,23 @@ import { ReduxState } from "@/types/state.types";
 import { themeSettings } from "@/themes/theme";
 import { ThemeProvider, createTheme } from "@mui/material";
 
-const HomePageLayout = ({ children }: { children: React.ReactNode }) => {
+const HomePageLayout = ({
+  children,
+  withoutHeader,
+}: {
+  children: React.ReactNode;
+  withoutHeader?: boolean;
+}) => {
   const mode = useSelector((state: ReduxState) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <ThemeProvider theme={theme}>
-      <AppShell padding={"md"} header={<Header />}>
-        {children}
-      </AppShell>
+      {!withoutHeader && (
+        <AppShell padding={"md"} header={<Header />}>
+          {children}
+        </AppShell>
+      )}
+      {withoutHeader && <>{children}</>}
     </ThemeProvider>
   );
 };

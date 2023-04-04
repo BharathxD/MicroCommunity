@@ -34,4 +34,8 @@ const SignIn = () => {
   );
 };
 
+SignIn.getLayout = function (page: ReactElement) {
+  return <HomePageLayout withoutHeader>{page}</HomePageLayout>;
+};
+
 export default SignIn;

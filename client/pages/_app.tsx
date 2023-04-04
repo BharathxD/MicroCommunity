@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
 import { NextPage } from "next";
-import { ReactElement, ReactNode } from "react";
+import { Fragment, ReactElement, ReactNode } from "react";
 import { Notifications } from "@mantine/notifications";
 import Head from "next/head";
 import { Provider } from "react-redux";
@@ -28,7 +28,7 @@ type AppPropsWithLayout = AppProps & {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page);
   return (
-    <>
+    <Fragment>
       <Head>
         <title>MicroCommunity</title>
         <meta
@@ -53,6 +53,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           </MantineProvider>
         </QueryClientProvider>
       </Provider>
-    </>
+    </Fragment>
   );
 }
