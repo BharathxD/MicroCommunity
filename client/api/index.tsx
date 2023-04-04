@@ -29,7 +29,7 @@ export const registerUser = async (payload: {
   email: string;
   password: string;
   confirmPassword: string;
-  picturePath?: string;
+  picture: string;
 }) => {
   try {
     const response = await axios.post(userBase, payload);

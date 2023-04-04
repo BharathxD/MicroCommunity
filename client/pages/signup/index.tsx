@@ -1,85 +1,52 @@
+import React, { ReactElement } from "react";
+import { Typography, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
+import { useTheme } from "@mui/material";
 import { useRouter } from "next/router";
-import { useForm } from "@mantine/form";
-import { useMutation } from "react-query";
-import { registerUser } from "@/api";
-import { AxiosError } from "axios";
-import { TextInput, PasswordInput } from "@mantine/core";
-import { Stack, Button } from "@mantine/core";
+import HomePageLayout from "@/layout/HomePageLayout";
+import RegisterForm from "@/components/Form/RegisterForm";
+import { Form } from "formik";
+import Head from "next/head";
 
 const RegisterUser = () => {
-  const router = useRouter();
-  const form = useForm({
-    initialValues: {
-      fname: "",
-      lname: "",
-      occupation: "",
-      location: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      picturePath: "null.png",
-    },
-  });
-  const mutator = useMutation<
-    string,
-    AxiosError,
-    Parameters<typeof registerUser>["0"]
-  >(registerUser, {
-    onSuccess: () => {
-      router.push("/");
-    },
-  });
+  const theme = useTheme();
+  const isNonMobileScreen = useMediaQuery("min-width(1000px)");
   return (
     <>
-      <form onSubmit={form.onSubmit((values) => mutator.mutate(values))}>
-        <Stack>
-          <TextInput
-            label="First Name"
-            placeholder="John"
-            required
-            {...form.getInputProps("fname")}
-          ></TextInput>
-          <TextInput
-            label="Last Name"
-            placeholder="Doe"
-            required
-            {...form.getInputProps("lname")}
-          ></TextInput>
-          <TextInput
-            label="Occupation"
-            placeholder="Software Engineer"
-            required
-            {...form.getInputProps("occupation")}
-          ></TextInput>
-          <TextInput
-            label="Location"
-            placeholder="Hyderabad"
-            required
-            {...form.getInputProps("location")}
-          ></TextInput>
-          <TextInput
-            label="Email"
-            placeholder="Joe@example.com"
-            required
-            {...form.getInputProps("email")}
-          ></TextInput>
-          <PasswordInput
-            label="Password"
-            placeholder="Password"
-            required
-            {...form.getInputProps("password")}
-          ></PasswordInput>
-          <PasswordInput
-            label="Confirm Password"
-            placeholder="Confirm Password"
-            required
-            {...form.getInputProps("confirmPassword")}
-          ></PasswordInput>
-          <Button type="submit">Register</Button>
-        </Stack>
-      </form>
+      <Head>
+        <title>Register</title>
+      </Head>
+      <Box>
+        <Box
+          width="100%"
+          bgcolor={theme.palette.background.alt}
+          p="1rem 6%"
+          textAlign="center"
+        >
+          <Typography fontWeight="bold" fontSize="32px" color="primary">
+            Sociopedia
+          </Typography>
+        </Box>
+
+        <Box
+          width={isNonMobileScreen ? "50%" : "93%"}
+          p="2rem"
+          m="2rem auto"
+          borderRadius="1.5rem"
+          bgcolor={theme.palette.background.alt}
+        >
+          <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
+            Welcome to Socipedia, the Social Media for Sociopaths!
+          </Typography>
+          <RegisterForm />
+        </Box>
+      </Box>
     </>
   );
+};
+
+RegisterUser.getLayout = function (page: ReactElement) {
+  return <HomePageLayout withoutHeader>{page}</HomePageLayout>;
 };
 
 export default RegisterUser;

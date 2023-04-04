@@ -4,7 +4,7 @@ export type User = {
   lname: string;
   email: string;
   password: string;
-  picturePath: string;
+  picture: string;
   connections: Array<string>;
   location: string;
   occupation: string;
@@ -21,8 +21,8 @@ export type Post = {
   lname: string;
   location: string;
   description: string;
-  picturePath: string;
-  userPicturePath: string;
+  picture: string;
+  userpicture: string;
   likes: Map<string, boolean>;
   comments: Array<string>;
 };
