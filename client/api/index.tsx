@@ -6,7 +6,7 @@ const authBase = `${base}/api/auth`;
 const userBase = `${base}/api/user`;
 
 export const loginUser = async (payload: {
-  username: string;
+  email: string;
   password: string;
 }) => {
   try {
@@ -14,7 +14,7 @@ export const loginUser = async (payload: {
       withCredentials: true,
     });
     const data = await response.data;
-    return data;
+    return await data.json;
   } catch (error: any) {
     console.log(error.message);
     return null;
