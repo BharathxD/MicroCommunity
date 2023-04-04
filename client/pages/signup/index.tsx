@@ -7,15 +7,14 @@ import HomePageLayout from "@/layout/HomePageLayout";
 import RegisterForm from "@/components/Form/RegisterForm";
 import { Form } from "formik";
 import Head from "next/head";
+import Logo from "@/layout/Header/Logo";
+import LoginForm from "@/components/Form";
 
 const RegisterUser = () => {
   const theme = useTheme();
   const isNonMobileScreen = useMediaQuery("min-width(1000px)");
   return (
     <>
-      <Head>
-        <title>Register</title>
-      </Head>
       <Box>
         <Box
           width="100%"
@@ -23,23 +22,20 @@ const RegisterUser = () => {
           p="1rem 6%"
           textAlign="center"
         >
-          <Typography fontWeight="bold" fontSize="32px" color="primary">
-            Sociopedia
-          </Typography>
+          <Logo />
+          <Box
+            width={isNonMobileScreen ? "50%" : "93%"}
+            p="2rem"
+            m="2rem auto"
+            borderRadius="1.5rem"
+            bgcolor={theme.palette.background.alt}
+          >
+            <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
+              Welcome to MicroCommunity, a community for CS Grads
+            </Typography>
+          </Box>
         </Box>
-
-        <Box
-          width={isNonMobileScreen ? "50%" : "93%"}
-          p="2rem"
-          m="2rem auto"
-          borderRadius="1.5rem"
-          bgcolor={theme.palette.background.alt}
-        >
-          <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-            Welcome to Socipedia, the Social Media for Sociopaths!
-          </Typography>
-          <RegisterForm />
-        </Box>
+        <LoginForm />
       </Box>
     </>
   );
