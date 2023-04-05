@@ -1,5 +1,4 @@
 import FlexBetween from "@/components/UI/FlexBetween";
-import { setLogin } from "@/state/auth";
 import {
   useTheme,
   useMediaQuery,
@@ -9,12 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
-import { useRouter } from "next/router";
 import Dropzone from "react-dropzone";
-import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import { EditOutlined } from "@mui/icons-material";
-import { registerUser } from "@/api";
 
 type RegisterValues = {
   fname: string;

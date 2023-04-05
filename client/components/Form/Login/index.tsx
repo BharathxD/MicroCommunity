@@ -40,15 +40,13 @@ export const LoginForm = () => {
     values: LoginValues,
     onSubmitProps: { resetForm: () => void }
   ) => {
-    console.log("Values", values);
     const response = await loginUser(values);
     onSubmitProps.resetForm();
-    console.log(response);
     if (response) {
       dispatch(
         setLogin({
-          user: response.user,
-          token: response.token,
+          user: response.data.user,
+          token: response.data.token,
         })
       );
       router.push("/");

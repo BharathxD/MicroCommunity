@@ -10,11 +10,8 @@ export const loginUser = async (payload: {
   password: string;
 }) => {
   try {
-    const response = await axios.post(authBase, payload, {
-      withCredentials: true,
-    });
-    const data = await response.data;
-    return await data.json;
+    const response = await axios.post(`${authBase}/login`, payload);
+    return response;
   } catch (error: any) {
     console.log(error.message);
     return null;
@@ -25,7 +22,6 @@ export const registerUser = async (payload: FormData) => {
   try {
     const response = await axios.post(userBase, payload);
     const data = await response.data;
-    console.log(await data.json);
     return data;
   } catch (error: any) {
     console.log(error.message);
