@@ -25,7 +25,7 @@ export const RegisterSchema = {
       required_error: "Enter a Valid Confirm Password",
     }),
     picturePath: string({
-      required_error: "Picture path is invalid",
+      required_error: "picturePath path is invalid",
     }),
     connections: array(string({})).optional(),
     location: string({

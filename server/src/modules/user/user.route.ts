@@ -14,8 +14,8 @@ const router = Router();
 
 router.post(
   "/",
-  processRequestBody(RegisterSchema.body),
   upload.single("picture"),
+  processRequestBody(RegisterSchema.body),
   registerUserHandler
 );
 

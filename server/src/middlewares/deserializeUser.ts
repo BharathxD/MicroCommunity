@@ -13,10 +13,7 @@ const deserializeUser = (
   res: Response,
   next: NextFunction
 ) => {
-  const accessToken =
-    req.headers.authorization?.replace(/^Bearer\s/, "") ||
-    req.cookies?.accessToken ||
-    "";
+  const accessToken = (req.headers.authorization || req.cookies.accessToken || "").replace(/^Bearer\s/, "")
   if (!accessToken) return next();
   try {
     const decoded = new JWTService().verifyToken(accessToken);

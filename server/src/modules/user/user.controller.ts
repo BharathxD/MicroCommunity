@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createUser, findUserById } from "./user.service";
+import { v4 as uuidv4 } from 'uuid';
 import {
   GetUserConnectionParams,
   HandleConnectionsParams,
@@ -28,24 +29,21 @@ export const registerUserHandler = async (
       lname,
       email,
       password,
-      picturePath,
+      picturePath: picturePath + uuidv4(),
       connections,
       location,
       viewedProfile: Math.floor(Math.random() * 10000),
       impressions: Math.floor(Math.random() * 10000),
     });
-    res
+    return res
       .status(StatusCodes.CREATED)
       .send({ message: "User created successfully", user: createdUser });
   } catch (error: any) {
     if (error.code === 11000) {
-      return res
+      logger.error(error.code);
+      res
         .status(StatusCodes.CONFLICT)
         .send({ message: "User already exists" });
-    } else {
-      return res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send({ message: "Something went wrong" });
     }
   }
 };

@@ -24,6 +24,7 @@
     "lodash": "^4.17.21",
     "multer": "^1.4.5-lts.1",
     "pino": "^8.11.0",
+    "uuid": "^9.0.0",
     "zod": "^3.21.4",
     "zod-express-middleware": "^1.4.0"
   },
@@ -35,6 +36,7 @@
     "@types/lodash": "^4.14.191",
     "@types/multer": "^1.4.7",
     "@types/node": "^18.15.10",
+    "@types/uuid": "^9.0.1",
     "pino-pretty": "^10.0.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.2"
