@@ -9,40 +9,8 @@ import {
 } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
 import Dropzone from "react-dropzone";
-import * as yup from "yup";
 import { EditOutlined } from "@mui/icons-material";
-
-type RegisterValues = {
-  fname: string;
-  lname: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  location: string;
-  occupation: string;
-  picture: File;
-};
-
-const registerSchema = yup.object().shape({
-  fname: yup.string().required("required"),
-  lname: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  password: yup.string().required("required"),
-  location: yup.string().required("required"),
-  occupation: yup.string().required("required"),
-  picture: yup.mixed(),
-});
-
-const initialValuesRegister = {
-  fname: "",
-  lname: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  location: "",
-  occupation: "",
-  picture: "",
-};
+import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 
 type Props = {
   setPageType: (arg1: string) => void;
@@ -51,37 +19,68 @@ type Props = {
 export const RegisterForm = ({ setPageType }: Props) => {
   const { palette } = useTheme();
   const isNonMobile = useMediaQuery("(min-width:1000px)");
+  const initialValuesRegister = {
+    fname: "",
+    lname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    location: "",
+    occupation: "",
+    picture: "",
+  };
   const registerHandler = async (
-    values: RegisterValues,
+    {
+      fname,
+      lname,
+      location,
+      occupation,
+      email,
+      password,
+      confirmPassword,
+      picture,
+    }: RegisterValues,
     onSubmitProps: FormikHelpers<RegisterValues>
   ) => {
     const formData = new FormData();
-    formData.set("fname", values.fname);
-    formData.set("lname", values.lname);
-    formData.set("location", values.location);
-    formData.set("occupation", values.occupation);
-    formData.set("email", values.email);
-    formData.set("password", values.password);
-    formData.set("confirmPassword", values.confirmPassword);
-    formData.set("picturePath", values.confirmPassword);
-    formData.set("picture", values.picture);
-    console.log(formData);
-    const response = await fetch("http://localhost:4000/api/user", {
-      method: "POST",
-      body: formData,
-      credentials: "include",
-    });
-    onSubmitProps.resetForm();
-    if (response) {
-      setPageType("login");
+    formData.set("fname", fname);
+    formData.set("lname", lname);
+    formData.set("location", location);
+    formData.set("occupation", occupation);
+    formData.set("email", email);
+    formData.set("password", password);
+    formData.set("confirmPassword", confirmPassword);
+    formData.set("picture", picture);
+
+    try {
+      const response = await fetch("http://localhost:4000/api/user", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        onSubmitProps.resetForm();
+        setPageType("login");
+      } else {
+        throw new Error("Failed to register user.");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
+
   const handleFormSubmit = async (
     values: RegisterValues,
     onSubmitProps: FormikHelpers<RegisterValues>
   ) => {
-    await registerHandler(values, onSubmitProps);
+    try {
+      await registerHandler(values, onSubmitProps);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -234,7 +233,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
                   "&:hover": { color: palette.primary.main },
                 }}
               >
-                Login
+                Register
               </Button>
               <Typography
                 onClick={() => {
