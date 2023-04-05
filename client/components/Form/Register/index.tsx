@@ -59,23 +59,24 @@ export const RegisterForm = ({ setPageType }: Props) => {
     values: RegisterValues,
     onSubmitProps: FormikHelpers<RegisterValues>
   ) => {
-    const file = values.picture;
-    const data = {
-      fname: values.fname,
-      lname: values.lname,
-      location: values.location,
-      occupation: values.occupation,
-      email: values.email,
-      password: values.password,
-      confirmPassword: values.confirmPassword,
-      picturePath: values.picture.name,
-      file,
-    };
-    console.log(data);
-    const savedUser = await registerUser(data);
-    onSubmitProps.resetForm();
-
-    if (savedUser) {
+    const formData = new FormData();
+    formData.set("fname", values.fname);
+    formData.set("lname", values.lname);
+    formData.set("location", values.location);
+    formData.set("occupation", values.occupation);
+    formData.set("email", values.email);
+    formData.set("password", values.password);
+    formData.set("confirmPassword", values.confirmPassword);
+    formData.set("picturePath", values.confirmPassword);
+    formData.set("picture", values.picture);
+    console.log(formData);
+    const response = await fetch("http://localhost:4000/api/user", {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    });
+    // onSubmitProps.resetForm();
+    if (response) {
       setPageType("login");
     }
   };

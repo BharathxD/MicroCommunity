@@ -21,21 +21,11 @@ export const loginUser = async (payload: {
   }
 };
 
-export const registerUser = async (payload: {
-  fname: string;
-  lname: string;
-  location: string;
-  occupation: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  picturePath: string;
-  file: File;
-}) => {
+export const registerUser = async (payload: FormData) => {
   try {
     const response = await axios.post(userBase, payload);
-    console.log(response);
     const data = await response.data;
+    console.log(await data.json);
     return data;
   } catch (error: any) {
     console.log(error.message);
