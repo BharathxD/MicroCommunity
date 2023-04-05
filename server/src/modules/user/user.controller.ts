@@ -48,7 +48,7 @@ export const registerUserHandler = async (
   }
 };
 
-export const getUserHandlerHandler = async (
+export const getUserHandler = async (
   req: Request<GetUserConnectionParams>,
   res: Response
 ) => {

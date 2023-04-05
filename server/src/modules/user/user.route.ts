@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   connectionHandler,
   getUserConnectionsHandler,
-  getUserHandlerHandler,
+  getUserHandler,
   registerUserHandler,
 } from "./user.controller";
 import upload from "../../utils/fileUpload";
@@ -12,6 +12,11 @@ import requireUser from "../../middlewares/requireUser";
 
 const router = Router();
 
+router.get("/", requireUser, (req, res) => {
+  console.log(res.locals.user);
+  res.send(res.locals.user);
+});
+
 router.post(
   "/",
   upload.single("picture"),
@@ -19,7 +24,7 @@ router.post(
   registerUserHandler
 );
 
-router.get("/search/:userId", requireUser, getUserHandlerHandler);
+router.get("/search/:userId", requireUser, getUserHandler);
 
 router.get("/connections", requireUser, getUserConnectionsHandler);
 
