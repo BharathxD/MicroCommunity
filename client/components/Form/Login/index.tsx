@@ -12,6 +12,7 @@ import { Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
+import { FormLink } from "../components/FormLink";
 
 type LoginValues = {
   email: string;
@@ -32,7 +33,7 @@ type Props = {
   setPageType: (arg1: string) => void;
 };
 
-export const LoginForm = () => {
+export const LoginForm = ({ setPageType }: Props) => {
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -120,21 +121,12 @@ export const LoginForm = () => {
               >
                 Login
               </Button>
-              <Typography
-                onClick={() => {
-                  resetForm();
-                }}
-                sx={{
-                  textDecoration: "underline",
-                  color: palette.primary.main,
-                  "&:hover": {
-                    cursor: "pointer",
-                    color: palette.primary.light,
-                  },
-                }}
-              >
-                Dont have an account? Sign Up here.
-              </Typography>
+              <FormLink
+                setPageType={setPageType}
+                message="Dont have an account? Sign Up here."
+                resetForm={resetForm}
+                pageType="register"
+              />
             </Box>
           </Box>
         </form>

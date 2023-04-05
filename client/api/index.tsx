@@ -27,3 +27,7 @@ export const registerUser = async (payload: FormData) => {
     console.log(error.message);
   }
 };
+
+const getUser = () => {
+  
+};

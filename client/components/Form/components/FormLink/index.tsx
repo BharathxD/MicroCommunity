@@ -4,14 +4,15 @@ type Props = {
   setPageType: (arg1: string) => void;
   resetForm: () => void;
   message: string;
+  pageType: string;
 };
 
-export const FormLink = ({ setPageType, resetForm, message }: Props) => {
+export const FormLink = ({ setPageType, resetForm, message, pageType }: Props) => {
   const palette = useTheme().palette;
   return (
     <Typography
       onClick={() => {
-        setPageType("login");
+        setPageType(pageType);
         resetForm();
       }}
       sx={{

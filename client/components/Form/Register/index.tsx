@@ -1,17 +1,8 @@
-import FlexBetween from "@/components/UI/FlexBetween";
-import {
-  useTheme,
-  useMediaQuery,
-  Box,
-  Button,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { useTheme, useMediaQuery, Box, Button, TextField } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
-import Dropzone from "react-dropzone";
-import { EditOutlined } from "@mui/icons-material";
 import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 import { FormLink } from "../components/FormLink";
+import DropzoneComponent from "../components/Dropzone";
 
 type Props = {
   setPageType: (arg1: string) => void;
@@ -52,6 +43,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
     formData.set("password", password);
     formData.set("confirmPassword", confirmPassword);
     formData.set("picture", picture);
+    formData.set("picturePath", picture.name);
 
     try {
       const response = await fetch("http://localhost:4000/api/user", {
@@ -61,8 +53,8 @@ export const RegisterForm = ({ setPageType }: Props) => {
       });
 
       if (response.ok) {
-        onSubmitProps.resetForm();
-        setPageType("login");
+        // onSubmitProps.resetForm();
+        // setPageType("login");
       } else {
         throw new Error("Failed to register user.");
       }
@@ -146,38 +138,10 @@ export const RegisterForm = ({ setPageType }: Props) => {
               helperText={touched.occupation && errors.occupation}
               sx={{ gridColumn: "span 4" }}
             />
-            <Box
-              gridColumn="span 4"
-              border={`1px solid ${palette.neutral.medium}`}
-              borderRadius="5px"
-              p="1rem"
-            >
-              <Dropzone
-                multiple={false}
-                onDrop={(acceptedFiles) =>
-                  setFieldValue("picture", acceptedFiles[0])
-                }
-              >
-                {({ getRootProps, getInputProps }) => (
-                  <Box
-                    {...getRootProps()}
-                    border={`2px dashed ${palette.primary.main}`}
-                    p="1rem"
-                    sx={{ "&:hover": { cursor: "pointer" } }}
-                  >
-                    <input {...getInputProps()} />
-                    {!values.picture.name ? (
-                      <p>Add Picture Here</p>
-                    ) : (
-                      <FlexBetween>
-                        <Typography>{values.picture.name}</Typography>
-                        <EditOutlined />
-                      </FlexBetween>
-                    )}
-                  </Box>
-                )}
-              </Dropzone>
-            </Box>
+            <DropzoneComponent
+              setFieldValue={setFieldValue}
+              pictureName={values.picture.name}
+            />
             <TextField
               label="Email"
               onBlur={handleBlur}
@@ -240,6 +204,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
                 setPageType={setPageType}
                 resetForm={resetForm}
                 message="Dont have an account? Sign Up here."
+                pageType="login"
               />
             </Box>
           </Box>

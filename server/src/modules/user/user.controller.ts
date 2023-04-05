@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createUser, findUserById } from "./user.service";
-import { v4 as uuidv4 } from 'uuid';
 import {
   GetUserConnectionParams,
   HandleConnectionsParams,
@@ -11,7 +10,7 @@ import logger from "../../utils/logger";
 import { omit } from "lodash";
 
 export const registerUserHandler = async (
-  req: Request<{}, {}, RegisterInput>,
+  req: Request<{}, {}, RegisterInput & { prefix: string }>,
   res: Response
 ) => {
   try {
@@ -29,7 +28,7 @@ export const registerUserHandler = async (
       lname,
       email,
       password,
-      picturePath: picturePath + uuidv4(),
+      picturePath: picturePath,
       connections,
       location,
       viewedProfile: Math.floor(Math.random() * 10000),
