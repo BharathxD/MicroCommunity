@@ -29,7 +29,7 @@ export const loginUserHandler = async (
       sameSite: "strict",
       secure: false, //? Development Environment
     });
-    return res.status(StatusCodes.OK).send({ user: user, token: token });
+    return res.status(StatusCodes.OK).send({ user, token });
   } catch (error: any) {
     logger.error(error);
   }
