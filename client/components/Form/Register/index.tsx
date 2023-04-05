@@ -17,7 +17,6 @@ import { EditOutlined } from "@mui/icons-material";
 import { registerUser } from "@/api";
 
 type RegisterValues = {
-  [x: string]: any;
   fname: string;
   lname: string;
   email: string;
@@ -25,8 +24,9 @@ type RegisterValues = {
   confirmPassword: string;
   location: string;
   occupation: string;
-  picturePath: string;
+  picture: File;
 };
+
 const registerSchema = yup.object().shape({
   fname: yup.string().required("required"),
   lname: yup.string().required("required"),
@@ -34,8 +34,9 @@ const registerSchema = yup.object().shape({
   password: yup.string().required("required"),
   location: yup.string().required("required"),
   occupation: yup.string().required("required"),
-  picture: yup.string().required("required"),
+  picture: yup.mixed(),
 });
+
 const initialValuesRegister = {
   fname: "",
   lname: "",
@@ -44,7 +45,7 @@ const initialValuesRegister = {
   confirmPassword: "",
   location: "",
   occupation: "",
-  picturePath: "",
+  picture: "",
 };
 
 type Props = {
@@ -53,19 +54,24 @@ type Props = {
 
 export const RegisterForm = ({ setPageType }: Props) => {
   const { palette } = useTheme();
-  const dispatch = useDispatch();
-  const router = useRouter();
   const isNonMobile = useMediaQuery("(min-width:1000px)");
   const registerHandler = async (
     values: RegisterValues,
     onSubmitProps: FormikHelpers<RegisterValues>
   ) => {
-    // this allows us to send form info with image
-    const formData = new FormData();
-    formData.append("fname", values.fname);
-    formData.append("lname", values.lname);
-    formData.append("picturePath", values.picture.name);
-    // const savedUser = await registerUser();
+    const data = {
+      fname: values.fname,
+      lname: values.lname,
+      location: values.location,
+      occupation: values.occupation,
+      email: values.email,
+      password: values.password,
+      confirmPassword: values.confirmPassword,
+      picturePath: values.picture.name,
+      file: values.picture,
+    };
+    console.log(data);
+    const savedUser = await registerUser(data);
     onSubmitProps.resetForm();
 
     if (savedUser) {
@@ -162,11 +168,11 @@ export const RegisterForm = ({ setPageType }: Props) => {
                     sx={{ "&:hover": { cursor: "pointer" } }}
                   >
                     <input {...getInputProps()} />
-                    {!values.picturePath ? (
+                    {!values.picture.name ? (
                       <p>Add Picture Here</p>
                     ) : (
                       <FlexBetween>
-                        <Typography>{values.picturePath}</Typography>
+                        <Typography>{values.picture.name}</Typography>
                         <EditOutlined />
                       </FlexBetween>
                     )}

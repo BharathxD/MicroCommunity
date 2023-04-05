@@ -24,12 +24,13 @@ export const loginUser = async (payload: {
 export const registerUser = async (payload: {
   fname: string;
   lname: string;
-  occupation: string;
   location: string;
+  occupation: string;
   email: string;
   password: string;
   confirmPassword: string;
-  picture: string;
+  picturePath: string;
+  file: File;
 }) => {
   try {
     const response = await axios.post(userBase, payload);
