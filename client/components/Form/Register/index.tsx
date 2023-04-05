@@ -75,7 +75,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
       body: formData,
       credentials: "include",
     });
-    // onSubmitProps.resetForm();
+    onSubmitProps.resetForm();
     if (response) {
       setPageType("login");
     }

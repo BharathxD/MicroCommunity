@@ -32,15 +32,15 @@ type Props = {
   setPageType: (arg1: string) => void;
 };
 
-export const LoginForm = ({ setPageType }: Props) => {
+export const LoginForm = () => {
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const router = useRouter();
-  const isNonMobile = useMediaQuery("(min-width:600px)");
   const login = async (
     values: LoginValues,
     onSubmitProps: { resetForm: () => void }
   ) => {
+    console.log("Values", values);
     const response = await loginUser(values);
     onSubmitProps.resetForm();
     console.log(response);
@@ -124,7 +124,6 @@ export const LoginForm = ({ setPageType }: Props) => {
               </Button>
               <Typography
                 onClick={() => {
-                  setPageType("register");
                   resetForm();
                 }}
                 sx={{
