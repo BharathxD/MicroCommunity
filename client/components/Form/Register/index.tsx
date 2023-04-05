@@ -11,6 +11,7 @@ import { Formik, FormikHelpers } from "formik";
 import Dropzone from "react-dropzone";
 import { EditOutlined } from "@mui/icons-material";
 import { RegisterValues, registerSchema } from "./userRegistrationSchema";
+import { FormLink } from "../components/FormLink";
 
 type Props = {
   setPageType: (arg1: string) => void;
@@ -235,22 +236,11 @@ export const RegisterForm = ({ setPageType }: Props) => {
               >
                 Register
               </Button>
-              <Typography
-                onClick={() => {
-                  setPageType("login");
-                  resetForm();
-                }}
-                sx={{
-                  textDecoration: "underline",
-                  color: palette.primary.main,
-                  "&:hover": {
-                    cursor: "pointer",
-                    color: palette.primary.light,
-                  },
-                }}
-              >
-                Dont have an account? Sign Up here.
-              </Typography>
+              <FormLink
+                setPageType={setPageType}
+                resetForm={resetForm}
+                message="Dont have an account? Sign Up here."
+              />
             </Box>
           </Box>
         </form>
