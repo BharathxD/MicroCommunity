@@ -59,6 +59,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
     values: RegisterValues,
     onSubmitProps: FormikHelpers<RegisterValues>
   ) => {
+    const file = values.picture;
     const data = {
       fname: values.fname,
       lname: values.lname,
@@ -68,7 +69,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
       password: values.password,
       confirmPassword: values.confirmPassword,
       picturePath: values.picture.name,
-      file: values.picture,
+      file,
     };
     console.log(data);
     const savedUser = await registerUser(data);
