@@ -1,28 +1,12 @@
 import { loginUser } from "@/api";
 import { setLogin } from "@/state/auth";
-import {
-  useTheme,
-  useMediaQuery,
-  Box,
-  Button,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { useTheme, Box, Button, TextField } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import { FormLink } from "../components/FormLink";
-
-type LoginValues = {
-  email: string;
-  password: string;
-};
-
-const loginSchema = yup.object().shape({
-  email: yup.string().email("invalid email").required("required"),
-  password: yup.string().required("required"),
-});
+import { LoginValues, loginSchema } from "./userLoginSchema";
 
 const initialValuesLogin = {
   email: "",
@@ -30,7 +14,7 @@ const initialValuesLogin = {
 };
 
 type Props = {
-  setPageType: (arg1: string) => void;
+  setPageType: (setType: string) => void;
 };
 
 export const LoginForm = ({ setPageType }: Props) => {
