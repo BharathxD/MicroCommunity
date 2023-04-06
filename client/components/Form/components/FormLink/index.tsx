@@ -3,11 +3,16 @@ import { Typography, useTheme } from "@mui/material";
 type Props = {
   setPageType: (arg1: string) => void;
   resetForm: () => void;
-  message: string;
+  children: React.ReactNode;
   pageType: string;
 };
 
-export const FormLink = ({ setPageType, resetForm, message, pageType }: Props) => {
+export const FormLink = ({
+  setPageType,
+  resetForm,
+  children,
+  pageType,
+}: Props) => {
   const palette = useTheme().palette;
   return (
     <Typography
@@ -24,7 +29,7 @@ export const FormLink = ({ setPageType, resetForm, message, pageType }: Props) =
         },
       }}
     >
-      {message}
+      {children}
     </Typography>
   );
 };

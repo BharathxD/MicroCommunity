@@ -95,10 +95,11 @@ export const LoginForm = ({ setPageType }: Props) => {
               <FormButton>Login</FormButton>
               <FormLink
                 setPageType={setPageType}
-                message="Dont have an account? Sign Up here."
                 resetForm={resetForm}
                 pageType="register"
-              />
+              >
+                Dont have an account? Sign Up here.
+              </FormLink>
             </Box>
           </Box>
         </form>

@@ -192,9 +192,10 @@ export const RegisterForm = ({ setPageType }: Props) => {
               <FormLink
                 setPageType={setPageType}
                 resetForm={resetForm}
-                message="Dont have an account? Sign Up here."
                 pageType="login"
-              />
+              >
+                Dont have an account? Sign Up here.
+              </FormLink>
             </Box>
           </Box>
         </form>
