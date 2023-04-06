@@ -1,22 +1,30 @@
-import { setMode } from "@/state/auth";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { IconButton } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
-import { IconButton, useTheme } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { setMode } from "@/state/auth";
+import { ReduxState } from "@/types/state.types";
 
 const SwitchMode = () => {
-  const theme = useTheme();
   const dispatch = useDispatch();
-  const mode = theme.palette.mode;
-  const dark = theme.palette.neutral.dark;
-  return (
-    <IconButton onClick={() => dispatch(setMode())}>
-      {mode === "dark" ? (
-        <DarkMode sx={{ fontSize: "25px" }} />
-      ) : (
-        <LightMode sx={{ color: dark, fontSize: "25px" }} />
-      )}
-    </IconButton>
-  );
+  const mode = useSelector((state: ReduxState) => state.mode);
+  const [iconSize, setIconSize] = useState("25px");
+
+  const handleModeChange = () => {
+    dispatch(setMode());
+  };
+
+  const renderModeIcon = () => {
+    const isDarkMode = mode === "dark";
+    const iconColor = isDarkMode ? "primary" : "neutral.dark";
+    return isDarkMode ? (
+      <DarkMode sx={{ fontSize: iconSize }} />
+    ) : (
+      <LightMode sx={{ fontSize: iconSize, color: iconColor }} />
+    );
+  };
+
+  return <IconButton onClick={handleModeChange}>{renderModeIcon()}</IconButton>;
 };
 
 export default SwitchMode;
