@@ -1,14 +1,14 @@
 import { Typography, useTheme } from "@mui/material";
 
 type Props = {
-  setPageType: (arg1: string) => void;
+  onPageChange: (newPage: "login" | "register") => void;
   resetForm: () => void;
   children: React.ReactNode;
-  pageType: string;
+  pageType: "login" | "register";
 };
 
 export const FormLink = ({
-  setPageType,
+  onPageChange,
   resetForm,
   children,
   pageType,
@@ -17,7 +17,7 @@ export const FormLink = ({
   return (
     <Typography
       onClick={() => {
-        setPageType(pageType);
+        onPageChange(pageType);
         resetForm();
       }}
       sx={{

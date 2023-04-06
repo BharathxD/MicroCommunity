@@ -3,16 +3,18 @@ import { LoginForm } from "./Login";
 import { RegisterForm } from "./Register";
 
 const Form = () => {
-  const [page, setPage] = useState<string>("login");
-  const isLoginPage = page === "login" && "login";
-  const isRegisterPage = page === "register" && "register";
-  const setPageType = (arg1: string) => {
-    setPage(arg1);
+  const [currentPage, setCurrentPage] = useState<"login" | "register">("login");
+
+  const handlePageChange = (newPage: "login" | "register") => {
+    setCurrentPage(newPage);
   };
+
+  const isLoginPage = currentPage === "login";
+
   return (
     <Fragment>
-      {isLoginPage && <LoginForm setPageType={setPageType} />}
-      {isRegisterPage && <RegisterForm setPageType={setPageType} />}
+      {isLoginPage && <LoginForm onPageChange={handlePageChange} />}
+      {!isLoginPage && <RegisterForm onPageChange={handlePageChange} />}
     </Fragment>
   );
 };

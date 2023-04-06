@@ -7,10 +7,10 @@ import FormButton from "@/components/UI/FormButton";
 import FormWrapper from "@/components/UI/FormWrapper";
 
 type Props = {
-  setPageType: (arg1: string) => void;
+  onPageChange: (newPage: "login" | "register") => void;
 };
 
-export const RegisterForm = ({ setPageType }: Props) => {
+export const RegisterForm = ({ onPageChange }: Props) => {
   const isNonMobile = useMediaQuery("(min-width:1000px)");
   const initialValuesRegister = {
     fname: "",
@@ -55,7 +55,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
 
       if (response.ok) {
         onSubmitProps.resetForm();
-        setPageType("login");
+        onPageChange("login");
       } else {
         throw new Error("Failed to register user.");
       }
@@ -185,7 +185,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
             <Box>
               <FormButton>Register</FormButton>
               <FormLink
-                setPageType={setPageType}
+                onPageChange={onPageChange}
                 resetForm={resetForm}
                 pageType="login"
               >

@@ -10,10 +10,10 @@ import FormButton from "@/components/UI/FormButton";
 import FormWrapper from "@/components/UI/FormWrapper";
 
 type Props = {
-  setPageType: (setType: string) => void;
+  onPageChange: (newPage: "login" | "register") => void;
 };
 
-export const LoginForm = ({ setPageType }: Props) => {
+export const LoginForm = ({ onPageChange }: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -88,7 +88,7 @@ export const LoginForm = ({ setPageType }: Props) => {
             <Box>
               <FormButton>Login</FormButton>
               <FormLink
-                setPageType={setPageType}
+                onPageChange={onPageChange}
                 resetForm={resetForm}
                 pageType="register"
               >
