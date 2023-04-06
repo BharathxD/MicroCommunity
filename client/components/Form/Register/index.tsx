@@ -4,6 +4,7 @@ import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 import { FormLink } from "../components/FormLink";
 import DropzoneComponent from "../components/Dropzone";
 import FormButton from "@/components/UI/FormButton";
+import FormWrapper from "@/components/UI/FormWrapper";
 
 type Props = {
   setPageType: (arg1: string) => void;
@@ -92,13 +93,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
         resetForm,
       }) => (
         <form onSubmit={handleSubmit}>
-          <Box
-            m="0.25rem"
-            borderRadius="1.5rem"
-            display="flex"
-            flexDirection="column"
-            gap="10px"
-          >
+          <FormWrapper>
             <TextField
               label="First Name"
               onBlur={handleBlur}
@@ -197,7 +192,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
                 Dont have an account? Sign Up here.
               </FormLink>
             </Box>
-          </Box>
+          </FormWrapper>
         </form>
       )}
     </Formik>

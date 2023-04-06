@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { FormLink } from "../components/FormLink";
 import { LoginValues, loginSchema } from "./userLoginSchema";
 import FormButton from "@/components/UI/FormButton";
+import FormWrapper from "@/components/UI/FormWrapper";
 
 type Props = {
   setPageType: (setType: string) => void;
@@ -62,14 +63,7 @@ export const LoginForm = ({ setPageType }: Props) => {
         resetForm,
       }) => (
         <form onSubmit={handleSubmit}>
-          <Box
-            m="0.25rem"
-            borderRadius="1.5rem"
-            display="flex"
-            flexDirection="column"
-            gap="10px"
-            alignContent="flex-start"
-          >
+          <FormWrapper>
             <TextField
               label="Email"
               onBlur={handleBlur}
@@ -101,7 +95,7 @@ export const LoginForm = ({ setPageType }: Props) => {
                 Dont have an account? Sign Up here.
               </FormLink>
             </Box>
-          </Box>
+          </FormWrapper>
         </form>
       )}
     </Formik>
