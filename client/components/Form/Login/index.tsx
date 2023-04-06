@@ -1,27 +1,26 @@
 import { loginUser } from "@/api";
 import { setLogin } from "@/state/auth";
-import { useTheme, Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import * as yup from "yup";
 import { FormLink } from "../components/FormLink";
 import { LoginValues, loginSchema } from "./userLoginSchema";
 import FormButton from "@/components/UI/FormButton";
-
-const initialValuesLogin = {
-  email: "",
-  password: "",
-};
 
 type Props = {
   setPageType: (setType: string) => void;
 };
 
 export const LoginForm = ({ setPageType }: Props) => {
-  const { palette } = useTheme();
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const initialValuesLogin = {
+    email: "",
+    password: "",
+  };
+
   const login = async (
     values: LoginValues,
     onSubmitProps: { resetForm: () => void }
@@ -29,7 +28,6 @@ export const LoginForm = ({ setPageType }: Props) => {
     try {
       const response = await loginUser(values);
       onSubmitProps.resetForm();
-
       if (response) {
         const { user, token } = response.data;
         dispatch(setLogin({ user, token }));
@@ -46,6 +44,7 @@ export const LoginForm = ({ setPageType }: Props) => {
   ) => {
     await login(values, onSubmitProps);
   };
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -92,8 +91,6 @@ export const LoginForm = ({ setPageType }: Props) => {
               helperText={touched.password && errors.password}
               sx={{ gridColumn: "span 4" }}
             />
-
-            {/* BUTTONS */}
             <Box>
               <FormButton>Login</FormButton>
               <FormLink

@@ -4,7 +4,7 @@ import Header from "./Header";
 import { useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
 import { themeSettings } from "@/themes/theme";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { Box, ThemeProvider, createTheme } from "@mui/material";
 
 const HomePageLayout = ({
   children,

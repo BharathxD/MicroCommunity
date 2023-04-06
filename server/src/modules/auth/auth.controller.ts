@@ -15,7 +15,7 @@ export const loginUserHandler = async (
     if (!user) {
       return res
         .status(StatusCodes.UNAUTHORIZED)
-        .send({ message: "Invalid login and password" });
+        .send({ message: "Invalid email and password" });
     }
     //? Generate Token
     const jwt = new JWTService();
