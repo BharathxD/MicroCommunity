@@ -25,18 +25,20 @@ export const LoginForm = ({ setPageType }: Props) => {
     values: LoginValues,
     onSubmitProps: { resetForm: () => void }
   ) => {
-    const response = await loginUser(values);
-    onSubmitProps.resetForm();
-    if (response) {
-      dispatch(
-        setLogin({
-          user: response.data.user,
-          token: response.data.token,
-        })
-      );
-      router.push("/");
+    try {
+      const response = await loginUser(values);
+      onSubmitProps.resetForm();
+
+      if (response) {
+        const { user, token } = response.data;
+        dispatch(setLogin({ user, token }));
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
+
   const handleFormSubmit = async (
     values: LoginValues,
     onSubmitProps: FormikHelpers<LoginValues>
