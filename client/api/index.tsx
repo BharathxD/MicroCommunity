@@ -28,6 +28,4 @@ export const registerUser = async (payload: FormData) => {
   }
 };
 
-const getUser = () => {
-  
-};
+const getUser = () => {};

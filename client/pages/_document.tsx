@@ -10,8 +10,7 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-    
-  ) ;
+  );
 }
 
 Document.getInitialProps = createGetInitialProps();

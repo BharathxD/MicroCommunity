@@ -40,9 +40,7 @@ export const registerUserHandler = async (
   } catch (error: any) {
     if (error.code === 11000) {
       logger.error(error.code);
-      res
-        .status(StatusCodes.CONFLICT)
-        .send({ message: "User already exists" });
+      res.status(StatusCodes.CONFLICT).send({ message: "User already exists" });
     }
   }
 };

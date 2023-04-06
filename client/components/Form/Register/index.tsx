@@ -1,4 +1,4 @@
-import { useTheme, useMediaQuery, Box, Button, TextField } from "@mui/material";
+import { useMediaQuery, Box, TextField } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
 import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 import { FormLink } from "../components/FormLink";
@@ -11,7 +11,6 @@ type Props = {
 };
 
 export const RegisterForm = ({ setPageType }: Props) => {
-  const { palette } = useTheme();
   const isNonMobile = useMediaQuery("(min-width:1000px)");
   const initialValuesRegister = {
     fname: "",
@@ -79,6 +78,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
   return (
     <Formik
       onSubmit={handleFormSubmit}
+      // @ts-ignore
       initialValues={initialValuesRegister}
       validationSchema={registerSchema}
     >

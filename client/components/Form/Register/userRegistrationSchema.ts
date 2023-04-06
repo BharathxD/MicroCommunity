@@ -11,12 +11,14 @@ export interface RegisterValues {
   picture: File;
 }
 
-export const registerSchema = yup.object<RegisterValues>({
-  fname: yup.string().required("required"),
-  lname: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  password: yup.string().required("required"),
-  location: yup.string().required("required"),
-  occupation: yup.string().required("required"),
-  picture: yup.mixed(),
-}).defined();
+export const registerSchema = yup
+  .object<RegisterValues>({
+    fname: yup.string().required("required"),
+    lname: yup.string().required("required"),
+    email: yup.string().email("invalid email").required("required"),
+    password: yup.string().required("required"),
+    location: yup.string().required("required"),
+    occupation: yup.string().required("required"),
+    picture: yup.mixed(),
+  })
+  .defined();

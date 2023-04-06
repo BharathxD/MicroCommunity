@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { LoginForm } from "./Login";
 import { RegisterForm } from "./Register";
-import { Box } from "@mui/material";
 
 const Form = () => {
   const [page, setPage] = useState<string>("login");
@@ -11,10 +10,10 @@ const Form = () => {
     setPage(arg1);
   };
   return (
-    <>
+    <Fragment>
       {isLoginPage && <LoginForm setPageType={setPageType} />}
       {isRegisterPage && <RegisterForm setPageType={setPageType} />}
-    </>
+    </Fragment>
   );
 };
 
