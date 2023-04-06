@@ -3,6 +3,7 @@ import { Formik, FormikHelpers } from "formik";
 import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 import { FormLink } from "../components/FormLink";
 import DropzoneComponent from "../components/Dropzone";
+import FormButton from "@/components/UI/FormButton";
 
 type Props = {
   setPageType: (arg1: string) => void;
@@ -53,8 +54,8 @@ export const RegisterForm = ({ setPageType }: Props) => {
       });
 
       if (response.ok) {
-        // onSubmitProps.resetForm();
-        // setPageType("login");
+        onSubmitProps.resetForm();
+        setPageType("login");
       } else {
         throw new Error("Failed to register user.");
       }
@@ -187,19 +188,7 @@ export const RegisterForm = ({ setPageType }: Props) => {
               />
             </Box>
             <Box>
-              <Button
-                fullWidth
-                type="submit"
-                sx={{
-                  m: "2rem 0",
-                  p: "1rem",
-                  backgroundColor: palette.primary.main,
-                  color: palette.background.alt,
-                  "&:hover": { color: palette.primary.main },
-                }}
-              >
-                Register
-              </Button>
+              <FormButton>Register</FormButton>
               <FormLink
                 setPageType={setPageType}
                 resetForm={resetForm}

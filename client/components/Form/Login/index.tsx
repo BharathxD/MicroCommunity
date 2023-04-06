@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import { FormLink } from "../components/FormLink";
 import { LoginValues, loginSchema } from "./userLoginSchema";
+import FormButton from "@/components/UI/FormButton";
 
 const initialValuesLogin = {
   email: "",
@@ -94,19 +95,7 @@ export const LoginForm = ({ setPageType }: Props) => {
 
             {/* BUTTONS */}
             <Box>
-              <Button
-                fullWidth
-                type="submit"
-                sx={{
-                  m: "2rem 0",
-                  p: "1rem",
-                  backgroundColor: palette.primary.main,
-                  color: palette.background.alt,
-                  "&:hover": { color: palette.primary.main },
-                }}
-              >
-                Login
-              </Button>
+              <FormButton>Login</FormButton>
               <FormLink
                 setPageType={setPageType}
                 message="Dont have an account? Sign Up here."
