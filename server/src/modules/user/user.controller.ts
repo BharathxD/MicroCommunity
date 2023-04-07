@@ -8,6 +8,7 @@ import {
 } from "./user.schema";
 import logger from "../../utils/logger";
 import { omit } from "lodash";
+import JWTService from "../auth/auth.utils";
 
 export const registerUserHandler = async (
   req: Request<{}, {}, RegisterInput & { prefix: string }>,
@@ -34,9 +35,21 @@ export const registerUserHandler = async (
       viewedProfile: Math.floor(Math.random() * 10000),
       impressions: Math.floor(Math.random() * 10000),
     });
+    //? Generate Token
+    const jwt = new JWTService();
+    const token = jwt.generateToken(createdUser);
+    //? Adding the Cookie to response
+    res.cookie("accessToken", token, {
+      maxAge: 3.154e10, //? 1 Year
+      httpOnly: true,
+      domain: "localhost", //? Development Environment
+      path: "/",
+      sameSite: "strict",
+      secure: false, //? Development Environment
+    });
     return res
       .status(StatusCodes.CREATED)
-      .send({ message: "User created successfully", user: createdUser });
+      .send({ message: "User created successfully", user: createdUser, token });
   } catch (error: any) {
     if (error.code === 11000) {
       logger.error(error.code);

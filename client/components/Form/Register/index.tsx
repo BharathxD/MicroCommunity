@@ -5,6 +5,8 @@ import { FormLink } from "../components/FormLink";
 import DropzoneComponent from "../components/Dropzone";
 import FormButton from "@/components/UI/FormButton";
 import FormWrapper from "@/components/UI/FormWrapper";
+import { useDispatch } from "react-redux";
+import { setLogin } from "@/state/auth";
 
 type Props = {
   onPageChange: (newPage: "login" | "register") => void;
@@ -12,6 +14,7 @@ type Props = {
 
 export const RegisterForm = ({ onPageChange }: Props) => {
   const isNonMobile = useMediaQuery("(min-width:1000px)");
+  const dispatch = useDispatch();
   const initialValuesRegister = {
     fname: "",
     lname: "",
@@ -52,10 +55,13 @@ export const RegisterForm = ({ onPageChange }: Props) => {
         body: formData,
         credentials: "include",
       });
+      const data = await response.json();
 
       if (response.ok) {
         onSubmitProps.resetForm();
-        onPageChange("login");
+        // TODO: LOGIN
+        const { user, token } = data;
+        dispatch(setLogin({ user, token }));
       } else {
         throw new Error("Failed to register user.");
       }
