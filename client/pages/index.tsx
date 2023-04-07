@@ -10,7 +10,19 @@ export default function Home() {
   const { _id, picturePath } = useSelector((state: ReduxState) => {
     return { _id: state.user?._id, picturePath: state.user?.picturePath };
   });
-  return <Box></Box>;
+  return (
+    <Box>
+      <Box
+        width="100%"
+        padding="2rem 6%"
+        display={isNonMobileScreen ? "flex" : "block"}
+        gap="0.5rem"
+        justifyContent="space-between"
+      >
+        Rendered
+      </Box>
+    </Box>
+  );
 }
 
 Home.getLayout = function (page: ReactElement) {
