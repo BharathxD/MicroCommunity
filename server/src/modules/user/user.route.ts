@@ -28,6 +28,6 @@ router.get("/search/:userId", requireUser, getUserHandler);
 
 router.get("/connections", requireUser, getUserConnectionsHandler);
 
-router.get("/connections/:connectionId", requireUser, connectionHandler);
+router.patch("/connections/:connectionId", requireUser, connectionHandler);
 
 export default router;

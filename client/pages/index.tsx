@@ -1,3 +1,4 @@
+import Conenctions from "@/components/widget/Connections";
 import HomePageLayout from "@/layout/HomePageLayout";
 import styles from "@/styles/Home.module.css";
 import { ReduxState } from "@/types/state.types";
@@ -19,7 +20,9 @@ export default function Home() {
         gap="0.5rem"
         justifyContent="space-between"
       >
-        Rendered
+        <Box>
+          <Conenctions />
+        </Box>
       </Box>
     </Box>
   );
