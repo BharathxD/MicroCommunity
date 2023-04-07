@@ -10,13 +10,28 @@ import { useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
 import { setLogout } from "@/state/auth";
 import { useTheme } from "@mui/material";
+import { useRouter } from "next/router";
 
 const NavbarForm = () => {
   const user = useSelector((state: ReduxState) => state.user);
   const dispatch = useDispatch();
+  const router = useRouter();
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const fullName = `${user?.fname} ${user?.lname}`;
+  const logoutHandler = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/auth/logout", {
+        method: "POST",
+      });
+      if (response.ok) {
+        router.push("/auth");
+        dispatch(setLogout());
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
   return (
     <FormControl variant="standard">
       <Select
@@ -40,7 +55,7 @@ const NavbarForm = () => {
         <MenuItem value={fullName}>
           <Typography>{fullName}</Typography>
         </MenuItem>
-        <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
+        <MenuItem onClick={logoutHandler}>Log Out</MenuItem>
       </Select>
     </FormControl>
   );
