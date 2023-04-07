@@ -39,9 +39,12 @@ const Conenctions = () => {
 
   return (
     <>
-      <h1>_id: </h1><p>{_id}</p>
-      <h1>Token: </h1><span>{token}</span>
-      <h1>Connections: </h1><p>{connections ? connections : "No Connections."}</p>
+      <h1>_id: </h1>
+      <p>{_id}</p>
+      <h1>Token: </h1>
+      <span>{token}</span>
+      <h1>Connections: </h1>
+      <p>{connections ? connections : "No Connections."}</p>
       {/* <p>{connectionId}</p> */}
     </>
   );

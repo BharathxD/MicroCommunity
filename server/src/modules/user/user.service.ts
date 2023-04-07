@@ -24,12 +24,14 @@ export const validateUser = async ({
   email: User["email"];
   password: User["password"];
 }) => {
+  console.log({ email, password });
   const user = await findUserByEmail(email);
   if (!user) {
     //? User doesn't exist
     return null;
   }
   const isValid = await user.comparePassword(password);
+  console.log(isValid);
   if (!isValid) {
     //? The user is not Valid
     return null;

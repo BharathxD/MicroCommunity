@@ -2,8 +2,8 @@ import { Box } from "@mui/material";
 import Image from "next/image";
 
 type Props = {
-  image: string;
-  size: number;
+  image: string | undefined;
+  size?: number;
 };
 const UserImage = ({ image, size = 60 }: Props) => {
   return (
@@ -13,7 +13,7 @@ const UserImage = ({ image, size = 60 }: Props) => {
         width={size}
         height={size}
         alt="user"
-        src={`http://localhost:3001/assets/${image}`}
+        src={`http://localhost:4000/public/${image}`}
       />
     </Box>
   );

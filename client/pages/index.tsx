@@ -1,4 +1,5 @@
 import Conenctions from "@/components/widget/Connections";
+import UserImage from "@/components/widget/UserImage";
 import HomePageLayout from "@/layout/HomePageLayout";
 import styles from "@/styles/Home.module.css";
 import { ReduxState } from "@/types/state.types";
