@@ -7,6 +7,7 @@ import FormButton from "@/components/UI/FormButton";
 import FormWrapper from "@/components/UI/FormWrapper";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/state/auth";
+import { useRouter } from "next/router";
 
 type Props = {
   onPageChange: (newPage: "login" | "register") => void;
@@ -14,6 +15,7 @@ type Props = {
 
 export const RegisterForm = ({ onPageChange }: Props) => {
   const isNonMobile = useMediaQuery("(min-width:1000px)");
+  const router = useRouter();
   const dispatch = useDispatch();
   const initialValuesRegister = {
     fname: "",
@@ -62,6 +64,7 @@ export const RegisterForm = ({ onPageChange }: Props) => {
         // TODO: LOGIN
         const { user, token } = data;
         dispatch(setLogin({ user, token }));
+        router.push("/");
       } else {
         throw new Error("Failed to register user.");
       }
