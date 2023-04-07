@@ -4,7 +4,7 @@ export type User = {
   lname: string;
   email: string;
   password: string;
-  picture: string;
+  picturePath: string;
   connections: Array<string>;
   location: string;
   occupation: string;
