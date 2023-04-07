@@ -13,7 +13,6 @@ import requireUser from "../../middlewares/requireUser";
 const router = Router();
 
 router.get("/", requireUser, (req, res) => {
-  console.log(res.locals.user);
   res.send(res.locals.user);
 });
 

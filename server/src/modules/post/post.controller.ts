@@ -64,7 +64,6 @@ export const getUserPostsHandler = async (
   res: Response
 ) => {
   try {
-    console.log("TRIGGERED");
     const { userId } = req.params;
     const foundPost = await getPostByUserId(userId);
     if (!foundPost) {
