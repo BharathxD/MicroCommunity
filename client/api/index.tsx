@@ -101,6 +101,6 @@ export const fetchUserData = async (
     });
     return response.data;
   } catch (error: any) {
-    throw new Error("Cannot find the user");
+    console.log("Cannot find the user");
   }
 };

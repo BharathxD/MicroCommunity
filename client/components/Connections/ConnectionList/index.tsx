@@ -7,6 +7,7 @@ import FlexBetween from "../../UI/FlexBetween";
 import UserImage from "../../widget/UserImage";
 import { Connections, ReduxState } from "@/types/state.types";
 import { patchConnectionHandler } from "@/api";
+import ConnectionIcon from "@/components/UI/ConnectionIcon";
 
 type Props = {
   connectionId: string;
@@ -31,14 +32,14 @@ const ConnectionList = ({
   });
 
   const { palette } = useTheme();
-  const primaryLight = palette.primary.light;
-  const primaryDark = palette.primary.dark;
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
   const isConnection = (connection as Connections[])?.find(
     (connection: Connections) => connection._id === connectionId
   );
+
+  console.log(isConnection);
 
   const patchConnection = async () => {
     if (!token) {
@@ -75,16 +76,10 @@ const ConnectionList = ({
           </Typography>
         </Box>
       </FlexBetween>
-      <IconButton
-        onClick={() => patchConnection()}
-        sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
-      >
-        {isConnection ? (
-          <PersonRemoveOutlined sx={{ color: primaryDark }} />
-        ) : (
-          <PersonAddOutlined sx={{ color: primaryDark }} />
-        )}
-      </IconButton>
+      <ConnectionIcon
+        patchConnection={patchConnection}
+        isConnection={isConnection}
+      />
     </FlexBetween>
   );
 };
