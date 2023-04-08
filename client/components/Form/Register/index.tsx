@@ -8,6 +8,7 @@ import FormWrapper from "@/components/UI/FormWrapper";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/state/auth";
 import { useRouter } from "next/router";
+import { registerUser } from "@/api";
 
 type Props = {
   onPageChange: (newPage: "login" | "register") => void;
@@ -52,16 +53,9 @@ export const RegisterForm = ({ onPageChange }: Props) => {
     formData.set("picturePath", picture.name);
 
     try {
-      const response = await fetch("http://localhost:4000/api/user", {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
-      const data = await response.json();
-
-      if (response.ok) {
+      const data = await registerUser(formData);
+      if (data) {
         onSubmitProps.resetForm();
-        // TODO: LOGIN
         const { user, token } = data;
         dispatch(setLogin({ user, token }));
         router.push("/");

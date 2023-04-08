@@ -18,6 +18,21 @@ export const loginUser = async (payload: {
   }
 };
 
+export const registerUser = async (formData: FormData) => {
+  try {
+    const response = await axios.post(userBase, formData, {
+      withCredentials: true,
+      headers: { "Content-Type": "application/form-data" },
+    });
+    if (response.status !== 201) {
+      return null;
+    }
+    return response.data;
+  } catch (error: any) {
+    console.log(error.message);
+  }
+};
+
 export const logoutUser = async () => {
   try {
     const response = await axios.post(`${authBase}/logout`);
