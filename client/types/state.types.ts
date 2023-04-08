@@ -1,3 +1,11 @@
+export type Connections = {
+  _id: string,
+  fname: string,
+  lname: string,
+  location: string,
+  picturePath: string;
+}
+
 export type User = {
   _id: string;
   fname: string;
@@ -5,8 +13,7 @@ export type User = {
   email: string;
   password: string;
   picturePath: string;
-  connections: Array<string>;
-  location: string;
+  connections: Connections[] | [],
   occupation: string;
   viewedProfile: number;
   impressions: number;

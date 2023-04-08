@@ -1,14 +1,18 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import WidgetWrapper from "./WidgetWrapper";
-import { useEffect } from "react";
+import WidgetWrapper from "@/components/widget/WidgetWrapper";
+import { Children, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ReduxState } from "@/types/state.types";
+import { Connections, ReduxState } from "@/types/state.types";
 import { setConnections } from "@/state/auth";
 import { fetchUserConnections } from "@/api";
+import ConnectionList from "./ConnectionList";
 
-const FriendList = () => {
+const Connections = () => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
+  const user = useSelector((state: ReduxState) => {
+    return state.user;
+  });
   const token = useSelector((state: ReduxState) => state.token);
 
   useEffect(() => {
@@ -34,10 +38,20 @@ const FriendList = () => {
         Friend List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        TODO: Display Connections
+        {user &&
+          Array.isArray(user.connections) &&
+          user.connections.map((connection: Connections) => (
+            <ConnectionList
+              key={connection._id}
+              connectionId={connection._id}
+              name={`${connection.fname} ${connection.lname}`}
+              subtitle={connection.location}
+              userPicturePath={connection.picturePath}
+            />
+          ))}
       </Box>
     </WidgetWrapper>
   );
 };
 
-export default FriendList;
+export default Connections;

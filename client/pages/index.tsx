@@ -1,7 +1,7 @@
-import FriendList from "@/components/widget/FriendList";
 import HomePageLayout from "@/layout/HomePageLayout";
 import { ReduxState } from "@/types/state.types";
 import { Box, useMediaQuery } from "@mui/material";
+import Connections from "@/components/Connections";
 import { ReactElement } from "react";
 import { useSelector } from "react-redux";
 
@@ -20,7 +20,7 @@ export default function Home() {
         justifyContent="space-between"
       >
         <Box>
-          <FriendList />
+          <Connections />
           <p>{user?._id}</p>
         </Box>
       </Box>
