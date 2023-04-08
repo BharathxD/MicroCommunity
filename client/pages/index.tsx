@@ -23,7 +23,7 @@ export default function Home() {
         justifyContent="space-between"
       >
         <Box>
-          <FriendList userId={user?._id} />
+          <FriendList />
           <p>{user?._id}</p>
         </Box>
       </Box>

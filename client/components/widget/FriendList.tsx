@@ -9,7 +9,7 @@ type Props = {
   userId: string | undefined;
 };
 
-const FriendList = ({ userId }: Props) => {
+const FriendList = () => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state: ReduxState) => state.token);
