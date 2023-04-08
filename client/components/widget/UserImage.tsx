@@ -6,6 +6,8 @@ type Props = {
   size?: number;
 };
 const UserImage = ({ image, size = 60 }: Props) => {
+  const baseUri = process.env.NEXT_PUBLIC_API_ENDPOINT;
+  const imageUri = `${baseUri}/public/${image}`;
   return (
     <Box width={size} height={size}>
       <Image
@@ -13,7 +15,7 @@ const UserImage = ({ image, size = 60 }: Props) => {
         width={size}
         height={size}
         alt="user"
-        src={`http://localhost:4000/public/${image}`}
+        src={imageUri}
       />
     </Box>
   );

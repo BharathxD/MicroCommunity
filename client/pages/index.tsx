@@ -1,15 +1,10 @@
 import HomePageLayout from "@/layout/HomePageLayout";
-import { ReduxState } from "@/types/state.types";
 import { Box, useMediaQuery } from "@mui/material";
 import Connections from "@/components/Connections";
 import { ReactElement } from "react";
-import { useSelector } from "react-redux";
 
 export default function Home() {
   const isNonMobileScreen = useMediaQuery("(min-width1000px)");
-  const user = useSelector((state: ReduxState) => {
-    return state.user;
-  });
   return (
     <Box>
       <Box
@@ -21,7 +16,6 @@ export default function Home() {
       >
         <Box>
           <Connections />
-          <p>{user?._id}</p>
         </Box>
       </Box>
     </Box>
