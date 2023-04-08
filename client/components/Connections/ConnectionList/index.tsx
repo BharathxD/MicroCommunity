@@ -23,10 +23,12 @@ const ConnectionList = ({
 }: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const token = useSelector((state: ReduxState) => state.token);
-  const connection = useSelector(
-    (state: ReduxState) => state.user?.connections
-  );
+  const { connection, token } = useSelector((state: ReduxState) => {
+    return {
+      connection: state.user?.connections,
+      token: state.token,
+    };
+  });
 
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
