@@ -1,65 +1,67 @@
+import React, { useState } from "react";
 import {
   FormControl,
   Select,
   MenuItem,
   Typography,
   InputBase,
+  Box,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { ReduxState } from "@/types/state.types";
+import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "@/state/auth";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/router";
+import { logoutUser } from "@/api";
+import { ReduxState } from "@/types/state.types";
 
-const NavbarForm = () => {
-  const user = useSelector((state: ReduxState) => state.user);
+const UserDropdown = () => {
+  const { fname, lname } = useSelector((state: ReduxState) => {
+    return {
+      fname: state.user?.fname,
+      lname: state.user?.lname,
+    };
+  });
+  const fullName = `${fname} ${lname}`;
   const dispatch = useDispatch();
   const router = useRouter();
   const theme = useTheme();
-  const neutralLight = theme.palette.neutral.light;
-  const fullName = `${user?.fname} ${user?.lname}`;
+
+  const styles = {
+    backgroundColor: theme.palette.neutral.light,
+    minWidth: "150px",
+    width: "max-content",
+    borderRadius: "0.25rem",
+    p: "0.25rem 1rem",
+    "& .MuiSvgIcon-root": {
+      pr: "0.25rem",
+      idth: "3rem",
+    },
+    "& .MuiSelect-select:focus": {
+      backgroundColor: theme.palette.neutral.light,
+    },
+  };
 
   const logoutHandler = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/auth/logout", {
-        method: "POST",
-      });
-      if (response.ok) {
-        await router.push("/auth");
-        dispatch(setLogout());
-      }
-    } catch (error: any) {
-      console.log(error);
+      dispatch(setLogout());
+      await Promise.allSettled([logoutUser(), router.push("/auth")]);
+    } catch (error) {
+      console.error(error);
     }
   };
+
   return (
-    <FormControl variant="standard">
-      <Select
-        value={fullName}
-        sx={{
-          backgroundColor: neutralLight,
-          minWidth: "150px",
-          width: "max-content",
-          borderRadius: "0.25rem",
-          p: "0.25rem 1rem",
-          "& .MuiSvgIcon-root": {
-            pr: "0.25rem",
-            idth: "3rem",
-          },
-          "& .MuiSelect-select:focus": {
-            backgroundColor: neutralLight,
-          },
-        }}
-        input={<InputBase />}
-      >
-        <MenuItem value={fullName}>
-          <Typography>{fullName}</Typography>
-        </MenuItem>
-        <MenuItem onClick={logoutHandler}>Log Out</MenuItem>
-      </Select>
-    </FormControl>
+    <Box sx={{ p: "1rem", m: "0.5rem 0" }}>
+      <FormControl variant="standard">
+        <Select value={fullName} sx={styles} input={<InputBase />}>
+          <MenuItem value={fullName}>
+            <Typography>{fullName}</Typography>
+          </MenuItem>
+          <MenuItem onClick={logoutHandler}>Log Out</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
   );
 };
 
-export default NavbarForm;
+export default UserDropdown;

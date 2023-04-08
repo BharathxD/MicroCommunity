@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios } from "axios";
 
 const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -15,5 +15,14 @@ export const loginUser = async (payload: {
   } catch (error: any) {
     console.log(error.message);
     return null;
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    const response = await axios.post(`${authBase}/logout`);
+    return response;
+  } catch (error: any) {
+    console.log(error);
   }
 };
