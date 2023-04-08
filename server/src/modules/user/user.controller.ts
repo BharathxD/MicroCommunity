@@ -120,6 +120,9 @@ export const connectionHandler = async (
   try {
     const { connectionId } = req.params;
     const userId = res.locals.user._id;
+    if (userId === connectionId) {
+      return res.status(StatusCodes.CONFLICT).send({ message: "Cannot add the connection to self" })
+    }
     const user = await findUserById(userId);
     const connection = await findUserById(connectionId);
     if (!connection || !user) {
