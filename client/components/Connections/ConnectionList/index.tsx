@@ -6,6 +6,7 @@ import { setConnections } from "@/state/auth";
 import FlexBetween from "../../UI/FlexBetween";
 import UserImage from "../../widget/UserImage";
 import { Connections, ReduxState } from "@/types/state.types";
+import { patchConnectionHandler } from "@/api";
 
 type Props = {
   connectionId: string;
@@ -37,19 +38,11 @@ const ConnectionList = ({
     (connection: Connections) => connection._id === connectionId
   );
 
-  const patchFriend = async () => {
-    const response = await fetch(
-      `http://localhost:4000/api/user/connections/${connectionId}`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    console.log(data);
+  const patchConnection = async () => {
+    if (!token) {
+      return;
+    }
+    const data = await patchConnectionHandler(connectionId, token);
     dispatch(setConnections({ connections: data }));
   };
 
@@ -81,7 +74,7 @@ const ConnectionList = ({
         </Box>
       </FlexBetween>
       <IconButton
-        onClick={() => patchFriend()}
+        onClick={() => patchConnection()}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
         {isConnection ? (

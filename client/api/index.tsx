@@ -42,6 +42,26 @@ export const logoutUser = async () => {
   }
 };
 
+export const patchConnectionHandler = async (
+  connectionId: string,
+  token: string
+) => {
+  try {
+    const response = await axios.patch(
+      `${userBase}/connections/${connectionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return await response.data;
+  } catch (error: any) {
+    console.log(error);
+  }
+};
+
 export const fetchUserConnections = async (token: string | null) => {
   try {
     if (!token) {
