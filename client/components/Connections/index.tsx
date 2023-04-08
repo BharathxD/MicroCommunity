@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import WidgetWrapper from "@/components/widget/WidgetWrapper";
-import { Children, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Connections, ReduxState } from "@/types/state.types";
 import { setConnections } from "@/state/auth";
@@ -35,7 +35,7 @@ const Connections = () => {
         fontWeight="500"
         sx={{ mb: "1.5rem" }}
       >
-        Friend List
+        Connections List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
         {user &&
