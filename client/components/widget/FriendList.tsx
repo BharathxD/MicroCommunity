@@ -2,34 +2,26 @@ import { Box, Typography, useTheme } from "@mui/material";
 import WidgetWrapper from "./WidgetWrapper";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ReduxState, User } from "@/types/state.types";
+import { ReduxState } from "@/types/state.types";
 import { setConnections } from "@/state/auth";
-
-type Props = {
-  userId: string | undefined;
-};
+import { fetchUserConnections } from "@/api";
 
 const FriendList = () => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state: ReduxState) => state.token);
-  const connections = useSelector(
-    (state: ReduxState) => state.user?.connections
-  );
-  const getConnections = async () => {
-    const response = await fetch(`http://localhost:4000/api/user/connections`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    dispatch(setConnections({ friends: data }));
-  };
+
   useEffect(() => {
+    const getConnections = async () => {
+      try {
+        const data = await fetchUserConnections(token);
+        dispatch(setConnections({ connections: data }));
+      } catch (error) {
+        console.error(error);
+      }
+    };
     getConnections();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch, token]);
 
   return (
     <WidgetWrapper>

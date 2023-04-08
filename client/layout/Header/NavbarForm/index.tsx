@@ -43,8 +43,8 @@ const UserDropdown = () => {
 
   const logoutHandler = async () => {
     try {
-      dispatch(setLogout());
       await Promise.allSettled([logoutUser(), router.push("/auth")]);
+      dispatch(setLogout());
     } catch (error) {
       console.error(error);
     }

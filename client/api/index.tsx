@@ -27,8 +27,37 @@ export const logoutUser = async () => {
   }
 };
 
-export const fetchUserData = async (_id: string, token: string) => {
+export const fetchUserConnections = async (token: string | null) => {
   try {
+    if (!token) {
+      return null;
+    }
+    const response = await axios.get(
+      `http://localhost:4000/api/user/connections`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.status === 404) {
+      return null;
+    }
+    return response.data;
+  } catch (error: any) {
+    console.log("No Users Found");
+  }
+};
+
+export const fetchUserData = async (
+  _id: string | undefined,
+  token: string | null
+) => {
+  try {
+    if (!_id || !token) {
+      return null;
+    }
     const response = await axios.get(`${userBase}/search/${_id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

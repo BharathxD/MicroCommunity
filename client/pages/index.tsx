@@ -1,8 +1,5 @@
-import Connections from "@/components/widget/Connections";
 import FriendList from "@/components/widget/FriendList";
-import UserImage from "@/components/widget/UserImage";
 import HomePageLayout from "@/layout/HomePageLayout";
-import styles from "@/styles/Home.module.css";
 import { ReduxState } from "@/types/state.types";
 import { Box, useMediaQuery } from "@mui/material";
 import { ReactElement } from "react";

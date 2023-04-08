@@ -90,7 +90,7 @@ export const getUserConnectionsHandler = async (_: Request, res: Response) => {
 
     if (!connections || connections.length === 0) {
       return res
-        .status(StatusCodes.NOT_FOUND)
+        .status(StatusCodes.OK)
         .json({ message: "No connections Found" });
     }
 

@@ -26,9 +26,6 @@ const HomePageLayout: React.FC<Props> = ({
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (!_id || !token) {
-        return;
-      }
       const data = await fetchUserData(_id, token);
       dispatch(setUser(data));
     };
