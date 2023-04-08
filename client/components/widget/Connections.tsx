@@ -11,13 +11,12 @@ type Props = {
   userPicturePath: string;
 };
 
-// {connectionId,
-//   name,
-//   subtitle,
-//   userPicturePath,
-// }: Props
-
-const Conenctions = () => {
+const Conenctions = ({
+  connectionId,
+  name,
+  subtitle,
+  userPicturePath,
+}: Props) => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const { _id, token, connections } = useSelector((state: ReduxState) => {
@@ -33,9 +32,13 @@ const Conenctions = () => {
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
-  // const isConnection = connections?.find(
-  //   (connection) => connection === connectionId
-  // );
+  console.log("CONNECTIONS: ", connections);
+
+  const isConnection = connections?.find(
+    (connection) => connection === connectionId
+  );
+
+  console.log("ISCONNECTION: ", isConnection);
 
   return (
     <>

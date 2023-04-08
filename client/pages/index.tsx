@@ -1,4 +1,5 @@
-import Conenctions from "@/components/widget/Connections";
+import Connections from "@/components/widget/Connections";
+import FriendList from "@/components/widget/FriendList";
 import UserImage from "@/components/widget/UserImage";
 import HomePageLayout from "@/layout/HomePageLayout";
 import styles from "@/styles/Home.module.css";
@@ -9,8 +10,8 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   const isNonMobileScreen = useMediaQuery("(min-width1000px)");
-  const { _id, picturePath } = useSelector((state: ReduxState) => {
-    return { _id: state.user?._id, picturePath: state.user?.picturePath };
+  const user = useSelector((state: ReduxState) => {
+    return state.user;
   });
   return (
     <Box>
@@ -22,7 +23,7 @@ export default function Home() {
         justifyContent="space-between"
       >
         <Box>
-          <Conenctions />
+          <FriendList userId={user?._id} />
         </Box>
       </Box>
     </Box>

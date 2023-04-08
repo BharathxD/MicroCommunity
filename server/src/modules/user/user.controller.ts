@@ -137,7 +137,7 @@ export const connectionHandler = async (
       connection.connections?.push(userId);
     }
     Promise.all([await user.save(), await connection.save()]);
-    res.status(StatusCodes.OK).send({ message: "Ok" });
+    res.status(StatusCodes.OK).send({ message: "Connection Added" });
   } catch (error: any) {
     logger.error(`Something went wrong: ${error.message}`);
   }

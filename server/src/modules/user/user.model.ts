@@ -1,5 +1,5 @@
 import { getModelForClass, prop, pre } from "@typegoose/typegoose";
-import argon2 from "argon2";
+import argon2, { argon2d, argon2i, argon2id } from "argon2";
 
 @pre<User>("save", async function (this, next) {
   if (!this.isModified("password") || this.isNew) {
@@ -30,7 +30,8 @@ export class User {
   @prop({ type: Number })
   public impressions?: number;
   public async comparePassword(password: string): Promise<boolean> {
-    return argon2.verify(this.password, password);
+    const isValid = await argon2.verify(this.password, password);
+    return isValid;
   }
 }
 

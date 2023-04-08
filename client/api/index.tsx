@@ -17,15 +17,3 @@ export const loginUser = async (payload: {
     return null;
   }
 };
-
-export const registerUser = async (payload: FormData) => {
-  try {
-    const response = await axios.post(userBase, payload);
-    const data = await response.data;
-    return data;
-  } catch (error: any) {
-    console.log(error.message);
-  }
-};
-
-const getUser = () => {};
