@@ -39,7 +39,6 @@ const HomePageLayout: React.FC<Props> = ({
         }
       );
       const data = await response.json();
-      console.log(data);
       dispatch(setUser(data));
     };
     fetchUser();

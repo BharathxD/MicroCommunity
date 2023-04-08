@@ -16,19 +16,19 @@ const FriendList = ({ userId }: Props) => {
   const connections = useSelector(
     (state: ReduxState) => state.user?.connections
   );
-  const getFriends = async () => {
-    const response = await fetch(
-      `http://localhost:4000/users/${userId}/friends`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+  const getConnections = async () => {
+    const response = await fetch(`http://localhost:4000/api/user/connections`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
     dispatch(setConnections({ friends: data }));
   };
   useEffect(() => {
-    getFriends();
+    getConnections();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -42,9 +42,7 @@ const FriendList = ({ userId }: Props) => {
         Friend List
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        {connections?.map((connection: string) => (
-          <p key={connection}>{connection}</p>
-        ))}
+        TODO: Display Connections
       </Box>
     </WidgetWrapper>
   );

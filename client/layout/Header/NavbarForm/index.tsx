@@ -11,7 +11,6 @@ import { ReduxState } from "@/types/state.types";
 import { setLogout } from "@/state/auth";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/router";
-import UserImage from "@/components/widget/UserImage";
 
 const NavbarForm = () => {
   const user = useSelector((state: ReduxState) => state.user);
@@ -20,13 +19,14 @@ const NavbarForm = () => {
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const fullName = `${user?.fname} ${user?.lname}`;
+
   const logoutHandler = async () => {
     try {
       const response = await fetch("http://localhost:4000/api/auth/logout", {
         method: "POST",
       });
       if (response.ok) {
-        router.push("/auth");
+        await router.push("/auth");
         dispatch(setLogout());
       }
     } catch (error: any) {
