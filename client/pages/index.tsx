@@ -24,6 +24,7 @@ export default function Home() {
       >
         <Box>
           <FriendList userId={user?._id} />
+          <p>{user?._id}</p>
         </Box>
       </Box>
     </Box>

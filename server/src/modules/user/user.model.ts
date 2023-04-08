@@ -2,12 +2,15 @@ import { getModelForClass, prop, pre } from "@typegoose/typegoose";
 import argon2, { argon2d, argon2i, argon2id } from "argon2";
 
 @pre<User>("save", async function (this, next) {
-  if (!this.isModified("password") || this.isNew) {
+  if (this.isModified("password")) {
+    // We don't need to salt, as argon will handle it
     const hash = await argon2.hash(this.password);
     this.password = hash;
-    return next();
   }
+  return next();
 })
+
+
 export class User {
   @prop({ required: true, type: String })
   public fname!: string;
