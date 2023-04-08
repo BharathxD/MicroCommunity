@@ -7,6 +7,7 @@ import { themeSettings } from "@/themes/theme";
 
 import Header from "./Header";
 import { setUser } from "@/state/auth";
+import { fetchUserData } from "@/api";
 
 interface Props {
   children: React.ReactNode;
@@ -28,17 +29,7 @@ const HomePageLayout: React.FC<Props> = ({
       if (!_id || !token) {
         return;
       }
-      const response = await fetch(
-        `http://localhost:4000/api/user/search/${_id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
+      const data = await fetchUserData(_id, token);
       dispatch(setUser(data));
     };
     fetchUser();

@@ -26,3 +26,20 @@ export const logoutUser = async () => {
     console.log(error);
   }
 };
+
+export const fetchUserData = async (_id: string, token: string) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:4000/api/user/search/${_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error("Cannot find the user");
+  }
+};
