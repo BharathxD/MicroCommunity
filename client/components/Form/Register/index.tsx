@@ -1,4 +1,9 @@
-import { useMediaQuery, Box, TextField, Alert } from "@mui/material";
+import {
+  useMediaQuery,
+  Box,
+  TextField,
+  Alert,
+} from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
 import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 import { FormLink } from "../components/FormLink";
@@ -10,6 +15,7 @@ import { setLogin } from "@/state/auth";
 import { useRouter } from "next/router";
 import { registerUser } from "@/api";
 import { useState } from "react";
+import CircularIndeterminate from "@/components/UI/LoadingScreen";
 
 type Props = {
   onPageChange: (newPage: "login" | "register") => void;
@@ -82,130 +88,134 @@ export const RegisterForm = ({ onPageChange }: Props) => {
   };
 
   return (
-    <Formik
-      onSubmit={handleFormSubmit}
-      // @ts-ignore
-      initialValues={initialValuesRegister}
-      validationSchema={registerSchema}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        setFieldValue,
-        resetForm,
-      }) => (
-        <form onSubmit={handleSubmit}>
-          <FormWrapper>
-            <TextField
-              label="First Name"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.fname}
-              name="fname"
-              error={Boolean(touched.fname) && Boolean(errors.fname)}
-              helperText={touched.fname && errors.fname}
-              sx={{ gridColumn: "span 2" }}
-            />
-            <TextField
-              label="Last Name"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.lname}
-              name="lname"
-              error={Boolean(touched.lname) && Boolean(errors.lname)}
-              helperText={touched.lname && errors.lname}
-              sx={{ gridColumn: "span 2" }}
-            />
-            <TextField
-              label="Location"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.location}
-              name="location"
-              error={Boolean(touched.location) && Boolean(errors.location)}
-              helperText={touched.location && errors.location}
-              sx={{ gridColumn: "span 4" }}
-            />
-            <TextField
-              label="Occupation"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.occupation}
-              name="occupation"
-              error={Boolean(touched.occupation) && Boolean(errors.occupation)}
-              helperText={touched.occupation && errors.occupation}
-              sx={{ gridColumn: "span 4" }}
-            />
-            <DropzoneComponent
-              setFieldValue={setFieldValue}
-              pictureName={values.picture.name}
-            />
-            <TextField
-              label="Email"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.email}
-              name="email"
-              error={Boolean(touched.email) && Boolean(errors.email)}
-              helperText={touched.email && errors.email}
-              sx={{ gridColumn: "span 4" }}
-            />
-            <Box
-              width="100%"
-              display="flex"
-              gap="15px"
-              flexDirection={isNonMobile ? "row" : "column"}
-            >
+    <>
+      <Formik
+        onSubmit={handleFormSubmit}
+        // @ts-ignore
+        initialValues={initialValuesRegister}
+        validationSchema={registerSchema}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          setFieldValue,
+          resetForm,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <FormWrapper>
               <TextField
-                label="Password"
-                type="password"
-                fullWidth
+                label="First Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.password}
-                name="password"
-                error={Boolean(touched.password) && Boolean(errors.password)}
-                helperText={touched.password && errors.password}
+                value={values.fname}
+                name="fname"
+                error={Boolean(touched.fname) && Boolean(errors.fname)}
+                helperText={touched.fname && errors.fname}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                label="Last Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.lname}
+                name="lname"
+                error={Boolean(touched.lname) && Boolean(errors.lname)}
+                helperText={touched.lname && errors.lname}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                label="Location"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.location}
+                name="location"
+                error={Boolean(touched.location) && Boolean(errors.location)}
+                helperText={touched.location && errors.location}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
-                label="Confirm Password"
-                type="password"
-                fullWidth
+                label="Occupation"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.confirmPassword}
-                name="confirmPassword"
+                value={values.occupation}
+                name="occupation"
                 error={
-                  Boolean(touched.confirmPassword) &&
-                  Boolean(errors.confirmPassword)
+                  Boolean(touched.occupation) && Boolean(errors.occupation)
                 }
-                helperText={touched.confirmPassword && errors.confirmPassword}
+                helperText={touched.occupation && errors.occupation}
                 sx={{ gridColumn: "span 4" }}
               />
-            </Box>
-            {isError && (
-              <Alert severity="error">
-                This is an error alert — check it out!
-              </Alert>
-            )}
-            <Box>
-              <FormButton>Register</FormButton>
-              <FormLink
-                onPageChange={onPageChange}
-                resetForm={resetForm}
-                pageType="login"
+              <DropzoneComponent
+                setFieldValue={setFieldValue}
+                pictureName={values.picture.name}
+              />
+              <TextField
+                label="Email"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
+                name="email"
+                error={Boolean(touched.email) && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <Box
+                width="100%"
+                display="flex"
+                gap="15px"
+                flexDirection={isNonMobile ? "row" : "column"}
               >
-                Dont have an account? Sign Up here.
-              </FormLink>
-            </Box>
-          </FormWrapper>
-        </form>
-      )}
-    </Formik>
+                <TextField
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.password}
+                  name="password"
+                  error={Boolean(touched.password) && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
+                  sx={{ gridColumn: "span 4" }}
+                />
+                <TextField
+                  label="Confirm Password"
+                  type="password"
+                  fullWidth
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.confirmPassword}
+                  name="confirmPassword"
+                  error={
+                    Boolean(touched.confirmPassword) &&
+                    Boolean(errors.confirmPassword)
+                  }
+                  helperText={touched.confirmPassword && errors.confirmPassword}
+                  sx={{ gridColumn: "span 4" }}
+                />
+              </Box>
+              {isError && (
+                <Alert severity="error">
+                  This is an error alert — check it out!
+                </Alert>
+              )}
+              <Box>
+                <FormButton>Register</FormButton>
+                <FormLink
+                  onPageChange={onPageChange}
+                  resetForm={resetForm}
+                  pageType="login"
+                >
+                  Already have an account? Sign In here.
+                </FormLink>
+              </Box>
+            </FormWrapper>
+          </form>
+        )}
+      </Formik>
+    </>
   );
 };
