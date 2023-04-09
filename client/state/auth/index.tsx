@@ -29,8 +29,6 @@ export const authSlice = createSlice({
     setConnections: (state, action) => {
       if (state.user) {
         state.user.connections = action.payload.connections;
-      } else {
-        console.log("User connection not exists");
       }
     },
     setPosts: (state, action) => {

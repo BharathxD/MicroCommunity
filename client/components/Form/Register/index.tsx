@@ -1,4 +1,4 @@
-import { useMediaQuery, Box, TextField } from "@mui/material";
+import { useMediaQuery, Box, TextField, Alert } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
 import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 import { FormLink } from "../components/FormLink";
@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "@/state/auth";
 import { useRouter } from "next/router";
 import { registerUser } from "@/api";
+import { useState } from "react";
 
 type Props = {
   onPageChange: (newPage: "login" | "register") => void;
@@ -18,6 +19,7 @@ export const RegisterForm = ({ onPageChange }: Props) => {
   const isNonMobile = useMediaQuery("(min-width:1000px)");
   const router = useRouter();
   const dispatch = useDispatch();
+  const [isError, setError] = useState<boolean>(false);
   const initialValuesRegister = {
     fname: "",
     lname: "",
@@ -60,6 +62,7 @@ export const RegisterForm = ({ onPageChange }: Props) => {
         dispatch(setLogin({ user, token }));
         router.push("/");
       } else {
+        setError(true);
         throw new Error("Failed to register user.");
       }
     } catch (error) {
@@ -185,6 +188,11 @@ export const RegisterForm = ({ onPageChange }: Props) => {
                 sx={{ gridColumn: "span 4" }}
               />
             </Box>
+            {isError && (
+              <Alert severity="error">
+                This is an error alert — check it out!
+              </Alert>
+            )}
             <Box>
               <FormButton>Register</FormButton>
               <FormLink

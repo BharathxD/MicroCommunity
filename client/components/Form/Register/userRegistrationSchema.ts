@@ -13,12 +13,15 @@ export interface RegisterValues {
 
 export const registerSchema = yup
   .object<RegisterValues>({
-    fname: yup.string().required("required"),
-    lname: yup.string().required("required"),
-    email: yup.string().email("invalid email").required("required"),
-    password: yup.string().required("required"),
-    location: yup.string().required("required"),
-    occupation: yup.string().required("required"),
+    fname: yup.string().required("Enter a valid First Name"),
+    lname: yup.string().required("Enter a valid Last Name"),
+    email: yup.string().email("Enter a valid Email").required("required"),
+    password: yup.string().required('Please enter a password'),
+    confirmPassword: yup.string()
+      .oneOf([yup.ref('password')], 'Passwords must match')
+      .required('Please confirm your password'),
+    location: yup.string().required("Please enter the Location"),
+    occupation: yup.string().required("Enter a valid occupation"),
     picture: yup.mixed(),
   })
   .defined();

@@ -38,8 +38,6 @@ const ConnectionList = ({
     (connection: Connections) => connection._id === connectionId
   );
 
-  console.log(isConnection);
-
   const patchConnection = async () => {
     if (!token) {
       return;
