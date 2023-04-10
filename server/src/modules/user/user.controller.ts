@@ -22,6 +22,7 @@ export const registerUserHandler = async (
       password,
       picturePath,
       connections,
+      occupation,
       location,
     } = req.body;
     const createdUser = await createUser({
@@ -31,6 +32,7 @@ export const registerUserHandler = async (
       password,
       picturePath: picturePath,
       connections,
+      occupation,
       location,
       viewedProfile: Math.floor(Math.random() * 10000),
       impressions: Math.floor(Math.random() * 10000),

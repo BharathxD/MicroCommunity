@@ -4,19 +4,12 @@ const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const userBase = `${base}/api/user`;
 
-export const getUser = async (
-  userId: string | undefined,
-  token: string | null
-) => {
+export const getUser = async (userId: string) => {
   try {
-    if (!userId || !token) {
+    if (!userId) {
       return;
     }
-    const response = await axios.get(`${userBase}/search/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(`${userBase}/search/${userId}`);
     return response.data;
   } catch (error: any) {
     console.log(error.message);
