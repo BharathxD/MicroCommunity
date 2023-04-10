@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "@/state/auth";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/router";
-import { logoutUser } from "@/api";
+import { logoutUser } from "@/api/user.api";
 import { ReduxState } from "@/types/state.types";
 
 const UserDropdown = () => {

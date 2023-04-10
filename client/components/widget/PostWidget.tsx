@@ -1,4 +1,4 @@
-import { patchLike } from "@/api";
+import { patchLike } from "@/api/post.api";
 import { setPost } from "@/state/auth";
 import { ReduxState } from "@/types/state.types";
 import {

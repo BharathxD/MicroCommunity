@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ReduxState, User } from "@/types/state.types";
-import { getUser } from "@/api";
+import { getUser } from "@/api/user.api";
 
 const UserWidget = () => {
   const userId = useSelector((state: ReduxState) => {

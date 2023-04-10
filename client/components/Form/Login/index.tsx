@@ -1,4 +1,4 @@
-import { loginUser } from "@/api";
+import { loginUser } from "@/api/user.api";
 import { setLogin } from "@/state/auth";
 import { Alert, Box, TextField } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";

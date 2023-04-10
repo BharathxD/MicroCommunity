@@ -2,46 +2,7 @@ import axios from "axios";
 
 const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-const authBase = `${base}/api/auth`;
 const userBase = `${base}/api/user`;
-const postBase = `${base}/api/post`;
-
-export const registerUser = async (formData: FormData) => {
-  try {
-    const response = await axios.post(userBase, formData, {
-      withCredentials: true,
-      headers: { "Content-Type": "application/form-data" },
-    });
-    if (response.status !== 201) {
-      return null;
-    }
-    return response.data;
-  } catch (error: any) {
-    console.log(error.message);
-  }
-};
-
-export const loginUser = async (payload: {
-  email: string;
-  password: string;
-}) => {
-  try {
-    const response = await axios.post(`${authBase}/login`, payload);
-    return response;
-  } catch (error: any) {
-    console.log(error.message);
-    return null;
-  }
-};
-
-export const logoutUser = async () => {
-  try {
-    const response = await axios.post(`${authBase}/logout`);
-    return response;
-  } catch (error: any) {
-    console.log(error);
-  }
-};
 
 export const getUser = async (
   userId: string | undefined,
@@ -79,20 +40,6 @@ export const patchConnectionHandler = async (
     return await response.data;
   } catch (error: any) {
     console.log(error);
-  }
-};
-
-export const patchLike = async (postId: string, token: string) => {
-  try {
-    const response = await axios.patch(`${postBase}/like/${postId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-    return response;
-  } catch (error: any) {
-    console.log(error.message);
   }
 };
 

@@ -13,7 +13,7 @@ import FormWrapper from "@/components/UI/FormWrapper";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/state/auth";
 import { useRouter } from "next/router";
-import { registerUser } from "@/api";
+import { registerUser } from "@/api/user.api";
 import { useState } from "react";
 import CircularIndeterminate from "@/components/UI/LoadingScreen";
 

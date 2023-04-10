@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Connections, ReduxState } from "@/types/state.types";
 import { setConnections } from "@/state/auth";
-import { fetchUserConnections } from "@/api";
+import { fetchUserConnections } from "@/api/user.api";
 import ConnectionList from "./ConnectionList";
 
 const Connections = () => {

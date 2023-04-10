@@ -7,7 +7,7 @@ import { themeSettings } from "@/themes/theme";
 
 import Header from "./Header";
 import { setUser } from "@/state/auth";
-import { fetchUserData } from "@/api";
+import { fetchUserData } from "@/api/user.api";
 
 interface Props {
   children: React.ReactNode;
