@@ -1,9 +1,19 @@
 import { patchLike } from "@/api";
 import { setPost } from "@/state/auth";
 import { ReduxState } from "@/types/state.types";
-import { useTheme } from "@mui/material";
+import {
+  FavoriteOutlined,
+  FavoriteBorderOutlined,
+  ChatBubbleOutlineOutlined,
+  ShareOutlined,
+} from "@mui/icons-material";
+import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import FlexBetween from "../UI/FlexBetween";
+import WidgetWrapper from "./WidgetWrapper";
+import Image from "next/image";
+import ConnectionList from "../Connections/ConnectionList";
 
 type Props = {
   postId: string;
@@ -14,7 +24,7 @@ type Props = {
   location: string;
   picturePath: string;
   userPicturePath: string;
-  comments: string;
+  comments: [string];
 };
 
 const PostWidget = ({
@@ -54,8 +64,66 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
-  return <>
-  </>;
+  return (
+    <WidgetWrapper m="2rem 0">
+      <ConnectionList
+        connectionId={postUserId}
+        name={name}
+        subtitle={location}
+        userPicturePath={userPicturePath}
+      />
+      <Typography color={main} sx={{ mt: "1rem" }}>
+        {description}
+      </Typography>
+      {picturePath && (
+        <Image
+          width={100}
+          height={100}
+          alt="post"
+          style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+          src={`http://localhost:3001/assets/${picturePath}`}
+        />
+      )}
+      <FlexBetween mt="0.25rem">
+        <FlexBetween gap="1rem">
+          <FlexBetween gap="0.3rem">
+            <IconButton onClick={patchLikeHandler}>
+              {isLiked ? (
+                <FavoriteOutlined sx={{ color: primary }} />
+              ) : (
+                <FavoriteBorderOutlined />
+              )}
+            </IconButton>
+            <Typography>{likeCount}</Typography>
+          </FlexBetween>
+
+          <FlexBetween gap="0.3rem">
+            <IconButton onClick={() => setHasComments(!hasComments)}>
+              <ChatBubbleOutlineOutlined />
+            </IconButton>
+            <Typography>{comments.length}</Typography>
+          </FlexBetween>
+        </FlexBetween>
+
+        <IconButton>
+          <ShareOutlined />
+        </IconButton>
+      </FlexBetween>
+      {hasComments && (
+        <Box mt="0.5rem">
+          {comments.map((comment, i) => (
+            <Box key={`${name}-${i}`}>
+              <Divider />
+              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+                {comment}
+              </Typography>
+            </Box>
+          ))}
+          <Divider />
+        </Box>
+      )}
+    </WidgetWrapper>
+  );
 };
 
 export default PostWidget;
