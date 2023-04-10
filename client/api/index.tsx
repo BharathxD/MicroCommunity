@@ -42,6 +42,19 @@ export const logoutUser = async () => {
   }
 };
 
+export const getUser = async (token: string) => {
+  try {
+    const response = await axios.get(userBase, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.log(error.message);
+  }
+};
+
 export const patchConnectionHandler = async (
   connectionId: string,
   token: string
