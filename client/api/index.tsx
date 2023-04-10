@@ -42,7 +42,7 @@ export const logoutUser = async () => {
   }
 };
 
-export const getUser = async (token: string) => {
+export const getUser = async (token: string | null) => {
   try {
     const response = await axios.get(userBase, {
       headers: {
