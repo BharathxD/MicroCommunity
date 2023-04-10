@@ -42,8 +42,14 @@ export const logoutUser = async () => {
   }
 };
 
-export const getUser = async (userId: string, token: string) => {
+export const getUser = async (
+  userId: string | undefined,
+  token: string | null
+) => {
   try {
+    if (!userId || !token) {
+      return;
+    }
     const response = await axios.get(`${userBase}/search/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
