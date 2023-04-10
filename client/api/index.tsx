@@ -42,9 +42,9 @@ export const logoutUser = async () => {
   }
 };
 
-export const getUser = async (token: string | null) => {
+export const getUser = async (userId: string, token: string) => {
   try {
-    const response = await axios.get(userBase, {
+    const response = await axios.get(`${userBase}/search/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

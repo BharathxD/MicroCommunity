@@ -3,6 +3,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import Connections from "@/components/Connections";
 import { ReactElement } from "react";
 import AdvertWidget from "@/components/widget/AdvertWidget";
+import UserWidget from "@/components/widget/UserWidget";
 
 export default function Home() {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -15,7 +16,9 @@ export default function Home() {
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <Box flexBasis={isNonMobileScreen ? "26%" : undefined}></Box>
+        <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
+          <UserWidget />
+        </Box>
         <Box
           flexBasis={isNonMobileScreen ? "42%" : undefined}
           mt={isNonMobileScreen ? undefined : "2rem"}

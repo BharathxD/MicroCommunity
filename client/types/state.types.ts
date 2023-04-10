@@ -13,6 +13,7 @@ export type User = {
   email: string;
   password: string;
   picturePath: string;
+  location: string;
   connections: Connections[] | [],
   occupation: string;
   viewedProfile: number;
