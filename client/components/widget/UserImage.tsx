@@ -5,6 +5,7 @@ type Props = {
   image: string | undefined;
   size?: number;
 };
+
 const UserImage = ({ image, size = 60 }: Props) => {
   const baseUri = process.env.NEXT_PUBLIC_API_ENDPOINT;
   const imageUri = `${baseUri}/public/${image}`;
@@ -14,7 +15,7 @@ const UserImage = ({ image, size = 60 }: Props) => {
         style={{ objectFit: "cover", borderRadius: "50%" }}
         width={size}
         height={size}
-        alt="user"
+        alt="User Profile"
         src={imageUri}
       />
     </Box>

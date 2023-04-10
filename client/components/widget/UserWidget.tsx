@@ -49,7 +49,6 @@ const UserWidget = () => {
     impressions,
     connections,
   } = user;
-  console.log(occupation);
   return (
     <WidgetWrapper>
       <FlexBetween
