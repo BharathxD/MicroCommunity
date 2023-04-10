@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 
-const requireUser = (req: Request, res: Response, next: NextFunction) => {
+const requireUser = async (req: Request, res: Response, next: NextFunction) => {
   const user = res.locals.user;
-  console.log("REQUIRE USER: ", user)
   if (!user) {
-    res.status(StatusCodes.FORBIDDEN).send({ message: "Unauthorized" });
+    return res.status(StatusCodes.FORBIDDEN).send({ message: "This action requires Authentication" });
   }
   return next();
 };

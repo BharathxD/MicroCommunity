@@ -24,11 +24,12 @@ export const loginUserHandler = async (
     res.cookie("accessToken", token, {
       maxAge: 3.154e10, //? 1 Year
       httpOnly: true,
-      domain: "localhost", //? Development Environment
+      domain: "localhost", //? Dev Environment
       path: "/",
       sameSite: "strict",
-      secure: false, //? Development Environment
+      secure: false, //? Dev Environment
     });
+    // TODO: RESPOND
     return res.status(StatusCodes.OK).send({ user, token });
   } catch (error: any) {
     logger.error(error);

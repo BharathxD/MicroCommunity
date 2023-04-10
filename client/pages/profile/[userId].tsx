@@ -1,27 +1,27 @@
-import { getUser } from "@/api/user.api";
-import { ReduxState, User } from "@/types/state.types";
+import { fetchUserData } from "@/api/user.api";
+import { User } from "@/types/state.types";
 import { NextPageContext } from "next";
-import { useRouter } from "next/router";
 
 type Props = {
+  userId: string;
   user: User;
 };
 
-const ProfilePage = ({ user }: Props) => {
-  const { query } = useRouter();
-  console.log(user);
+const ProfilePage = ({ userId, user }: Props) => {
   return (
     <div>
-      <p>{query.userId}</p>
+      <p>{userId}</p>
+      <p>{user?._id || "Undefined by the Server"}</p>
     </div>
   );
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const userId = context.query.userId as string;
-  const user = await getUser(userId);
+  const user = await fetchUserData(userId);
   return {
     props: {
+      userId: userId,
       user: user || null,
     },
   };

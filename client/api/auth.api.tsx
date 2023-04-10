@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
 const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -26,7 +25,9 @@ export const loginUser = async (payload: {
   password: string;
 }) => {
   try {
-    const response = await axios.post(`${authBase}/login`, payload);
+    const response = await axios.post(`${authBase}/login`, payload, {
+      withCredentials: true,
+    });
     return response;
   } catch (error: any) {
     console.log(error.message);
@@ -37,7 +38,6 @@ export const loginUser = async (payload: {
 export const logoutUser = async () => {
   try {
     const response = await axios.post(`${authBase}/logout`);
-    Cookies.remove("accessToken", { path: "*" });
     return response;
   } catch (error: any) {
     console.log(error);

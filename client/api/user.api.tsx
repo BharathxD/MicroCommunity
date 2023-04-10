@@ -4,18 +4,6 @@ const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const userBase = `${base}/api/user`;
 
-export const getUser = async (userId: string) => {
-  try {
-    if (!userId) {
-      return;
-    }
-    const response = await axios.get(`${userBase}/search/${userId}`);
-    return response.data;
-  } catch (error: any) {
-    console.log(error.message);
-  }
-};
-
 export const patchConnectionHandler = async (
   connectionId: string,
   token: string
@@ -24,6 +12,7 @@ export const patchConnectionHandler = async (
     const response = await axios.patch(
       `${userBase}/connections/${connectionId}`,
       {
+        withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -42,8 +31,8 @@ export const fetchUserConnections = async (token: string | null) => {
       return null;
     }
     const response = await axios.get(`${userBase}/connections`, {
+      withCredentials: true,
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -54,17 +43,14 @@ export const fetchUserConnections = async (token: string | null) => {
   } catch (error: any) {}
 };
 
-export const fetchUserData = async (
-  _id: string | undefined,
-  token: string | null
-) => {
+export const fetchUserData = async (_id: string | undefined) => {
   try {
-    if (!_id || !token) {
+    if (!_id) {
       return null;
     }
     const response = await axios.get(`${userBase}/search/${_id}`, {
+      withCredentials: true,
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });

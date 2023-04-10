@@ -8,17 +8,16 @@ import cors from "cors";
 
 export const configureApp = (app: Express) => {
   app.use(cookieParser());
-  app.use(express.json({ limit: "30mb" }));
-  app.use(express.urlencoded({ limit: "30mb", extended: true }));
-  app.use(helmet());
+  app.use(express.json());
   app.use(
     cors({
       origin: process.env.CORS_ORIGIN,
       credentials: true,
+      methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
     })
   );
   app.use(helmet());
+  app.use(deserializeUser);
   const publicPath = path.join(__dirname, "..", "..", "public/assets");
   app.use("/public", express.static(publicPath));
-  app.use(deserializeUser);
 };

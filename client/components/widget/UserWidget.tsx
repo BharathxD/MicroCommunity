@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ReduxState, User } from "@/types/state.types";
-import { getUser } from "@/api/user.api";
+import { fetchUserData } from "@/api/user.api";
 
 const UserWidget = () => {
   const userId = useSelector((state: ReduxState) => {
@@ -32,7 +32,10 @@ const UserWidget = () => {
   const main = palette.neutral.main;
   useEffect(() => {
     const getUserHandler = async () => {
-      const userData = await getUser(userId, token);
+      if (!userId && !token) {
+        return;
+      }
+      const userData = await fetchUserData(userId);
       setUser(userData);
     };
     getUserHandler();
