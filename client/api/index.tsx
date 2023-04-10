@@ -4,6 +4,7 @@ const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const authBase = `${base}/api/auth`;
 const userBase = `${base}/api/user`;
+const postBase = `${base}/api/post`;
 
 export const registerUser = async (formData: FormData) => {
   try {
@@ -78,6 +79,20 @@ export const patchConnectionHandler = async (
     return await response.data;
   } catch (error: any) {
     console.log(error);
+  }
+};
+
+export const patchLike = async (postId: string, token: string) => {
+  try {
+    const response = await axios.patch(`${postBase}/like/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (error: any) {
+    console.log(error.message);
   }
 };
 
