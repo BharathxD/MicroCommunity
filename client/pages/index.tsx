@@ -1,32 +1,38 @@
-import HomePageLayout from "@/layout/HomePageLayout";
 import { Box, useMediaQuery } from "@mui/material";
-import Connections from "@/components/Connections";
 import { ReactElement } from "react";
+import Connections from "@/components/Connections";
 import AdvertWidget from "@/components/widget/AdvertWidget";
 import UserWidget from "@/components/widget/UserWidget";
+import HomePageLayout from "@/layout/HomePageLayout";
 
-export default function Home() {
+export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
+
   return (
-    <Box>
+    <Box sx={{ padding: "2rem 6%" }}>
       <Box
-        width="100%"
-        padding="2rem 6%"
-        display={isNonMobileScreen ? "flex" : "block"}
-        gap="0.5rem"
-        justifyContent="space-between"
+        sx={{
+          display: "flex",
+          gap: "0.5rem",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+        }}
       >
-        <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
+        <Box sx={{ flexBasis: isNonMobileScreen ? "26%" : "100%" }}>
           <UserWidget />
         </Box>
         <Box
-          flexBasis={isNonMobileScreen ? "42%" : undefined}
-          mt={isNonMobileScreen ? undefined : "2rem"}
-        ></Box>
+          sx={{
+            flexBasis: isNonMobileScreen ? "42%" : "100%",
+            mt: isNonMobileScreen ? 0 : "2rem",
+          }}
+        >
+          {/* Placeholder for the main content */}
+        </Box>
         {isNonMobileScreen && (
-          <Box flexBasis="26%">
+          <Box sx={{ flexBasis: "26%" }}>
             <Connections />
-            <Box m="2rem 0" />
+            <Box sx={{ m: "2rem 0" }} />
             <AdvertWidget />
           </Box>
         )}
