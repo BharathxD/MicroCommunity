@@ -1,12 +1,12 @@
-export type Connections = {
-  _id: string,
-  fname: string,
-  lname: string,
-  location: string,
+export interface Connections {
+  _id: string;
+  fname: string;
+  lname: string;
+  location: string;
   picturePath: string;
 }
 
-export type User = {
+export interface User {
   _id: string;
   fname: string;
   lname: string;
@@ -14,15 +14,15 @@ export type User = {
   password: string;
   picturePath: string;
   location: string;
-  connections: Connections[] | [],
-  occupation: string;
+  connections: Connections[];
+  occupation?: string;
   viewedProfile: number;
   impressions: number;
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
-export type Post = {
+export interface Post {
   _id: string;
   userId: string;
   fname: string;
@@ -32,12 +32,12 @@ export type Post = {
   picture: string;
   userpicture: string;
   likes: Map<string, boolean>;
-  comments: Array<string>;
-};
+  comments: string[];
+}
 
-export type ReduxState = {
+export interface ReduxState {
   mode: string;
   user: User | null;
   token: string | null;
   posts: Post[];
-};
+}

@@ -18,9 +18,11 @@ export default function Home(): ReactElement {
           flexWrap: "wrap",
         }}
       >
+        {/* LEFT */}
         <Box sx={{ flexBasis: isNonMobileScreen ? "26%" : "100%" }}>
           <UserWidget />
         </Box>
+        {/* MIDDLE */}
         <Box
           sx={{
             flexBasis: isNonMobileScreen ? "42%" : "100%",
@@ -29,6 +31,7 @@ export default function Home(): ReactElement {
         >
           {/* Placeholder for the main content */}
         </Box>
+        {/* RIGHT */}
         {isNonMobileScreen && (
           <Box sx={{ flexBasis: "26%" }}>
             <Connections />
