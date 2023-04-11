@@ -33,8 +33,7 @@ const UserDropdown = () => {
     borderRadius: "0.25rem",
     p: "0.25rem 1rem",
     "& .MuiSvgIcon-root": {
-      pr: "0.25rem",
-      idth: "3rem",
+      width: "3rem",
     },
     "& .MuiSelect-select:focus": {
       backgroundColor: theme.palette.neutral.light,
@@ -53,7 +52,7 @@ const UserDropdown = () => {
   return (
     <Box sx={{ p: "1rem", m: "0.5rem 0" }}>
       <FormControl variant="standard">
-        <Select value={fullName} sx={styles} input={<InputBase />}>
+        <Select value={fullName} sx={styles}>
           <MenuItem value={fullName}>
             <Typography>{fullName}</Typography>
           </MenuItem>
