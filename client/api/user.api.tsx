@@ -43,7 +43,10 @@ export const fetchUserConnections = async (token: string | null) => {
   } catch (error: any) {}
 };
 
-export const fetchUserData = async (_id: string | undefined) => {
+export const fetchUserData = async (
+  _id: string | undefined,
+  token?: string | null
+) => {
   try {
     if (!_id) {
       return null;
@@ -51,11 +54,12 @@ export const fetchUserData = async (_id: string | undefined) => {
     const response = await axios.get(`${userBase}/search/${_id}`, {
       withCredentials: true,
       headers: {
+        Authorization: token && `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
     return response.data;
   } catch (error: any) {
-    console.log("Cannot find the user");
+    console.log(`Cannot find any User: ${error.message}`);
   }
 };
