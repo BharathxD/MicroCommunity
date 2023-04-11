@@ -38,6 +38,7 @@ export const LoginForm = ({ onPageChange }: Props) => {
       setLoading(true);
       const response = await loginUser(values);
       if (response?.status !== 200) {
+        setLoading(false);
         setError({
           message: "Email or Password is Incorrect",
         });
@@ -104,9 +105,7 @@ export const LoginForm = ({ onPageChange }: Props) => {
             />
             {isError && <Alert severity="error">{isError.message}</Alert>}
             <Box mt={"-30px"}>
-              <FormButton isLoading={loading} disabled={loading}>
-                Login
-              </FormButton>
+              <FormButton state={loading}>Login</FormButton>
               <FormLink
                 onPageChange={onPageChange}
                 resetForm={resetForm}

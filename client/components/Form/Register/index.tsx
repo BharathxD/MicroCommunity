@@ -1,9 +1,4 @@
-import {
-  useMediaQuery,
-  Box,
-  TextField,
-  Alert,
-} from "@mui/material";
+import { useMediaQuery, Box, TextField, Alert } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
 import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 import { FormLink } from "../components/FormLink";
@@ -13,9 +8,8 @@ import FormWrapper from "@/components/UI/FormWrapper";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/state/auth";
 import { useRouter } from "next/router";
-import { registerUser } from "@/api/user.api";
+import { registerUser } from "@/api/auth.api";
 import { useState } from "react";
-import CircularIndeterminate from "@/components/UI/LoadingScreen";
 
 type Props = {
   onPageChange: (newPage: "login" | "register") => void;
@@ -26,6 +20,7 @@ export const RegisterForm = ({ onPageChange }: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isError, setError] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const initialValuesRegister = {
     fname: "",
     lname: "",
@@ -63,13 +58,18 @@ export const RegisterForm = ({ onPageChange }: Props) => {
     try {
       const data = await registerUser(formData);
       if (data) {
-        onSubmitProps.resetForm();
+        setLoading(true);
         const { user, token } = data;
         dispatch(setLogin({ user, token }));
+        onSubmitProps.resetForm();
         router.push("/");
+        if (router.pathname === "/") {
+          setLoading(false);
+        }
       } else {
+        setLoading(false);
         setError(true);
-        throw new Error("Failed to register user.");
+        throw new Error("Failed to register user");
       }
     } catch (error) {
       console.error(error);
@@ -203,7 +203,7 @@ export const RegisterForm = ({ onPageChange }: Props) => {
                 </Alert>
               )}
               <Box>
-                <FormButton>Register</FormButton>
+                <FormButton state={isLoading}>Register</FormButton>
                 <FormLink
                   onPageChange={onPageChange}
                   resetForm={resetForm}

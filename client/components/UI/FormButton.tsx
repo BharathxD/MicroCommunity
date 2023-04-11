@@ -2,12 +2,11 @@ import { Button, Typography } from "@mui/material";
 import { LinearProgress } from "@mui/material";
 
 type Props = {
-  isLoading?: boolean;
-  disabled?: boolean;
+  state?: boolean;
   children: React.ReactNode;
 };
 
-const FormButton = ({ isLoading, disabled, children }: Props) => {
+const FormButton = ({ state, children }: Props) => {
   const theme = {
     m: "2rem 0",
     p: "1rem",
@@ -18,11 +17,11 @@ const FormButton = ({ isLoading, disabled, children }: Props) => {
       type="submit"
       sx={theme}
       variant="outlined"
-      disabled={disabled}
+      disabled={state}
     >
       <Typography fontSize="1rem" fontWeight="500">
         {children}
-        {isLoading && <LinearProgress />}
+        {state && <LinearProgress />}
       </Typography>
     </Button>
   );
