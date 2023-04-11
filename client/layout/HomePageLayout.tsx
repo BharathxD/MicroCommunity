@@ -23,14 +23,15 @@ const HomePageLayout: React.FC<Props> = ({
   });
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const dispatch = useDispatch();
+  const memoizedDispatch = useMemo(() => dispatch, [dispatch]); // Memoize dispatch function
 
   useEffect(() => {
     const fetchUser = async () => {
       const data = await fetchUserData(_id);
-      dispatch(setUser(data));
+      memoizedDispatch(setUser(data)); // Use memoized dispatch function
     };
     fetchUser();
-  }, [_id, dispatch, token]);
+  }, [_id, memoizedDispatch, token]); // Use memoized dispatch function
 
   const content = withoutHeader ? (
     children

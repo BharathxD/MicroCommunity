@@ -1,7 +1,6 @@
 import { loginUser } from "@/api/auth.api";
 import { setLogin } from "@/state/auth";
 import { Alert, Box, TextField } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
 import { Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
@@ -10,7 +9,8 @@ import { LoginValues, loginSchema } from "./userLoginSchema";
 import FormButton from "@/components/UI/FormButton";
 import FormWrapper from "@/components/UI/FormWrapper";
 import { useState } from "react";
-import { LoadingOverlay } from "@mantine/core";
+import { Loader } from "@mantine/core";
+import { LinearProgress } from "@mui/material";
 
 type Props = {
   onPageChange: (newPage: "login" | "register") => void;
@@ -46,8 +46,10 @@ export const LoginForm = ({ onPageChange }: Props) => {
         onSubmitProps.resetForm();
         const { user, token } = response.data;
         dispatch(setLogin({ user, token }));
-        setLoading(false);
         router.push("/");
+        if (router.pathname === "/") {
+          setLoading(false);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -62,61 +64,60 @@ export const LoginForm = ({ onPageChange }: Props) => {
   };
 
   return (
-    <>
-      <LoadingOverlay visible={loading ? true : false} />
-      <Formik
-        onSubmit={handleFormSubmit}
-        initialValues={initialValuesLogin}
-        validationSchema={loginSchema}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          setFieldValue,
-          resetForm,
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <FormWrapper>
-              <TextField
-                label="Email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={Boolean(touched.email) && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
-                sx={{ gridColumn: "span 4" }}
-              />
-              <TextField
-                label="Password"
-                type="password"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.password}
-                name="password"
-                error={Boolean(touched.password) && Boolean(errors.password)}
-                helperText={touched.password && errors.password}
-                sx={{ gridColumn: "span 4" }}
-              />
-              {isError && <Alert severity="error">{isError.message}</Alert>}
-              <Box mt={"-30px"}>
-                <FormButton>Login</FormButton>
-                <FormLink
-                  onPageChange={onPageChange}
-                  resetForm={resetForm}
-                  pageType="register"
-                >
-                  Dont have an account? Sign Up here.
-                </FormLink>
-              </Box>
-            </FormWrapper>
-          </form>
-        )}
-      </Formik>
-    </>
+    <Formik
+      onSubmit={handleFormSubmit}
+      initialValues={initialValuesLogin}
+      validationSchema={loginSchema}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        setFieldValue,
+        resetForm,
+      }) => (
+        <form onSubmit={handleSubmit}>
+          <FormWrapper>
+            <TextField
+              label="Email"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.email}
+              name="email"
+              error={Boolean(touched.email) && Boolean(errors.email)}
+              helperText={touched.email && errors.email}
+              sx={{ gridColumn: "span 4" }}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.password}
+              name="password"
+              error={Boolean(touched.password) && Boolean(errors.password)}
+              helperText={touched.password && errors.password}
+              sx={{ gridColumn: "span 4" }}
+            />
+            {isError && <Alert severity="error">{isError.message}</Alert>}
+            <Box mt={"-30px"}>
+              <FormButton isLoading={loading} disabled={loading}>
+                Login
+              </FormButton>
+              <FormLink
+                onPageChange={onPageChange}
+                resetForm={resetForm}
+                pageType="register"
+              >
+                Dont have an account? Sign Up here.
+              </FormLink>
+            </Box>
+          </FormWrapper>
+        </form>
+      )}
+    </Formik>
   );
 };
