@@ -19,10 +19,15 @@ const AdvertWidget = () => {
       </FlexBetween>
       <Image
         alt="advert"
-        height={250}
-        width={400}
+        height={100}
+        width={100}
         src="http://localhost:4000/public/info4.jpeg"
-        style={{ borderRadius: "0.75rem", margin: "0.75rem 0", height: "auto" }}
+        style={{
+          borderRadius: "0.75rem",
+          margin: "0.75rem 0",
+          height: "auto",
+          width: "auto",
+        }}
       />
       <FlexBetween>
         <Typography color={main}>MikaCosmetics</Typography>

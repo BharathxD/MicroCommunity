@@ -30,6 +30,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   const req = context.req;
   //? The request from the client includes cookie named `accessToken`, that accessToken will be forwarded to the server by the Client Server for an authorized request
   const accessToken = req?.headers.cookie?.replace("accessToken=", "");
+  //? In simple words, we are forwarding the cookie
   const user = await fetchUserData(userId, accessToken);
   return {
     props: {

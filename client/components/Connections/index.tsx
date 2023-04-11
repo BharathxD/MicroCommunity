@@ -40,9 +40,9 @@ const Connections = () => {
       <Box display="flex" flexDirection="column" gap="1.5rem">
         {user &&
           Array.isArray(user.connections) &&
-          user.connections.map((connection: Connections) => (
+          user.connections.map((connection: Connections, index) => (
             <ConnectionList
-              key={connection._id}
+              key={`${connection._id}-${index}`}
               connectionId={connection._id}
               name={`${connection.fname} ${connection.lname}`}
               subtitle={connection.location}
