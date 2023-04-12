@@ -16,7 +16,9 @@ const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
     res.locals.user = decoded;
     return next();
   } catch (err) {
-    return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Invalid access token" });
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ message: "Invalid access token" });
   }
 };
 
