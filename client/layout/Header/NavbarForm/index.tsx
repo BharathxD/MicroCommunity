@@ -1,11 +1,19 @@
-import React from "react";
-import { FormControl, Select, MenuItem, Typography, Box } from "@mui/material";
+import React, { useState } from "react";
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  Typography,
+  Box,
+  LinearProgress,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "@/state/auth";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/router";
 import { logoutUser } from "@/api/auth.api";
 import { ReduxState } from "@/types/state.types";
+import { Logout, LogoutOutlined } from "@mui/icons-material";
 
 const UserDropdown = () => {
   const { fname, lname } = useSelector((state: ReduxState) => {
@@ -14,6 +22,7 @@ const UserDropdown = () => {
       lname: state.user?.lname,
     };
   });
+  const [isLoading, setLoading] = useState<boolean>();
   const fullName = `${fname} ${lname}`;
   const dispatch = useDispatch();
   const router = useRouter();
@@ -35,9 +44,14 @@ const UserDropdown = () => {
 
   const logoutHandler = async () => {
     try {
+      setLoading(true);
       await Promise.allSettled([logoutUser(), router.push("/auth")]);
       dispatch(setLogout());
+      if (router.pathname === "/auth") {
+        setLoading(false);
+      }
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   };
@@ -49,7 +63,9 @@ const UserDropdown = () => {
           <MenuItem value={fullName}>
             <Typography>{fullName}</Typography>
           </MenuItem>
-          <MenuItem onClick={logoutHandler}>Log Out</MenuItem>
+          <MenuItem onClick={logoutHandler} disabled={isLoading}>
+            Log Out
+          </MenuItem>
         </Select>
       </FormControl>
     </Box>
