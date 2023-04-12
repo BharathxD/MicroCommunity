@@ -15,11 +15,12 @@ const MobileNav = ({ setMobileMenuToggled, isMobileMenuToggled }: Props) => {
   return (
     <Box
       position="absolute"
-      top="0px"
-      bottom="0px"
-      left="0px"
-      right="0px"
-      zIndex="1"
+      top="-1px"
+      bottom="-1px"
+      left="-1px"
+      right="-1px"
+      zIndex="100"
+      minHeight="100vh"
       sx={{
         background: "rgba( 255, 255, 255, 0.05 )",
         backdropFilter: "blur( 4px )",
@@ -56,9 +57,6 @@ const MobileNav = ({ setMobileMenuToggled, isMobileMenuToggled }: Props) => {
           gap="1rem"
         >
           <SwitchMode />
-          <NavIcons />
-        </Box>
-        <Box mt="1rem" width="100%" textAlign="center">
           <NavbarForm />
         </Box>
       </Box>

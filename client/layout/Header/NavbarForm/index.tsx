@@ -6,6 +6,7 @@ import {
   Typography,
   Box,
   LinearProgress,
+  InputBase,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "@/state/auth";
@@ -13,7 +14,6 @@ import { useTheme } from "@mui/material";
 import { useRouter } from "next/router";
 import { logoutUser } from "@/api/auth.api";
 import { ReduxState } from "@/types/state.types";
-import { Logout, LogoutOutlined } from "@mui/icons-material";
 
 const UserDropdown = () => {
   const { fname, lname } = useSelector((state: ReduxState) => {
@@ -32,8 +32,9 @@ const UserDropdown = () => {
     backgroundColor: theme.palette.neutral.light,
     minWidth: "150px",
     width: "max-content",
-    borderRadius: "0.25rem",
-    p: "0.25rem 1rem",
+    borderRadius: "9px",
+    p: "0.45rem 1rem",
+    border: "1px solid rgba( 255, 255, 255, 0.18 )",
     "& .MuiSvgIcon-root": {
       width: "3rem",
     },
@@ -57,9 +58,9 @@ const UserDropdown = () => {
   };
 
   return (
-    <Box sx={{ p: "1rem", m: "0.5rem 0" }}>
+    <Box sx={{ p: "1rem" }}>
       <FormControl variant="standard">
-        <Select value={fullName} sx={styles}>
+        <Select value={fullName} sx={styles} input={<InputBase />}>
           <MenuItem value={fullName}>
             <Typography>{fullName}</Typography>
           </MenuItem>

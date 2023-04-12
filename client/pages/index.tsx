@@ -1,4 +1,10 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { ReactElement, useEffect, useState } from "react";
 import Connections from "@/components/Connections";
 import AdvertWidget from "@/components/widget/AdvertWidget";
@@ -15,31 +21,43 @@ export default function Home(): ReactElement {
   const router = useRouter();
   const token = useSelector((state: ReduxState) => state.token);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { palette } = useTheme();
 
   useEffect(() => {
-    if (!token) {
-      router.push("/auth");
-    } else {
-      setIsLoading(false);
-    }
+    const timeout = setTimeout(() => {
+      if (!token) {
+        router.push("/auth");
+      } else {
+        setIsLoading(false);
+      }
+    }, 500);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [token, router]);
 
   return (
-    <Box sx={{ padding: "2rem 6%" }}>
+    <Box bgcolor={palette.background.default} minHeight={"100vh"} p={"0.5rem"}>
       {isLoading && <Loading />}
       {!isLoading && (
         <Box
           sx={{
             display: "flex",
             gap: "0.5rem",
+            p: "2%",
             justifyContent: "space-between",
             flexWrap: "wrap",
           }}
         >
           {/* LEFT */}
-          <Box sx={{ flexBasis: isNonMobileScreen ? "26%" : "100%" }}>
+          <Box
+            sx={{
+              flexBasis: isNonMobileScreen ? "26%" : "100%",
+            }}
+          >
             <UserWidget />
           </Box>
+          <Divider orientation="vertical" flexItem />
           {/* MIDDLE */}
           <Box
             sx={{
@@ -49,6 +67,7 @@ export default function Home(): ReactElement {
           >
             {/* Placeholder for the main content */}
           </Box>
+          <Divider orientation="vertical" flexItem />
           {/* RIGHT */}
           {isNonMobileScreen && (
             <Box sx={{ flexBasis: "26%" }}>

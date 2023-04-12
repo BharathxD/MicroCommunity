@@ -1,14 +1,12 @@
 import FlexBetween from "@/components/UI/FlexBetween";
-import NavIcons from "../NavIcons";
 import NavbarForm from "../NavbarForm";
 import SwitchMode from "../SwitchMode";
 
 const DesktopNav = () => {
   return (
-    <FlexBetween gap="2rem">
-      <SwitchMode />
-      <NavIcons />
+    <FlexBetween mr="-2.5rem">
       <NavbarForm />
+      <SwitchMode />
     </FlexBetween>
   );
 };

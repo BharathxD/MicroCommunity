@@ -7,32 +7,42 @@ import FlexBetween from "@/components/UI/FlexBetween";
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import MenuButton from "./MenuButton";
 
 const Header = () => {
   const [isMobileMenuToggled, setMobileMenuToggled] = useState<boolean>();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  const {
-    palette: {
-      background: { alt },
-    },
-  } = useTheme();
+  const { palette } = useTheme();
+  const neutralLight = palette.neutral.light;
+  const alt = palette.background.alt;
 
   return (
     <React.Fragment>
-      <FlexBetween padding="1rem 6%" bgcolor={alt}>
-        <FlexBetween gap="1.75rem">
+      <FlexBetween
+        padding="1rem 6%"
+        sx={{
+          background: alt,
+          backdropFilter: "blur( 10px )",
+          borderBottom: "1px solid rgba( 255, 255, 255, 0.1 )",
+        }}
+      >
+        <FlexBetween
+          gap="1.75rem"
+          marginLeft={isNonMobileScreens ? "0" : ""}
+        >
           <Logo />
-          {isNonMobileScreens && <Search />}
         </FlexBetween>
         {isNonMobileScreens ? (
-          <DesktopNav />
+          <FlexBetween>
+            <Search />
+            <DesktopNav />
+          </FlexBetween>
         ) : (
           <React.Fragment>
-            <IconButton
-              onClick={() => setMobileMenuToggled(!isMobileMenuToggled)}
-            >
-              <Menu />
-            </IconButton>
+            <MenuButton
+              setMobileMenuToggled={setMobileMenuToggled}
+              isMobileMenuToggled={isMobileMenuToggled}
+            />
             {isMobileMenuToggled && (
               <MobileNav
                 setMobileMenuToggled={setMobileMenuToggled}

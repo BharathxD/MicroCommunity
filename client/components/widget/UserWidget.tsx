@@ -5,6 +5,7 @@ import {
   WorkOutlineOutlined,
   Twitter,
   LinkedIn,
+  ManageAccounts,
 } from "@mui/icons-material";
 import { Box, Typography, Divider, useTheme, IconButton } from "@mui/material";
 import UserImage from "./UserImage";
@@ -15,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ReduxState, User } from "@/types/state.types";
 import { fetchUserData } from "@/api/user.api";
+import IconWrapper from "../UI/IconWrapper";
 
 const UserWidget = () => {
   const userId = useSelector((state: ReduxState) => {
@@ -81,9 +83,9 @@ const UserWidget = () => {
             </Typography>
           </Box>
         </FlexBetween>
-        <IconButton>
-          <ManageAccountsOutlined color="action" fontSize="large" />
-        </IconButton>
+        <IconWrapper>
+          <ManageAccounts color="action" fontSize="large" />
+        </IconWrapper>
       </FlexBetween>
 
       <Divider />
@@ -133,9 +135,9 @@ const UserWidget = () => {
               <Typography color={medium}>Social Network</Typography>
             </Box>
           </FlexBetween>
-          <IconButton>
+          <IconWrapper>
             <EditOutlined sx={{ color: main }} />
-          </IconButton>
+          </IconWrapper>
         </FlexBetween>
 
         <FlexBetween gap="1rem">
@@ -148,9 +150,9 @@ const UserWidget = () => {
               <Typography color={medium}>Network Platform</Typography>
             </Box>
           </FlexBetween>
-          <IconButton>
+          <IconWrapper>
             <EditOutlined sx={{ color: main }} />
-          </IconButton>
+          </IconWrapper>
         </FlexBetween>
       </Box>
     </WidgetWrapper>

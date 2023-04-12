@@ -9,8 +9,10 @@ const Search = () => {
     <FlexBetween
       bgcolor={neutralLight}
       borderRadius="9px"
-      gap="3rem"
-      padding="0.1rem 1rem"
+      padding="0.2rem 0.5rem 0.2rem 1rem"
+      sx={{
+        border: "1px solid rgba( 255, 255, 255, 0.18 )",
+      }}
     >
       <InputBase placeholder="Search..." />
       <IconButton>

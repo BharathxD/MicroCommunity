@@ -45,11 +45,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           >
             <PersistGate loading={null} persistor={persistStore(store)} />
             <Notifications />
-            {getLayout(
-              <main>
-                <Component {...pageProps} />
-              </main>
-            )}
+            {getLayout(<Component {...pageProps} />)}
           </MantineProvider>
         </QueryClientProvider>
       </Provider>
