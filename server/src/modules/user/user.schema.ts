@@ -31,9 +31,7 @@ export const RegisterSchema = {
     location: string({
       required_error: "Enter a valid location",
     }),
-    occupation: string({
-      required_error: "Enter a valid Occupation",
-    }),
+    occupation: string({}).optional(),
   }).refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],

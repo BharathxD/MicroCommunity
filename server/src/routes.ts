@@ -5,8 +5,8 @@ import AuthRoute from "../src/modules/auth/auth.route";
 import PostRoute from "./modules/post/post.route";
 
 const routes = (app: Express) => {
-  app.get("/healthcheck", (_, res: Response) => {
-    res.status(StatusCodes.OK).send({ message: "ok" });
+  app.get("/", (_, res: Response) => {
+    res.status(StatusCodes.OK).send({ message: "The Server is up and running" });
   });
   app.use("/api/user", UserRoute);
   app.use("/api/auth", AuthRoute);

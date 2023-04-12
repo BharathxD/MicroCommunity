@@ -27,7 +27,7 @@ export const loginUserHandler = async (
       httpOnly: true,
       domain: "localhost", //? Dev Environment
       path: "/",
-      sameSite: "strict",
+      sameSite: "lax",
       secure: false, //? Dev Environment
     });
     // TODO: RESPOND

@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-import {
-  FormControl,
-  Select,
-  MenuItem,
-  Typography,
-  InputBase,
-  Box,
-} from "@mui/material";
+import React from "react";
+import { FormControl, Select, MenuItem, Typography, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "@/state/auth";
 import { useTheme } from "@mui/material";
