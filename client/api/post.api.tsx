@@ -14,6 +14,6 @@ export const patchLike = async (postId: string, token: string) => {
     });
     return response;
   } catch (error: any) {
-    console.log(error.message);
+    console.log(`Cannot patch Likes: ${error.message}`);
   }
 };

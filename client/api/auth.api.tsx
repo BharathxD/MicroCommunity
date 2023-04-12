@@ -16,7 +16,7 @@ export const registerUser = async (formData: FormData) => {
     }
     return response.data;
   } catch (error: any) {
-    console.log(error.message);
+    console.log(`Cannot register User: ${error.message}`);
   }
 };
 
@@ -30,8 +30,7 @@ export const loginUser = async (payload: {
     });
     return response;
   } catch (error: any) {
-    console.log(error.message);
-    return null;
+    console.log(`Cannot authenticate User: ${error.message}`);
   }
 };
 
@@ -40,6 +39,6 @@ export const logoutUser = async () => {
     const response = await axios.post(`${authBase}/logout`);
     return response;
   } catch (error: any) {
-    console.log(error);
+    console.log(`Cannot log User out: ${error.message}`);
   }
 };
