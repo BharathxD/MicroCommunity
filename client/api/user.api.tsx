@@ -21,7 +21,7 @@ export const patchConnectionHandler = async (
     );
     return await response.data;
   } catch (error: any) {
-    console.log(error);
+    console.log(`Cannot patch Connections: ${error.message}`);
   }
 };
 
@@ -40,7 +40,9 @@ export const fetchUserConnections = async (token: string | null) => {
       return null;
     }
     return response.data;
-  } catch (error: any) {}
+  } catch (error: any) {
+    console.log(`Cannot fetch Connections: ${error.message}`);
+  }
 };
 
 export const fetchUserData = async (
@@ -60,6 +62,6 @@ export const fetchUserData = async (
     });
     return response.data;
   } catch (error: any) {
-    console.log(`Cannot find any User: ${error.message}`);
+    console.log(`Cannot find Users: ${error.message}`);
   }
 };
