@@ -6,18 +6,15 @@ export const createPost = async (input: Post) => {
 };
 
 export const getAllPosts = async () => {
-  const foundPosts = await PostModel.find();
-  return foundPosts;
+  return await PostModel.find();
 };
 
 export const getPostByUserId = async (query: string) => {
-  const post = await PostModel.find({ query });
-  return post;
+  return await PostModel.find({ query });
 };
 
 export const getPostById = async (postId: string) => {
-  const post = await PostModel.findById(postId);
-  return post;
+  return await PostModel.findById(postId);
 };
 
 export const updatePost = async (
@@ -25,6 +22,5 @@ export const updatePost = async (
   likes: { likes: Map<string, boolean> },
   options: QueryOptions
 ) => {
-  const updatedPost = await PostModel.findByIdAndUpdate(id, likes, options);
-  return updatedPost;
+  return await PostModel.findByIdAndUpdate(id, likes, options);
 };

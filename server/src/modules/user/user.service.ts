@@ -7,13 +7,11 @@ export const createUser = async (user: Omit<User, "comparePassword">) => {
 };
 
 export const findUserById = async (userId: string) => {
-  const foundUser = await UserModel.findById(userId);
-  return foundUser;
+  return await UserModel.findById(userId);
 };
 
 export const findUserByEmail = async (email: User["email"]) => {
-  const user = await UserModel.findOne({ email });
-  return user;
+  return await UserModel.findOne({ email });
 };
 
 export const validateUser = async ({
