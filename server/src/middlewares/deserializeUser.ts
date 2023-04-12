@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import JWTService from "../modules/auth/auth.utils";
 import { StatusCodes } from "http-status-codes";
+import { TokenExpiredError } from "jsonwebtoken";
 
 const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
   const accessToken = (
@@ -15,10 +16,13 @@ const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
     const decoded = new JWTService().verifyToken(accessToken);
     res.locals.user = decoded;
     return next();
-  } catch (err) {
+  } catch (error: any) {
+    if (error instanceof TokenExpiredError) {
+      return next();
+    }
     return res
       .status(StatusCodes.UNAUTHORIZED)
-      .json({ message: "Invalid access token" });
+      .json({ message: error.message });
   }
 };
 

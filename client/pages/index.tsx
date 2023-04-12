@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
 import { useRouter } from "next/router";
 import { Loader } from "@mantine/core";
+import Loading from "@/components/UI/Loading";
 
 export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -25,22 +26,7 @@ export default function Home(): ReactElement {
 
   return (
     <Box sx={{ padding: "2rem 6%" }}>
-      {isLoading && (
-        <Box
-          sx={{
-            display: "flex",
-            gap: "0.5rem",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "75vh",
-          }}
-        >
-          <Box width={"100%"} textAlign={"center"}>
-            <Loader color={"#040404"} />
-            <Typography fontWeight={600}>Loading</Typography>
-          </Box>
-        </Box>
-      )}
+      {isLoading && <Loading />}
       {!isLoading && (
         <Box
           sx={{

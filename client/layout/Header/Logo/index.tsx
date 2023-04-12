@@ -11,6 +11,7 @@ const Logo = () => {
       color="primary"
       onClick={() => Router.push("/")}
       sx={{
+        letterSpacing: "1px",
         "&hover": {
           color: primaryLight,
           cursor: "pointer",
