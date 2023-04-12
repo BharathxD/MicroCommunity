@@ -9,8 +9,6 @@ import { LoginValues, loginSchema } from "./userLoginSchema";
 import FormButton from "@/components/UI/FormButton";
 import FormWrapper from "@/components/UI/FormWrapper";
 import { useState } from "react";
-import { Loader } from "@mantine/core";
-import { LinearProgress } from "@mui/material";
 
 type Props = {
   onPageChange: (newPage: "login" | "register") => void;
