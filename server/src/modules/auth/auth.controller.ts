@@ -10,7 +10,8 @@ export const loginUserHandler = async (
   res: Response
 ) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+    email = email.toLowerCase();
     const user = await validateUser({ email, password });
     if (!user) {
       return res

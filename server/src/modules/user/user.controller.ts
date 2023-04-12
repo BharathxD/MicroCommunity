@@ -28,7 +28,7 @@ export const registerUserHandler = async (
     const createdUser = await createUser({
       fname,
       lname,
-      email,
+      email: email.toLowerCase(),
       password,
       picturePath: picturePath,
       connections,
