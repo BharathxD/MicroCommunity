@@ -1,12 +1,22 @@
 import { Box, useMediaQuery } from "@mui/material";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import Connections from "@/components/Connections";
 import AdvertWidget from "@/components/widget/AdvertWidget";
 import UserWidget from "@/components/widget/UserWidget";
 import HomePageLayout from "@/layout/HomePageLayout";
+import { useSelector } from "react-redux";
+import { ReduxState } from "@/types/state.types";
+import { useRouter } from "next/router";
 
 export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
+  const router = useRouter();
+  const token = useSelector((state: ReduxState) => state.token);
+  useEffect(() => {
+    if (!token) {
+      router.push("/auth");
+    }
+  }, [token, router]);
 
   return (
     <Box sx={{ padding: "2rem 6%" }}>

@@ -2,7 +2,7 @@ import { ReduxState } from "@/types/state.types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: ReduxState = {
-  mode: "light",
+  mode: "dark",
   user: null,
   token: null,
   posts: [],
