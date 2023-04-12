@@ -9,7 +9,7 @@ This has been built with scalability in mind
 | Users Route | `/api/user`    |
 | Posts Route | `/api/post`    |
 | Auth Routes | `/api/auth`    |
-| HealthCheck | `/healthcheck` |
+| HealthCheck | `/`            |
 
 ### Backend Dependencies
 
