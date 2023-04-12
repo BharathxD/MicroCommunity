@@ -61,7 +61,7 @@ const ConnectionList = ({
             fontWeight="500"
             sx={{
               "&:hover": {
-                color: palette.primary.light,
+                color: palette.neutral.mediumMain,
                 cursor: "pointer",
               },
             }}

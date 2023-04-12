@@ -69,7 +69,7 @@ const UserWidget = () => {
               pb="0.25rem"
               sx={{
                 "&:hover": {
-                  color: palette.primary.light,
+                  color: palette.neutral.mediumMain,
                   cursor: "pointer",
                 },
               }}

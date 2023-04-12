@@ -21,7 +21,8 @@ const RegisterUser = () => {
         flexDirection: "column",
         bgcolor: theme.palette.background.alt,
         textAlign: "center",
-        height: "100vh",
+        minHeight: "100vh",
+        height: "100%",
         p: "15px",
       }}
     >
