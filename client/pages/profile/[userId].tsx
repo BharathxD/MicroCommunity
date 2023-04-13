@@ -1,7 +1,8 @@
 import { fetchUserData } from "@/api/user.api";
 import { User } from "@/types/state.types";
 import { NextPageContext } from "next";
-import { useEffect, useState } from "react";
+import Head from "next/head";
+import { Fragment, useEffect, useState } from "react";
 
 type Props = {
   userId: string;
@@ -18,10 +19,15 @@ const ProfilePage = ({ userId, user }: Props) => {
     fetchUser();
   }, [userId]);
   return (
-    <div>
-      <p>{getUser?.fname}</p>
-      <p>{user?._id || "Undefined by the Server"}</p>
-    </div>
+    <Fragment>
+      <Head>
+        <title>{`${user.fname} ${user.lname}`}</title>
+      </Head>
+      <div>
+        <p>{getUser?.fname}</p>
+        <p>{user?._id || "Undefined by the Server"}</p>
+      </div>
+    </Fragment>
   );
 };
 

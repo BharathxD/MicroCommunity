@@ -1,11 +1,5 @@
-import {
-  Box,
-  Divider,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import { ReactElement, useEffect, useState } from "react";
+import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
+import { Fragment, ReactElement, useEffect, useState } from "react";
 import Connections from "@/components/Connections";
 import AdvertWidget from "@/components/widget/AdvertWidget";
 import UserWidget from "@/components/widget/UserWidget";
@@ -13,8 +7,8 @@ import HomePageLayout from "@/layout/HomePageLayout";
 import { useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
 import { useRouter } from "next/router";
-import { Loader } from "@mantine/core";
 import Loading from "@/components/UI/Loading";
+import Head from "next/head";
 
 export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -37,48 +31,57 @@ export default function Home(): ReactElement {
   }, [token, router]);
 
   return (
-    <Box bgcolor={palette.background.default} minHeight={"100vh"} p={"0.5rem"}>
-      {isLoading && <Loading />}
-      {!isLoading && (
-        <Box
-          sx={{
-            display: "flex",
-            gap: "0.5rem",
-            p: "2%",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-          }}
-        >
-          {/* LEFT */}
+    <Fragment>
+      <Head>
+        <title>Homepage</title>
+      </Head>
+      <Box
+        bgcolor={palette.background.default}
+        minHeight={"100vh"}
+        p={"0.5rem"}
+      >
+        {isLoading && <Loading />}
+        {!isLoading && (
           <Box
             sx={{
-              flexBasis: isNonMobileScreen ? "26%" : "100%",
+              display: "flex",
+              gap: "0.5rem",
+              p: "2%",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
             }}
           >
-            <UserWidget />
-          </Box>
-          <Divider orientation="vertical" flexItem />
-          {/* MIDDLE */}
-          <Box
-            sx={{
-              flexBasis: isNonMobileScreen ? "42%" : "100%",
-              mt: isNonMobileScreen ? 0 : "2rem",
-            }}
-          >
-            {/* Placeholder for the main content */}
-          </Box>
-          <Divider orientation="vertical" flexItem />
-          {/* RIGHT */}
-          {isNonMobileScreen && (
-            <Box sx={{ flexBasis: "26%" }}>
-              <Connections />
-              <Box sx={{ m: "2rem 0" }} />
-              <AdvertWidget />
+            {/* LEFT */}
+            <Box
+              sx={{
+                flexBasis: isNonMobileScreen ? "26%" : "100%",
+              }}
+            >
+              <UserWidget />
             </Box>
-          )}
-        </Box>
-      )}
-    </Box>
+            <Divider orientation="vertical" flexItem />
+            {/* MIDDLE */}
+            <Box
+              sx={{
+                flexBasis: isNonMobileScreen ? "42%" : "100%",
+                mt: isNonMobileScreen ? 0 : "2rem",
+              }}
+            >
+              {/* Placeholder for the main content */}
+            </Box>
+            <Divider orientation="vertical" flexItem />
+            {/* RIGHT */}
+            {isNonMobileScreen && (
+              <Box sx={{ flexBasis: "26%" }}>
+                <Connections />
+                <Box sx={{ m: "2rem 0" }} />
+                <AdvertWidget />
+              </Box>
+            )}
+          </Box>
+        )}
+      </Box>
+    </Fragment>
   );
 }
 

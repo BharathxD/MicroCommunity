@@ -11,6 +11,7 @@ export const loginUserHandler = async (
 ) => {
   try {
     let { email, password } = req.body;
+    email = email.toLowerCase();
     const user = await validateUser({ email, password });
     if (!user) {
       return res

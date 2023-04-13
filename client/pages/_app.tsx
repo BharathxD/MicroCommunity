@@ -1,17 +1,12 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { MantineProvider } from "@mantine/core";
 import { NextPage } from "next";
 import { Fragment, ReactElement, ReactNode } from "react";
-import { Notifications } from "@mantine/notifications";
 import Head from "next/head";
 import { Provider } from "react-redux";
 import store from "@/state";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import { QueryClient, QueryClientProvider } from "react-query";
-
-const queryClient = new QueryClient();
 
 //? Adding get Layout into the NextPage props
 
@@ -37,17 +32,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         ></meta>
       </Head>
       <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <MantineProvider
-            withGlobalStyles
-            withNormalizeCSS
-            theme={{ colorScheme: "light" }}
-          >
-            <PersistGate loading={null} persistor={persistStore(store)} />
-            <Notifications />
-            {getLayout(<Component {...pageProps} />)}
-          </MantineProvider>
-        </QueryClientProvider>
+        <PersistGate loading={null} persistor={persistStore(store)} />
+        {getLayout(<Component {...pageProps} />)}
       </Provider>
     </Fragment>
   );

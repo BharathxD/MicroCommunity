@@ -1,7 +1,7 @@
 import { AppShell } from "@mantine/core";
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeProvider, createTheme, useTheme } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { ReduxState } from "@/types/state.types";
 import { themeSettings } from "@/themes/theme";
 

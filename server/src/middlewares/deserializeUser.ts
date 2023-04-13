@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import JWTService from "../modules/auth/auth.utils";
 import { StatusCodes } from "http-status-codes";
-import { TokenExpiredError } from "jsonwebtoken";
+import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 
 const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
   const accessToken = (
