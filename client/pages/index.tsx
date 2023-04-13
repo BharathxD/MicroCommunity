@@ -9,6 +9,9 @@ import { ReduxState } from "@/types/state.types";
 import { useRouter } from "next/router";
 import Loading from "@/components/UI/Loading";
 import Head from "next/head";
+import LeftSectionWrapper from "@/components/UI/HomepageWrappers/LeftSectionWrapper";
+import MiddleSectionWrapper from "@/components/UI/HomepageWrappers/MiddleSectionWrapper";
+import HompageWrapper from "@/components/UI/HomepageWrappers/HomepageWrapper";
 
 export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -42,35 +45,15 @@ export default function Home(): ReactElement {
       >
         {isLoading && <Loading />}
         {!isLoading && (
-          <Box
-            sx={{
-              display: "flex",
-              gap: "0.5rem",
-              p: "2%",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-            }}
-          >
-            {/* LEFT */}
-            <Box
-              sx={{
-                flexBasis: isNonMobileScreen ? "26%" : "100%",
-              }}
-            >
+          <HompageWrapper>
+            <LeftSectionWrapper>
               <UserWidget />
-            </Box>
+            </LeftSectionWrapper>
             <Divider orientation="vertical" flexItem />
-            {/* MIDDLE */}
-            <Box
-              sx={{
-                flexBasis: isNonMobileScreen ? "42%" : "100%",
-                mt: isNonMobileScreen ? 0 : "2rem",
-              }}
-            >
+            <MiddleSectionWrapper>
               {/* Placeholder for the main content */}
-            </Box>
+            </MiddleSectionWrapper>
             <Divider orientation="vertical" flexItem />
-            {/* RIGHT */}
             {isNonMobileScreen && (
               <Box sx={{ flexBasis: "26%" }}>
                 <Connections />
@@ -78,7 +61,7 @@ export default function Home(): ReactElement {
                 <AdvertWidget />
               </Box>
             )}
-          </Box>
+          </HompageWrapper>
         )}
       </Box>
     </Fragment>
