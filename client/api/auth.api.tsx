@@ -25,9 +25,7 @@ export const loginUser = async (payload: {
   password: string;
 }) => {
   try {
-    const response = await axios.post(`${authBase}/login`, payload, {
-      withCredentials: true,
-    });
+    const response = await axios.post(`${authBase}/login`, payload);
     return response;
   } catch (error: any) {
     console.log(`Cannot authenticate User: ${error.message}`);

@@ -16,7 +16,7 @@ const FormButton = ({ state, children }: Props) => {
       fullWidth
       type="submit"
       sx={theme}
-      variant="outlined"
+      variant="contained"
       disabled={state}
     >
       <Typography fontSize="1rem" fontWeight="500">

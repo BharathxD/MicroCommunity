@@ -1,8 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import Search from "./Search";
-import { IconButton, useTheme, useMediaQuery } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { useTheme, useMediaQuery } from "@mui/material";
 import FlexBetween from "@/components/UI/FlexBetween";
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
@@ -19,17 +18,14 @@ const Header = () => {
   return (
     <React.Fragment>
       <FlexBetween
-        padding="1rem 6%"
+        padding="1rem 5%"
         sx={{
           background: alt,
           backdropFilter: "blur( 10px )",
           borderBottom: "1px solid rgba( 255, 255, 255, 0.1 )",
         }}
       >
-        <FlexBetween
-          gap="1.75rem"
-          marginLeft={isNonMobileScreens ? "0" : ""}
-        >
+        <FlexBetween gap="1.75rem" marginLeft={isNonMobileScreens ? "0" : ""}>
           <Logo />
         </FlexBetween>
         {isNonMobileScreens ? (

@@ -3,14 +3,15 @@ import Router from "next/router";
 
 const Logo = () => {
   const theme = useTheme();
-  const primaryLight = theme.palette.neutral.light;
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const letterSpacing = isNonMobileScreens ? "1px" : "";
+  const palette = theme.palette;
+  const primaryLight = palette.neutral.dark;
   return (
     <Typography
       fontWeight="bold"
-      fontSize="clamp(1rem, 1.9rem, 2.25rem)"
-      color="primary"
+      fontSize={isNonMobileScreens ? "2.25rem" : "1.75rem"}
+      color={palette.primary.dark}
       onClick={() => Router.push("/")}
       sx={{
         letterSpacing,
