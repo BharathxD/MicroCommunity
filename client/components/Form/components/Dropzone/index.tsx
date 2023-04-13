@@ -35,7 +35,7 @@ const DropzoneComponent = ({ setFieldValue, pictureName }: Props) => {
             <input {...getInputProps()} />
             {!pictureName ? (
               <Typography color={palette.neutral.main}>
-                Add Picture Here
+                Add a Profile Picture
               </Typography>
             ) : (
               <FlexBetween>
