@@ -6,6 +6,7 @@ const initialState: ReduxState = {
   user: null,
   token: null,
   posts: [],
+  isLoading: false,
 };
 
 export const authSlice = createSlice({
@@ -42,6 +43,9 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload.isLoading;
+    },
   },
 });
 
@@ -53,5 +57,6 @@ export const {
   setConnections,
   setPosts,
   setPost,
+  setLoading,
 } = authSlice.actions;
 export const authReducer = authSlice.reducer;

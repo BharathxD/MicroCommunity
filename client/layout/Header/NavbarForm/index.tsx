@@ -9,20 +9,20 @@ import {
   InputBase,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogout } from "@/state/auth";
+import { setLoading, setLogout } from "@/state/auth";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/router";
 import { logoutUser } from "@/api/auth.api";
 import { ReduxState } from "@/types/state.types";
 
 const UserDropdown = () => {
-  const { fname, lname } = useSelector((state: ReduxState) => {
+  const { fname, lname, isLoading } = useSelector((state: ReduxState) => {
     return {
       fname: state.user?.fname,
       lname: state.user?.lname,
+      isLoading: state.isLoading,
     };
   });
-  const [isLoading, setLoading] = useState<boolean>();
   const fullName = `${fname} ${lname}`;
   const dispatch = useDispatch();
   const router = useRouter();
@@ -45,14 +45,14 @@ const UserDropdown = () => {
 
   const logoutHandler = async () => {
     try {
-      setLoading(true);
+      dispatch(setLoading({ isLoading: true }));
       await Promise.allSettled([logoutUser(), router.push("/auth")]);
       dispatch(setLogout());
       if (router.pathname === "/auth") {
-        setLoading(false);
+        dispatch(setLoading({ isLoading: false }));
       }
     } catch (error) {
-      setLoading(false);
+      dispatch(setLoading({ isLoading: false }));
       console.error(error);
     }
   };

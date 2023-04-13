@@ -4,7 +4,7 @@ import Connections from "@/components/Connections";
 import AdvertWidget from "@/components/widget/AdvertWidget";
 import UserWidget from "@/components/widget/UserWidget";
 import HomePageLayout from "@/layout/HomePageLayout";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
 import { useRouter } from "next/router";
 import Loading from "@/components/UI/Loading";
@@ -12,26 +12,29 @@ import Head from "next/head";
 import LeftSectionWrapper from "@/components/UI/HomepageWrappers/LeftSectionWrapper";
 import MiddleSectionWrapper from "@/components/UI/HomepageWrappers/MiddleSectionWrapper";
 import HompageWrapper from "@/components/UI/HomepageWrappers/HomepageWrapper";
+import { setLoading } from "@/state/auth";
 
 export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
   const router = useRouter();
   const token = useSelector((state: ReduxState) => state.token);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { palette } = useTheme();
+  const isLoading = useSelector((state: ReduxState) => state.isLoading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setLoading({ isLoading: true }));
     const timeout = setTimeout(() => {
       if (!token) {
         router.push("/auth");
       } else {
-        setIsLoading(false);
+        dispatch(setLoading({ isLoading: false }));
       }
     }, 500);
     return () => {
       clearTimeout(timeout);
     };
-  }, [token, router]);
+  }, [token, router, dispatch]);
 
   return (
     <Fragment>
