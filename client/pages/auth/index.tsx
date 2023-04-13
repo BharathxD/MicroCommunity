@@ -4,42 +4,51 @@ import { Box } from "@mui/material";
 import HomePageLayout from "@/layout/HomePageLayout";
 import Form from "@/components/Form";
 import Logo from "@/layout/Header/Logo";
+import Head from "next/head";
 
 const RegisterUser = () => {
   const theme = useTheme();
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
-  const formContainerWidth = isNonMobileScreen ? "40%" : "100%";
+  const formContainerWidth = isNonMobileScreen ? "40%" : "90%";
   const formContainerPadding = isNonMobileScreen ? "2rem" : "1rem";
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        bgcolor: theme.palette.background.alt,
-        textAlign: "center",
-        minHeight: "100vh",
-        height: "100%",
-        p: "15px",
-      }}
-    >
-      <Logo />
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
+      </Head>
       <Box
         sx={{
-          width: formContainerWidth,
-          p: formContainerPadding,
-          m: "0.25rem",
-          borderRadius: "1.5rem",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           flexDirection: "column",
           bgcolor: theme.palette.background.alt,
+          textAlign: "center",
+          minHeight: "100vh",
+          height: "100%",
+          zoom: "1",
         }}
       >
-        <Form />
+        <Logo />
+        <Box
+          sx={{
+            width: formContainerWidth,
+            p: formContainerPadding,
+            m: "0",
+            borderRadius: "1.5rem",
+            flexDirection: "column",
+            bgcolor: theme.palette.background.alt,
+          }}
+        >
+          <Form />
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

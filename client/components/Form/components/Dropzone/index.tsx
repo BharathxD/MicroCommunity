@@ -1,7 +1,7 @@
 import FlexBetween from "@/components/UI/FlexBetween";
 import { EditOutlined } from "@mui/icons-material";
 import { Box, Typography, useTheme } from "@mui/material";
-import Dropzone from "react-dropzone";
+import Dropzone, { Accept } from "react-dropzone";
 
 type Props = {
   setFieldValue: (
@@ -13,6 +13,11 @@ type Props = {
 };
 
 const DropzoneComponent = ({ setFieldValue, pictureName }: Props) => {
+  const acceptedFileTypes: Accept = {
+    "image/jpeg": [".jpg", ".jpeg"],
+    "image/png": [".png"],
+  };
+
   const palette = useTheme().palette;
   return (
     <Box
@@ -23,6 +28,7 @@ const DropzoneComponent = ({ setFieldValue, pictureName }: Props) => {
     >
       <Dropzone
         multiple={false}
+        accept={acceptedFileTypes}
         onDrop={(acceptedFiles) => setFieldValue("picture", acceptedFiles[0])}
       >
         {({ getRootProps, getInputProps }) => (
@@ -39,8 +45,10 @@ const DropzoneComponent = ({ setFieldValue, pictureName }: Props) => {
               </Typography>
             ) : (
               <FlexBetween>
-                <Typography>{pictureName}</Typography>
-                <EditOutlined />
+                <Typography color={palette.neutral.main}>
+                  {pictureName}
+                </Typography>
+                <EditOutlined sx={{ color: palette.neutral.main }} />
               </FlexBetween>
             )}
           </Box>

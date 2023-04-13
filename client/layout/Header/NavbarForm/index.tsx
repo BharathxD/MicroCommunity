@@ -1,28 +1,30 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  FormControl,
-  Select,
-  MenuItem,
-  Typography,
   Box,
-  LinearProgress,
+  FormControl,
   InputBase,
+  LinearProgress,
+  MenuItem,
+  Select,
+  Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setLogout } from "@/state/auth";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/router";
+import { setLogout } from "@/state/auth";
 import { logoutUser } from "@/api/auth.api";
 import { ReduxState } from "@/types/state.types";
+import NavProgress from "./NavProgress";
 
 const UserDropdown = () => {
-  const { fname, lname, isLoading } = useSelector((state: ReduxState) => {
+  const { fname, lname } = useSelector((state: ReduxState) => {
     return {
       fname: state.user?.fname,
       lname: state.user?.lname,
       isLoading: state.isLoading,
     };
   });
+  const [isLoading, setLoading] = useState<boolean>(false);
   const fullName = `${fname} ${lname}`;
   const dispatch = useDispatch();
   const router = useRouter();
@@ -43,32 +45,34 @@ const UserDropdown = () => {
     },
   };
 
-  const logoutHandler = async () => {
+  const handleLogout = async () => {
     try {
-      dispatch(setLoading({ isLoading: true }));
+      setLoading(true);
       await Promise.allSettled([logoutUser(), router.push("/auth")]);
       dispatch(setLogout());
       if (router.pathname === "/auth") {
-        dispatch(setLoading({ isLoading: false }));
+        setLoading(false);
       }
     } catch (error) {
-      dispatch(setLoading({ isLoading: false }));
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Box sx={{ p: "1rem" }}>
+    <Box sx={{ p: "1rem", position: "relative" }}>
       <FormControl variant="standard">
         <Select value={fullName} sx={styles} input={<InputBase />}>
           <MenuItem value={fullName}>
             <Typography>{fullName}</Typography>
           </MenuItem>
-          <MenuItem onClick={logoutHandler} disabled={isLoading}>
+          <MenuItem onClick={handleLogout} disabled={isLoading}>
             Log Out
           </MenuItem>
         </Select>
       </FormControl>
+      {isLoading && <NavProgress />}
     </Box>
   );
 };

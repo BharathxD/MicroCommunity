@@ -21,7 +21,8 @@ const AdvertWidget = () => {
         alt="advert"
         height={100}
         width={100}
-        src="http://localhost:4000/public/info4.jpeg"
+        quality={100}
+        src="http://localhost:4000/public/advert.jpeg"
         style={{
           borderRadius: "0.75rem",
           margin: "0.75rem 0",
@@ -29,13 +30,15 @@ const AdvertWidget = () => {
           width: "100%",
         }}
       />
+
       <FlexBetween>
-        <Typography color={main}>MikaCosmetics</Typography>
-        <Typography color={medium}>mikacosmetics.com</Typography>
+        <Typography color={main}>FashionFusion</Typography>
+        <Typography color={medium}>FashionFusion.shop</Typography>
       </FlexBetween>
       <Typography color={medium} m="0.5rem 0">
-        Your pathway to stunning and immaculate beauty and made sure your skin
-        is exfoliating skin and shining like light.
+        Elevate your style with FashionFusion&apos;s latest collection. From
+        chic blazers to comfortable loungewear, our new range has something for
+        everyone. Shop now for the latest trends and timeless classics.
       </Typography>
     </WidgetWrapper>
   );
