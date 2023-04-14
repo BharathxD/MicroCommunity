@@ -14,7 +14,7 @@ const IconWrapper = ({ children }: { children: React.ReactNode }) => {
         background: neutralLight,
         border: "1px solid rgba( 255, 255, 255, 0.18 )",
         p: "7.5px",
-        cursor: "pointer"
+        cursor: "pointer",
       }}
     >
       {children}

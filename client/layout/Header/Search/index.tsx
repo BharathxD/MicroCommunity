@@ -1,19 +1,11 @@
 import { useEffect, useRef } from "react";
 import FlexBetween from "@/components/UI/FlexBetween";
-import {
-  useTheme,
-  IconButton,
-  InputBase,
-  Box,
-  Typography,
-} from "@mui/material";
-import { Search as SearchIcon } from "@mui/icons-material";
-import { KeyboardCommandKey } from "@mui/icons-material";
+import { useTheme, IconButton, InputBase } from "@mui/material";
 import InputListenerIcon from "./InputListenerIcon";
 
 const Search = () => {
-  const theme = useTheme();
-  const neutralLight = theme.palette.neutral.light;
+  const { palette: palette } = useTheme();
+  const neutralLight = palette.neutral.light;
 
   const searchRef = useRef<HTMLInputElement>(null);
 

@@ -40,5 +40,5 @@ export interface ReduxState {
   user: User | null;
   token: string | null;
   posts: Post[];
-  isLoading: boolean
+  isLoading: boolean;
 }

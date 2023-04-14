@@ -4,12 +4,12 @@ This has been built with scalability in mind
 
 ### Routes
 
-| Routes      | Path           |
-| ----------- | -------------- |
-| Users Route | `/api/user`    |
-| Posts Route | `/api/post`    |
-| Auth Routes | `/api/auth`    |
-| HealthCheck | `/`            |
+| Routes      | Path        |
+| ----------- | ----------- |
+| Users Route | `/api/user` |
+| Posts Route | `/api/post` |
+| Auth Routes | `/api/auth` |
+| HealthCheck | `/`         |
 
 ### Backend Dependencies
 
