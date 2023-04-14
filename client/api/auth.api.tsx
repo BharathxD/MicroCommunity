@@ -13,8 +13,15 @@ export const registerUser = async (formData: FormData) => {
     });
     return response;
   } catch (error: any) {
-    console.log(`Cannot register User: ${error.message}`);
-    throw error;
+    if (error?.response?.status === 409) {
+      throw new Error("User already exists.");
+    } else if (error?.response?.status === 500) {
+      throw new Error("Something went wrong, try again later.");
+    } else {
+      throw new Error(
+        "Oops! Looks like our server is having a bit of a nap. Don't worry, we're on it!"
+      );
+    }
   }
 };
 
@@ -28,8 +35,15 @@ export const loginUser = async (payload: {
     });
     return response;
   } catch (error: any) {
-    console.log(`Cannot authenticate User: ${error.message}`);
-    throw error;
+    if (error?.response?.status === 401) {
+      throw new Error("Email or Password is Incorrect");
+    } else if (error?.response?.status === 500) {
+      throw new Error("Something went wrong, try again later.");
+    } else {
+      throw new Error(
+        "Oops! Looks like our server is having a bit of a nap. Don't worry, we're on it!"
+      );
+    }
   }
 };
 

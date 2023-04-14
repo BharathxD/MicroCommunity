@@ -59,6 +59,7 @@ export const RegisterForm = ({ onPageChange }: Props) => {
 
     try {
       setLoading(true);
+      setError(null);
       const response = await registerUser(formData);
       if (response?.status === 201) {
         setLoading(true);
@@ -72,20 +73,9 @@ export const RegisterForm = ({ onPageChange }: Props) => {
       }
     } catch (error: any) {
       setLoading(false);
-      if (error?.response?.status === 409) {
-        setError({
-          message: "User already exists.",
-        });
-      } else if (error?.response?.status === 500) {
-        setError({
-          message: "Something went wrong, try again later.",
-        });
-      } else {
-        setError({
-          message:
-            "Oops! Looks like our server is having a bit of a nap. Don't worry, we're on it!",
-        });
-      }
+      setError({
+        message: error.message,
+      });
     }
   };
 
