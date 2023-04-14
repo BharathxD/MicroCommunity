@@ -6,7 +6,9 @@ const gracefulShutdown = (
   server: Server<typeof IncomingMessage, typeof ServerResponse>
 ) => {
   process.once(signal, async () => {
-    console.log(`\n🚨 Recieved ${signal} 🚨 \nImplementing graceful shutdown...`);
+    console.log(
+      `\n🚨 Recieved ${signal} 🚨 \nImplementing graceful shutdown...`
+    );
     try {
       await Promise.all([
         new Promise<void>((resolve, reject) => {

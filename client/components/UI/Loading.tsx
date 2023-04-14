@@ -1,6 +1,5 @@
 import { ReduxState } from "@/types/state.types";
-import { Loader } from "@mantine/core";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 
 const Loading = () => {
@@ -15,10 +14,13 @@ const Loading = () => {
         height: "75vh",
       }}
     >
-      <Box width={"100%"} textAlign={"center"}>
-        <Loader color={mode === "dark" ? "#f4f4f4" : "#040404"} />
+      <Box width={"min-content"} textAlign={"center"}>
+        <CircularProgress
+          sx={{ color: mode === "dark" ? "#f4f4f4" : "#040404" }}
+        />
         <Typography
           fontWeight={600}
+          mt="5px"
           color={mode === "dark" ? "#f4f4f4" : "#040404"}
         >
           Loading

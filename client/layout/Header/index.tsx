@@ -12,7 +12,6 @@ const Header = () => {
   const [isMobileMenuToggled, setMobileMenuToggled] = useState<boolean>();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const { palette } = useTheme();
-  const neutralLight = palette.neutral.light;
   const alt = palette.background.alt;
 
   return (

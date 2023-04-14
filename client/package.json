@@ -10,12 +10,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.10.6",
-    "@mantine/core": "^6.0.5",
-    "@mantine/form": "^6.0.5",
-    "@mantine/next": "^6.0.5",
-    "@mantine/notifications": "^6.0.5",
     "@mui/icons-material": "^5.11.11",
-    "@mui/joy": "^5.0.0-alpha.74",
     "@mui/lab": "^5.0.0-alpha.125",
     "@mui/material": "^5.11.15",
     "@reduxjs/toolkit": "^1.9.3",
@@ -27,19 +22,14 @@
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "formik": "^2.2.9",
-    "js-cookie": "^3.0.1",
     "material-ui-popup-state": "^5.0.8",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
-    "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
     "typescript": "5.0.3",
     "yup": "^1.0.2"
-  },
-  "devDependencies": {
-    "@types/js-cookie": "^3.0.3"
   }
 }

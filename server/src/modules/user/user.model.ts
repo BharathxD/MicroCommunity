@@ -10,7 +10,6 @@ import argon2 from "argon2";
   }
   return next();
 })
-
 export class User {
   @prop({ required: true, type: String })
   public fname!: string;

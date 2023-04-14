@@ -1,8 +1,10 @@
 import { getModelForClass, prop, modelOptions } from "@typegoose/typegoose";
 import { User } from "../user/user.model";
 
-@modelOptions({ schemaOptions: { collection: 'Post' }, options: { allowMixed: 0 } })
-
+@modelOptions({
+  schemaOptions: { collection: "Post" },
+  options: { allowMixed: 0 },
+})
 export class Post {
   @prop({ required: true, ref: () => User })
   public userId!: string;

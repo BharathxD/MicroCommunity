@@ -1,5 +1,4 @@
-import { AppShell } from "@mantine/core";
-import React, { useEffect, useMemo } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { ReduxState } from "@/types/state.types";
@@ -36,9 +35,10 @@ const HomePageLayout: React.FC<Props> = ({
   const content = withoutHeader ? (
     children
   ) : (
-    <AppShell padding={"none"} header={<Header />}>
+    <Fragment>
+      <Header />
       {children}
-    </AppShell>
+    </Fragment>
   );
 
   return <ThemeProvider theme={theme}>{content}</ThemeProvider>;
