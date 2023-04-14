@@ -10,9 +10,9 @@ export const connect = async () => {
     mongoose.set("strictQuery", false);
     logger.info("Connecting to the Database...");
     await mongoose.connect(MONGO_URI);
-    logger.info("Successfully connected to the Database");
+    logger.info("Successfully connected to the Database ✅");
   } catch (error: any) {
-    logger.error(`Something went wrong: ${error.message}`);
+    logger.error(`Something went wrong ❌ \n${error.message}`);
     process.exit(1);
   }
 };

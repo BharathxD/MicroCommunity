@@ -6,7 +6,7 @@ const gracefulShutdown = (
   server: Server<typeof IncomingMessage, typeof ServerResponse>
 ) => {
   process.once(signal, async () => {
-    console.log(`Recieved ${signal}, implementing graceful shutdown...`);
+    console.log(`\n🚨 Recieved ${signal} 🚨 \nImplementing graceful shutdown...`);
     try {
       await Promise.all([
         new Promise<void>((resolve, reject) => {
@@ -20,10 +20,10 @@ const gracefulShutdown = (
         }),
         disconnect(),
       ]);
-      console.log(`Shutdown Completed`);
+      console.log(`✅ Shutdown Completed ✅`);
       process.exit(0);
     } catch (error: any) {
-      console.log(`Something went wrong: \n`);
+      console.log(`❌ Something went wrong ❌ \n`);
       console.log(error);
       process.exit(1);
     }

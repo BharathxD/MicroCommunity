@@ -1,5 +1,6 @@
 import { getModelForClass, prop, pre } from "@typegoose/typegoose";
-import argon2, { argon2d, argon2i, argon2id } from "argon2";
+
+import argon2 from "argon2";
 
 @pre<User>("save", async function (this, next) {
   if (this.isModified("password")) {
@@ -9,6 +10,7 @@ import argon2, { argon2d, argon2i, argon2id } from "argon2";
   }
   return next();
 })
+
 export class User {
   @prop({ required: true, type: String })
   public fname!: string;

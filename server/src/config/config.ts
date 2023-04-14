@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 export const configureApp = (app: Express) => {
-  const origin1 = process.env.CORS_ORIGIN || ""
+  const origin1 = process.env.CORS_ORIGIN || "";
   app.use(cookieParser());
   app.use(express.json());
   app.use(
