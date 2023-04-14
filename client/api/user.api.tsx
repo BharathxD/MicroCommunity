@@ -2,7 +2,7 @@ import axios from "axios";
 
 const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-const userBase = `${base}/api/user`;
+const USER_BASE_URL = `${base}/api/user`;
 
 export const patchConnectionHandler = async (
   connectionId: string,
@@ -10,7 +10,7 @@ export const patchConnectionHandler = async (
 ) => {
   try {
     const response = await axios.patch(
-      `${userBase}/connections/${connectionId}`,
+      `${USER_BASE_URL}/connections/${connectionId}`,
       {
         withCredentials: true,
         headers: {
@@ -30,7 +30,7 @@ export const fetchUserConnections = async (token: string | null) => {
     if (!token) {
       return null;
     }
-    const response = await axios.get(`${userBase}/connections`, {
+    const response = await axios.get(`${USER_BASE_URL}/connections`, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export const fetchUserData = async (
     if (!_id) {
       return null;
     }
-    const response = await axios.get(`${userBase}/search/${_id}`, {
+    const response = await axios.get(`${USER_BASE_URL}/search/${_id}`, {
       withCredentials: true,
       headers: {
         Authorization: token && `Bearer ${token}`,
