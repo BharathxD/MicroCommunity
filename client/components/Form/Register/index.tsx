@@ -4,7 +4,7 @@ import { RegisterValues, registerSchema } from "./userRegistrationSchema";
 import { FormLink } from "../components/FormLink";
 import DropzoneComponent from "../components/Dropzone";
 import FormButton from "@/components/UI/FormButton";
-import FormWrapper from "@/components/UI/FormWrapper";
+import FormWrapper from "@/components/Wrappers/FormWrapper";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/state/auth";
 import { useRouter } from "next/router";
@@ -19,7 +19,9 @@ export const RegisterForm = ({ onPageChange }: Props) => {
   const isNonMobile = useMediaQuery("(min-width:1000px)");
   const router = useRouter();
   const dispatch = useDispatch();
-  const [isError, setError] = useState<boolean>(false);
+  const [isError, setError] = useState<{
+    message: string;
+  } | null>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
   const initialValuesRegister = {
     fname: "",
@@ -56,23 +58,34 @@ export const RegisterForm = ({ onPageChange }: Props) => {
     formData.set("picturePath", picture.name);
 
     try {
-      const data = await registerUser(formData);
-      if (data) {
+      setLoading(true);
+      const response = await registerUser(formData);
+      if (response?.status === 201) {
         setLoading(true);
-        const { user, token } = data;
+        const { user, token } = response.data;
         dispatch(setLogin({ user, token }));
         onSubmitProps.resetForm();
         router.push("/");
         if (router.pathname === "/") {
           setLoading(false);
         }
-      } else {
-        setLoading(false);
-        setError(true);
-        throw new Error("Failed to register user");
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      setLoading(false);
+      if (error?.response?.status === 409) {
+        setError({
+          message: "User already exists.",
+        });
+      } else if (error?.response?.status === 500) {
+        setError({
+          message: "Something went wrong, try again later.",
+        });
+      } else {
+        setError({
+          message:
+            "Oops! Looks like our server is having a bit of a nap. Don't worry, we're on it!",
+        });
+      }
     }
   };
 
@@ -197,13 +210,13 @@ export const RegisterForm = ({ onPageChange }: Props) => {
                   sx={{ gridColumn: "span 4" }}
                 />
               </Box>
-              {isError && (
-                <Alert severity="error">
-                  This is an error alert — check it out!
-                </Alert>
-              )}
-              <Box>
+              <Box mt="-30px">
                 <FormButton state={isLoading}>Register</FormButton>
+                {isError && (
+                  <Box mt="-20px" mb="10px">
+                    <Alert severity="error">{isError.message}</Alert>
+                  </Box>
+                )}
                 <FormLink
                   onPageChange={onPageChange}
                   resetForm={resetForm}

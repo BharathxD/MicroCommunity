@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { FormLink } from "../components/FormLink";
 import { LoginValues, loginSchema } from "./userLoginSchema";
 import FormButton from "@/components/UI/FormButton";
-import FormWrapper from "@/components/UI/FormWrapper";
+import FormWrapper from "@/components/Wrappers/FormWrapper";
 import { useState } from "react";
 
 type Props = {
@@ -35,13 +35,7 @@ export const LoginForm = ({ onPageChange }: Props) => {
       setError(null);
       setLoading(true);
       const response = await loginUser(values);
-      if (response?.status !== 200) {
-        setLoading(false);
-        setError({
-          message: "Email or Password is Incorrect",
-        });
-      }
-      if (response) {
+      if (response?.status === 200) {
         onSubmitProps.resetForm();
         const { user, token } = response.data;
         dispatch(setLogin({ user, token }));
@@ -50,8 +44,22 @@ export const LoginForm = ({ onPageChange }: Props) => {
           setLoading(false);
         }
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      setLoading(false);
+      if (error?.response?.status === 401) {
+        setError({
+          message: "Email or Password is Incorrect",
+        });
+      } else if (error?.response?.status === 500) {
+        setError({
+          message: "Something went wrong, try again later.",
+        });
+      } else {
+        setError({
+          message:
+            "Oops! Looks like our server is having a bit of a nap. Don't worry, we're on it!",
+        });
+      }
     }
   };
 
@@ -101,9 +109,13 @@ export const LoginForm = ({ onPageChange }: Props) => {
               helperText={touched.password && errors.password}
               sx={{ gridColumn: "span 4" }}
             />
-            {isError && <Alert severity="error">{isError.message}</Alert>}
             <Box mt={"-30px"}>
               <FormButton state={loading}>Login</FormButton>
+              {isError && (
+                <Box mt="-20px" mb="10px">
+                  <Alert severity="error">{isError.message}</Alert>
+                </Box>
+              )}
               <FormLink
                 onPageChange={onPageChange}
                 resetForm={resetForm}

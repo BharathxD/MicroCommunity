@@ -19,9 +19,16 @@ const FormButton = ({ state, children }: Props) => {
       variant="contained"
       disabled={state}
     >
-      <Typography fontSize="1rem" fontWeight="500">
+      <Typography fontSize="1rem" fontWeight="500" position="relative">
         {children}
-        {state && <LinearProgress />}
+        {state && (
+          <LinearProgress
+            sx={{
+              position: "absolute",
+              width: "100%",
+            }}
+          />
+        )}
       </Typography>
     </Button>
   );

@@ -54,8 +54,9 @@ export const registerUserHandler = async (
       .send({ message: "User created successfully", user: createdUser, token });
   } catch (error: any) {
     if (error.code === 11000) {
-      logger.error(error.code);
       res.status(StatusCodes.CONFLICT).send({ message: "User already exists" });
+    } else {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
   }
 };

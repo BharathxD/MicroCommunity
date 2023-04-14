@@ -34,6 +34,7 @@ export const loginUserHandler = async (
     return res.status(StatusCodes.OK).send({ user, token });
   } catch (error: any) {
     logger.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
   }
 };
 

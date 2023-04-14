@@ -1,5 +1,4 @@
 import {
-  ManageAccountsOutlined,
   EditOutlined,
   LocationOnOutlined,
   WorkOutlineOutlined,
@@ -7,7 +6,7 @@ import {
   LinkedIn,
   ManageAccounts,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme, IconButton } from "@mui/material";
+import { Box, Typography, Divider, useTheme } from "@mui/material";
 import UserImage from "./UserImage";
 import FlexBetween from "../UI/FlexBetween";
 import WidgetWrapper from "./WidgetWrapper";
@@ -16,7 +15,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ReduxState, User } from "@/types/state.types";
 import { fetchUserData } from "@/api/user.api";
-import IconWrapper from "../UI/IconWrapper";
+import IconWrapper from "../Wrappers/IconWrapper";
 
 const UserWidget = () => {
   const userId = useSelector((state: ReduxState) => {

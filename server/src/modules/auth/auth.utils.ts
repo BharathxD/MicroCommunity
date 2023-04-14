@@ -38,14 +38,13 @@ export class JWTService {
 
   verifyToken(token: string): JwtPayload {
     try {
-      return jwt.verify(token, this.publicKey) as JwtPayload;
-    } catch (err) {
-      if (err instanceof JsonWebTokenError) {
-        throw new Error("Invalid JWT token.");
-      } else if (err instanceof NotBeforeError) {
-        throw new Error("JWT token not yet valid.");
+      const payload = jwt.verify(token, this.publicKey) as JwtPayload;
+      return payload;
+    } catch (err: any) {
+      if (err instanceof NotBeforeError) {
+        throw NotBeforeError;
       } else if (err instanceof TokenExpiredError) {
-        throw new Error("JWT token has expired.");
+        throw TokenExpiredError;
       } else {
         throw new Error("Failed to verify JWT token.");
       }

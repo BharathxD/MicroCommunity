@@ -17,7 +17,7 @@ const deserializeUser = (req: Request, res: Response, next: NextFunction) => {
     res.locals.user = decoded;
     return next();
   } catch (error: any) {
-    if (error instanceof TokenExpiredError) {
+    if (error === TokenExpiredError) {
       return next();
     }
     return res

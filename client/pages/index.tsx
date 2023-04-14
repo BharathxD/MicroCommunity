@@ -1,5 +1,5 @@
 import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
-import { Fragment, ReactElement, useEffect, useState } from "react";
+import { Fragment, ReactElement, useEffect } from "react";
 import Connections from "@/components/Connections";
 import AdvertWidget from "@/components/widget/AdvertWidget";
 import UserWidget from "@/components/widget/UserWidget";
@@ -9,9 +9,9 @@ import { ReduxState } from "@/types/state.types";
 import { useRouter } from "next/router";
 import Loading from "@/components/UI/Loading";
 import Head from "next/head";
-import LeftSectionWrapper from "@/components/UI/HomepageWrappers/LeftSectionWrapper";
-import MiddleSectionWrapper from "@/components/UI/HomepageWrappers/MiddleSectionWrapper";
-import HompageWrapper from "@/components/UI/HomepageWrappers/HomepageWrapper";
+import LeftSectionWrapper from "@/components/Wrappers/HomepageWrappers/LeftSectionWrapper";
+import MiddleSectionWrapper from "@/components/Wrappers/HomepageWrappers/MiddleSectionWrapper";
+import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
 import { setLoading } from "@/state/auth";
 
 export default function Home(): ReactElement {

@@ -11,12 +11,10 @@ export const registerUser = async (formData: FormData) => {
       withCredentials: true,
       headers: { "Content-Type": "application/form-data" },
     });
-    if (response.status !== 201) {
-      return null;
-    }
-    return response.data;
+    return response;
   } catch (error: any) {
     console.log(`Cannot register User: ${error.message}`);
+    throw error;
   }
 };
 
@@ -31,6 +29,7 @@ export const loginUser = async (payload: {
     return response;
   } catch (error: any) {
     console.log(`Cannot authenticate User: ${error.message}`);
+    throw error;
   }
 };
 
