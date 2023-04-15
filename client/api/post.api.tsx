@@ -21,9 +21,7 @@ export const patchLike = async (postId: string, token: string) => {
 
 export const getPosts = async (userId?: string): Promise<Post[] | null> => {
   try {
-    const URI = userId
-      ? `${POST_BASE_URL}/${userId}/posts`
-      : `${POST_BASE_URL}/posts`;
+    const URI = userId ? `${POST_BASE_URL}/${userId}/posts` : POST_BASE_URL;
 
     const response = await axios.get<Post[]>(URI, {
       withCredentials: true,

@@ -9,10 +9,11 @@ import { ReduxState } from "@/types/state.types";
 import { useRouter } from "next/router";
 import Loading from "@/components/UI/Loading";
 import Head from "next/head";
-import LeftSectionWrapper from "@/components/Wrappers/HomepageWrappers/LeftSectionWrapper";
 import MiddleSectionWrapper from "@/components/Wrappers/HomepageWrappers/MiddleSectionWrapper";
 import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
 import { setLoading } from "@/state/auth";
+import LeftSectionWrapper from "@/components/Wrappers/HomepageWrappers/LeftSectionWrapper";
+import PostsWidget from "@/components/Post/PostsWidget";
 
 export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -41,10 +42,7 @@ export default function Home(): ReactElement {
       <Head>
         <title>Homepage</title>
       </Head>
-      <Box
-        bgcolor={palette.background.default}
-        minHeight={"100vh"}
-      >
+      <Box bgcolor={palette.background.default} minHeight={"100vh"}>
         {isLoading && <Loading />}
         {!isLoading && (
           <HompageWrapper>
@@ -53,7 +51,7 @@ export default function Home(): ReactElement {
             </LeftSectionWrapper>
             <Divider orientation="vertical" flexItem />
             <MiddleSectionWrapper>
-              {/* Placeholder for the main content */}
+              <PostsWidget />
             </MiddleSectionWrapper>
             <Divider orientation="vertical" flexItem />
             {isNonMobileScreen && (

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "@/state/auth";
 import PostWidget from "./PostWidget";
@@ -6,8 +6,8 @@ import { Post, ReduxState } from "@/types/state.types";
 import { getPosts } from "@/api/post.api";
 
 type Props = {
-  userId: string;
-  isProfile: boolean;
+  userId?: string;
+  isProfile?: boolean;
 };
 
 const PostsWidget = ({ userId, isProfile = false }: Props) => {
@@ -30,35 +30,36 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
   }, [dispatch, isProfile, userId]);
 
   return (
-    <>
-      {posts.map(
-        ({
-          _id,
-          userId,
-          fname,
-          lname,
-          description,
-          location,
-          picturePath,
-          userPicturePath,
-          likes,
-          comments,
-        }) => (
-          <PostWidget
-            key={_id}
-            postId={_id}
-            postUserId={userId}
-            name={`${fname} ${lname}`}
-            description={description}
-            location={location}
-            picturePath={picturePath}
-            userPicturePath={userPicturePath}
-            likes={likes}
-            comments={comments}
-          />
-        )
-      )}
-    </>
+    <Fragment>
+      {posts &&
+        posts.map(
+          ({
+            _id,
+            userId,
+            fname,
+            lname,
+            description,
+            location,
+            picturePath,
+            userPicturePath,
+            likes,
+            comments,
+          }) => (
+            <PostWidget
+              key={_id}
+              postId={_id}
+              postUserId={userId}
+              name={`${fname} ${lname}`}
+              description={description}
+              location={location}
+              picturePath={picturePath}
+              userPicturePath={userPicturePath}
+              likes={likes}
+              comments={comments}
+            />
+          )
+        )}
+    </Fragment>
   );
 };
 
