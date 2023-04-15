@@ -14,6 +14,7 @@ import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapp
 import { setLoading } from "@/state/auth";
 import LeftSectionWrapper from "@/components/Wrappers/HomepageWrappers/LeftSectionWrapper";
 import PostsWidget from "@/components/Post/PostsWidget";
+import UserPostWidget from "@/components/Post/UserPostWidget";
 
 export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -51,6 +52,7 @@ export default function Home(): ReactElement {
             </LeftSectionWrapper>
             <Divider orientation="vertical" flexItem />
             <MiddleSectionWrapper>
+              <UserPostWidget />
               <PostsWidget />
             </MiddleSectionWrapper>
             <Divider orientation="vertical" flexItem />
