@@ -1,6 +1,5 @@
 import { useState } from "react";
 import React from "react";
-import Search from "./Search";
 import { useTheme, useMediaQuery } from "@mui/material";
 import FlexBetween from "@/components/UI/FlexBetween";
 import Logo from "./Logo";
@@ -18,6 +17,7 @@ const Header = () => {
     <React.Fragment>
       <FlexBetween
         padding="1rem 5%"
+        pr="2.5rem"
         sx={{
           background: alt,
           backdropFilter: "blur( 10px )",
@@ -29,7 +29,6 @@ const Header = () => {
         </FlexBetween>
         {isNonMobileScreens ? (
           <FlexBetween>
-            <Search />
             <DesktopNav />
           </FlexBetween>
         ) : (

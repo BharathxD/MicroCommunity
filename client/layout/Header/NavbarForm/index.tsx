@@ -32,10 +32,10 @@ const UserDropdown = () => {
 
   const styles = {
     backgroundColor: theme.palette.neutral.light,
-    minWidth: "150px",
     width: "max-content",
     borderRadius: "9px",
     p: "0.45rem 1rem",
+    position: "relative",
     border: "1px solid rgba( 255, 255, 255, 0.18 )",
     "& .MuiSvgIcon-root": {
       width: "3rem",
@@ -61,7 +61,7 @@ const UserDropdown = () => {
   };
 
   return (
-    <Box sx={{ p: "1rem", position: "relative" }}>
+    <Box sx={{ p: "1rem" }}>
       <FormControl variant="standard">
         <Select value={fullName} sx={styles} input={<InputBase />}>
           <MenuItem value={fullName}>
@@ -72,7 +72,7 @@ const UserDropdown = () => {
           </MenuItem>
         </Select>
       </FormControl>
-      {isLoading && <NavProgress />}
+      <Box position="relative">{isLoading && <NavProgress />}</Box>
     </Box>
   );
 };

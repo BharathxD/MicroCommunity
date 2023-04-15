@@ -4,6 +4,7 @@ import { setPosts } from "@/state/auth";
 import PostWidget from "./PostWidget";
 import { Post, ReduxState } from "@/types/state.types";
 import { getPosts } from "@/api/post.api";
+import { Box } from "@mui/material";
 
 type Props = {
   userId?: string;
@@ -29,7 +30,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
     fetchPosts();
   }, [dispatch, isProfile, userId]);
   return (
-    <Fragment>
+    <Box display="flex" flexDirection="column" gap="25px" padding="0px">
       {posts &&
         posts.length >= 0 &&
         posts.map((post: Post) => (
@@ -46,7 +47,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
             comments={post.comments}
           />
         ))}
-    </Fragment>
+    </Box>
   );
 };
 

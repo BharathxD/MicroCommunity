@@ -86,6 +86,7 @@ const PostWidget = ({
             height: "100%",
             maxHeight: "450px",
             objectFit: "contain",
+            border: "1px solid rgba( 255, 255, 255, 0.01 )",
             backgroundColor: palette.neutral.light,
           }}
           quality={100}

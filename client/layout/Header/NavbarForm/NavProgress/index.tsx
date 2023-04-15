@@ -8,14 +8,15 @@ const NavProgress = () => {
       alignItems="center"
       sx={{
         position: "absolute",
-        m: "0",
+        ml: "0",
         mt: "7.5px",
-        width: "86%",
+        width: "100%",
+        textAlign: "center",
       }}
     >
       <LinearProgress
         color="primary"
-        sx={{ borderRadius: "10px", height: "5px", width: "85%" }}
+        sx={{ borderRadius: "10px", height: "5px", width: "75%" }}
       />
     </Box>
   );
