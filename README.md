@@ -18,6 +18,6 @@ This sophisticated website has been built with scalability in mind, utilizing ad
 #### PS: Construction still in progress... 🚧
 
 ![Login Page](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Login.png)
-![Login Page](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Register.png)
-![Login Page](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Dark-Mode.png)
-![Login Page](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Light-Mode.png)
+![Register Page](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Register.png)
+![Dark Mode](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Dark-Mode.png)
+![Light Node](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Light-Mode.png)
