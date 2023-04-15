@@ -40,7 +40,6 @@ export const createPostHandler = async (
       comments: [],
     };
     const createdPost = await createPost(postBody);
-    console.log(createdPost);
     if (!createdPost) {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)

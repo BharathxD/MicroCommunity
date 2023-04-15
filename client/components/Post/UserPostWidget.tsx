@@ -34,7 +34,7 @@ const UserPostWidget = () => {
   const { picturePath, mode, token } = useSelector((state: ReduxState) => ({
     picturePath: state.user?.picturePath,
     mode: state.mode,
-    token: state.token
+    token: state.token,
   }));
 
   const handlePostSubmit = async () => {
@@ -64,10 +64,10 @@ const UserPostWidget = () => {
           width="100%"
           sx={{
             display: "flex",
-            gap: "10px",
+            gap: "1rem",
             justifyContent: "center",
             alignItems: "center",
-            mr: "-20px",
+            mr: "-10px",
           }}
         >
           <InputBase
@@ -87,13 +87,12 @@ const UserPostWidget = () => {
           />
           <ImageIcon prevState={hasImage} setHasImage={setHasImage} />
         </Box>
-        <Divider sx={{ margin: "1.25rem 0" }} />
         <Button
           onClick={handlePostSubmit}
           sx={{
             color: "#f4f4f4",
             backgroundColor: palette.primary.main,
-            borderRadius: "15px",
+            borderRadius: "5px 1rem 1rem 5px",
             height: isNonMobileScreens ? "60px" : "50px",
             width: "50px",
             padding: "1rem 2rem",
@@ -104,7 +103,7 @@ const UserPostWidget = () => {
             },
           }}
         >
-          <Send />
+          <Send sx={{ fontSize: "2rem" }} />
         </Button>
       </FlexBetween>
       {hasImage && <Divider sx={{ margin: "1rem" }} />}

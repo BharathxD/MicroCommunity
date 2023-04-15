@@ -22,7 +22,7 @@ const ImageIcon = ({ prevState, setHasImage }: Props) => {
         flexDirection: "column",
         cursor: "pointer",
         minHeight: "contain",
-        borderRadius: "1rem",
+        borderRadius: "1rem 5px 5px 1rem",
         border: "1px solid rgba( 255, 255, 255, 0.1 )",
         backgroundColor: palette.neutral.light,
       }}
@@ -31,7 +31,7 @@ const ImageIcon = ({ prevState, setHasImage }: Props) => {
       <ImageOutlined
         sx={{
           color: mediumMain,
-          fontSize: isNonMobileScreens ? "2.75rem" : "2rem",
+          fontSize: isNonMobileScreens ? "2.6rem" : "2rem",
         }}
       />
     </IconButton>
