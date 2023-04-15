@@ -19,5 +19,5 @@ This sophisticated website has been built with scalability in mind, utilizing ad
 
 ![Login Page](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Login.png)
 ![Register Page](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Register.png)
-![Dark Mode](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Dark-Mode.png)
+![Dark Mode](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Dark-Mode)
 ![Light Node](https://bharath-web-bucket.s3.ap-south-1.amazonaws.com/Light-Mode.png)
