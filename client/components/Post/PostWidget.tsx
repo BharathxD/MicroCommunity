@@ -11,7 +11,7 @@ import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FlexBetween from "../UI/FlexBetween";
-import WidgetWrapper from "./WidgetWrapper";
+import WidgetWrapper from "../Wrappers/WidgetWrapper";
 import Image from "next/image";
 import ConnectionList from "../Connections/ConnectionList";
 
@@ -24,7 +24,7 @@ type Props = {
   location: string;
   picturePath: string;
   userPicturePath: string;
-  comments: [string];
+  comments: string[];
 };
 
 const PostWidget = ({

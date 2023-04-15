@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { setConnections } from "@/state/auth";
 import FlexBetween from "../../UI/FlexBetween";
-import UserImage from "../../widget/UserImage";
+import UserImage from "../../User/UserImage";
 import { Connections, ReduxState } from "@/types/state.types";
 import { patchConnectionHandler } from "@/api/user.api";
 import ConnectionIcon from "@/components/UI/ConnectionIcon";

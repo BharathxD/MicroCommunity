@@ -1,6 +1,6 @@
 import { Typography, useTheme } from "@mui/material";
 import FlexBetween from "../UI/FlexBetween";
-import WidgetWrapper from "./WidgetWrapper";
+import WidgetWrapper from "../Wrappers/WidgetWrapper";
 import Image from "next/image";
 
 const AdvertWidget = () => {

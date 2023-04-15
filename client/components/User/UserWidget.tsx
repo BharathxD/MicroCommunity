@@ -9,7 +9,7 @@ import {
 import { Box, Typography, Divider, useTheme } from "@mui/material";
 import UserImage from "./UserImage";
 import FlexBetween from "../UI/FlexBetween";
-import WidgetWrapper from "./WidgetWrapper";
+import WidgetWrapper from "../Wrappers/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";

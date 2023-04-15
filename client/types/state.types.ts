@@ -29,8 +29,8 @@ export interface Post {
   lname: string;
   location: string;
   description: string;
-  picture: string;
-  userpicture: string;
+  picturePath: string;
+  userPicturePath: string;
   likes: Map<string, boolean>;
   comments: string[];
 }

@@ -1,8 +1,8 @@
 import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
 import { Fragment, ReactElement, useEffect } from "react";
 import Connections from "@/components/Connections";
-import AdvertWidget from "@/components/widget/AdvertWidget";
-import UserWidget from "@/components/widget/UserWidget";
+import AdvertWidget from "@/components/Advertisements/AdvertWidget";
+import UserWidget from "@/components/User/UserWidget";
 import HomePageLayout from "@/layout/HomePageLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { ReduxState } from "@/types/state.types";
@@ -44,7 +44,6 @@ export default function Home(): ReactElement {
       <Box
         bgcolor={palette.background.default}
         minHeight={"100vh"}
-        p={"0.5rem"}
       >
         {isLoading && <Loading />}
         {!isLoading && (

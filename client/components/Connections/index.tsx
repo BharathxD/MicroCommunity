@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import WidgetWrapper from "@/components/widget/WidgetWrapper";
+import WidgetWrapper from "@/components/Wrappers/WidgetWrapper";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Connections, ReduxState } from "@/types/state.types";
