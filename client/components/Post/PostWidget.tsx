@@ -46,7 +46,8 @@ const PostWidget = ({
   if (!loggedInUserId) {
     return null;
   }
-  const isLiked = Boolean(likes.get(loggedInUserId));
+  const isLiked = likes instanceof Map && Boolean(likes.get(loggedInUserId));
+
   const likeCount = Object.keys(likes).length;
 
   const main = palette.neutral.main;
@@ -80,8 +81,8 @@ const PostWidget = ({
           width={100}
           height={100}
           alt="post"
-          style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          style={{ borderRadius: "0.75rem", marginTop: "0.75rem", width: "100%", height: "450px", objectFit: "contain" }}
+          src={`http://localhost:4000/public/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">

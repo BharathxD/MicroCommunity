@@ -5,6 +5,18 @@ const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const POST_BASE_URL = `${base}/api/post`;
 
+export const createPost = async (payload: FormData, token: string | null) => {
+  try {
+    const response = await axios.post(`${POST_BASE_URL}`, payload, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error: any) {
+    console.log(`Cannot create the post ${error}`);
+    return null;
+  }
+};
+
 export const patchLike = async (postId: string, token: string) => {
   try {
     const response = await axios.patch(`${POST_BASE_URL}/like/${postId}`, {

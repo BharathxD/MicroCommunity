@@ -20,15 +20,16 @@ export const createPostHandler = async (
   res: Response
 ) => {
   try {
-    const { userId, description, picturePath } = req.body;
-    const foundUser = await findUserById(userId);
+    const { description, picturePath } = req.body;
+    const { _id } = res.locals.user
+    const foundUser = await findUserById(_id);
     if (!foundUser) {
       return res
         .status(StatusCodes.NOT_FOUND)
         .send({ message: "User not found" });
     }
     const postBody = {
-      userId,
+      userId: _id,
       fname: foundUser.fname,
       lname: foundUser.lname,
       location: foundUser.location,
@@ -39,6 +40,7 @@ export const createPostHandler = async (
       comments: [],
     };
     const createdPost = await createPost(postBody);
+    console.log(createdPost);
     if (!createdPost) {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -52,8 +54,8 @@ export const createPostHandler = async (
 
 export const getFeedPostsHandler = async (req: Request, res: Response) => {
   try {
-    const post = await getAllPosts();
-    res.status(StatusCodes.OK).send(post);
+    const posts = await getAllPosts();
+    res.status(StatusCodes.OK).send(posts);
   } catch (error: any) {
     res.status(StatusCodes.NOT_FOUND).send({ message: error.message });
   }

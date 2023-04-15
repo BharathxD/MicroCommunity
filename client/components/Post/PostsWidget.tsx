@@ -28,10 +28,9 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
     };
     fetchPosts();
   }, [dispatch, isProfile, userId]);
-
   return (
     <Fragment>
-      {posts &&
+      {posts && posts.length >= 0&&
         posts.map(
           ({
             _id,

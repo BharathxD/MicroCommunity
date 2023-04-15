@@ -19,6 +19,8 @@ import PostDropzone from "./PostDropzone";
 import ImageIcon from "../UI/ImageIcon";
 
 import { ReduxState } from "@/types/state.types";
+import { createPost } from "@/api/post.api";
+import { setPosts } from "@/state/auth";
 
 const UserPostWidget = () => {
   const dispatch = useDispatch();
@@ -29,17 +31,33 @@ const UserPostWidget = () => {
   const [image, setImage] = useState<null | File>(null);
   const [post, setPost] = useState("");
 
-  const { picturePath, mode } = useSelector((state: ReduxState) => ({
+  const { picturePath, mode, token } = useSelector((state: ReduxState) => ({
     picturePath: state.user?.picturePath,
     mode: state.mode,
+    token: state.token
   }));
 
   const handlePostSubmit = async () => {
     // TODO: Implement post submission logic here
+    const formData = new FormData();
+    formData.append("description", post);
+    if (image) {
+      formData.append("picture", image);
+      formData.append("picturePath", image.name);
+    }
+    const posts = await createPost(formData, token);
+    dispatch(setPosts({ posts }));
+    setImage(null);
+    setPost("");
   };
 
   return (
-    <WidgetWrapper>
+    <WidgetWrapper
+      sx={{
+        padding: "0.75rem",
+        borderRadius: "1rem",
+      }}
+    >
       <FlexBetween gap="1rem">
         {isNonMobileScreens && <UserImage image={picturePath} />}
         <Box
@@ -59,12 +77,12 @@ const UserPostWidget = () => {
             sx={{
               width: "100%",
               backgroundColor: palette.neutral.light,
-              fontSize: isNonMobileScreens ? "1rem" : "0.75rem",
+              fontSize: isNonMobileScreens ? "auto" : "0.75rem",
               borderRadius: "1rem",
               padding: isNonMobileScreens ? "1rem 2rem" : "0.5rem",
               border: "1px solid rgba(255, 255, 255, 0.1)",
               position: "relative",
-              height: isNonMobileScreens ? "60px" : "50px",
+              height: isNonMobileScreens ? "auto" : "50px",
             }}
           />
           <ImageIcon prevState={hasImage} setHasImage={setHasImage} />
@@ -89,9 +107,9 @@ const UserPostWidget = () => {
           <Send />
         </Button>
       </FlexBetween>
-      {!hasImage && <Divider sx={{ margin: "1rem" }} />}
+      {hasImage && <Divider sx={{ margin: "1rem" }} />}
       <FlexBetween>
-        {!hasImage && <PostDropzone image={image} setImage={setImage} />}
+        {hasImage && <PostDropzone image={image} setImage={setImage} />}
       </FlexBetween>
     </WidgetWrapper>
   );

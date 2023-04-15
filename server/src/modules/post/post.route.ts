@@ -24,6 +24,10 @@ router.get("/:userId/posts", requireUser, getUserPostsHandler);
 //? Create a new post
 router.post(
   "/",
+  (req, res, next) => {
+    console.log(req.body);
+    next();
+  },
   requireUser,
   upload.single("picture"),
   processRequestBody(postSchema),

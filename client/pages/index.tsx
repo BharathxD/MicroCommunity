@@ -9,6 +9,7 @@ import { ReduxState } from "@/types/state.types";
 import { useRouter } from "next/router";
 import Loading from "@/components/UI/Loading";
 import Head from "next/head";
+
 import MiddleSectionWrapper from "@/components/Wrappers/HomepageWrappers/MiddleSectionWrapper";
 import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
 import { setLoading } from "@/state/auth";
@@ -53,6 +54,7 @@ export default function Home(): ReactElement {
             <Divider orientation="vertical" flexItem />
             <MiddleSectionWrapper>
               <UserPostWidget />
+              <Divider sx={{ margin: "1.25rem" }} />
               <PostsWidget />
             </MiddleSectionWrapper>
             <Divider orientation="vertical" flexItem />

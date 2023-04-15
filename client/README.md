@@ -20,8 +20,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Routes
 
-| Routes           | Path                  |
-| ---------------- | --------------------- |
-| Homepage         | `/`                   |
-| Login/Register   | `/auth`               |
-| User Profile     | `/profile/[..userId]` |
+| Routes         | Path                  |
+| -------------- | --------------------- |
+| Homepage       | `/`                   |
+| Login/Register | `/auth`               |
+| User Profile   | `/profile/[..userId]` |
