@@ -17,7 +17,7 @@ export const createPost = async (payload: FormData, token: string | null) => {
   }
 };
 
-export const patchLike = async (postId: string, token: string) => {
+export const patchLike = async (postId: string) => {
   try {
     const response = await axios.patch(
       `${POST_BASE_URL}/like/${postId}`,
