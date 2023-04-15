@@ -19,12 +19,17 @@ export const createPost = async (payload: FormData, token: string | null) => {
 
 export const patchLike = async (postId: string, token: string) => {
   try {
-    const response = await axios.patch(`${POST_BASE_URL}/like/${postId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+    const response = await axios.patch(
+      `${POST_BASE_URL}/like/${postId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+      {
+        withCredentials: true,
+      }
+    );
     return response;
   } catch (error: any) {
     console.log(`Cannot patch Likes: ${error.message}`);

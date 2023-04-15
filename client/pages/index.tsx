@@ -54,14 +54,14 @@ export default function Home(): ReactElement {
             <Divider orientation="vertical" flexItem />
             <MiddleSectionWrapper>
               <UserPostWidget />
-              <Divider sx={{ margin: "1.25rem" }} />
+              <Divider sx={{ margin: "1.25rem"}} />
               <PostsWidget />
             </MiddleSectionWrapper>
             <Divider orientation="vertical" flexItem />
             {isNonMobileScreen && (
               <Box sx={{ flexBasis: "26%" }}>
                 <Connections />
-                <Box sx={{ m: "2rem 0" }} />
+                <Box sx={{ m: "2rem" }} />
                 <AdvertWidget />
               </Box>
             )}

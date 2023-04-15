@@ -30,34 +30,22 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
   }, [dispatch, isProfile, userId]);
   return (
     <Fragment>
-      {posts && posts.length >= 0&&
-        posts.map(
-          ({
-            _id,
-            userId,
-            fname,
-            lname,
-            description,
-            location,
-            picturePath,
-            userPicturePath,
-            likes,
-            comments,
-          }) => (
-            <PostWidget
-              key={_id}
-              postId={_id}
-              postUserId={userId}
-              name={`${fname} ${lname}`}
-              description={description}
-              location={location}
-              picturePath={picturePath}
-              userPicturePath={userPicturePath}
-              likes={likes}
-              comments={comments}
-            />
-          )
-        )}
+      {posts &&
+        posts.length >= 0 &&
+        posts.map((post: Post) => (
+          <PostWidget
+            key={post._id}
+            postId={post._id}
+            postUserId={post.userId}
+            name={`${post.fname} ${post.lname}`}
+            description={post.description}
+            location={post.location}
+            picturePath={post.picturePath}
+            userPicturePath={post.userPicturePath}
+            likes={post.likes}
+            comments={post.comments}
+          />
+        ))}
     </Fragment>
   );
 };

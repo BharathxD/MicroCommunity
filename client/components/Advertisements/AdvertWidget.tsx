@@ -33,9 +33,9 @@ const AdvertWidget = () => {
 
       <FlexBetween>
         <Typography color={main}>FashionFusion</Typography>
-        <Typography color={medium}>FashionFusion.shop</Typography>
+        <Typography color={medium}>Fashionfusion.shop</Typography>
       </FlexBetween>
-      <Typography color={medium} m="0.5rem 0">
+      <Typography color={medium} m="0.5rem 0" textAlign="justify">
         Elevate your style with FashionFusion&apos;s latest collection. From
         chic blazers to comfortable loungewear, our new range has something for
         everyone. Shop now for the latest trends and timeless classics.

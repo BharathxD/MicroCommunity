@@ -17,7 +17,7 @@ import ConnectionList from "../Connections/ConnectionList";
 
 type Props = {
   postId: string;
-  likes: Map<string, boolean>;
+  likes: { [key: string]: boolean };
   postUserId: string;
   name: string;
   description: string;
@@ -43,13 +43,11 @@ const PostWidget = ({
   const dispatch = useDispatch();
   const token = useSelector((state: ReduxState) => state.token);
   const loggedInUserId = useSelector((state: ReduxState) => state.user?._id);
+  const likeCount = Object.keys(likes).length;
   if (!loggedInUserId) {
     return null;
   }
-  const isLiked = likes instanceof Map && Boolean(likes.get(loggedInUserId));
-
-  const likeCount = Object.keys(likes).length;
-
+  const isLiked = likes[loggedInUserId] === true;
   const main = palette.neutral.main;
   const primary = palette.primary.main;
 
@@ -57,7 +55,7 @@ const PostWidget = ({
     if (!postId || !token) {
       return;
     }
-    const response = await patchLike(postId, token);
+    const response = await patchLike(postId);
     if (response?.status !== 200) {
       return;
     }
@@ -66,14 +64,14 @@ const PostWidget = ({
   };
 
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper>
       <ConnectionList
         connectionId={postUserId}
         name={name}
         subtitle={location}
         userPicturePath={userPicturePath}
       />
-      <Typography color={main} sx={{ mt: "1rem" }}>
+      <Typography color={main} sx={{ mt: "1rem", p: "0.25rem" }}>
         {description}
       </Typography>
       {picturePath && (
@@ -81,11 +79,21 @@ const PostWidget = ({
           width={100}
           height={100}
           alt="post"
-          style={{ borderRadius: "0.75rem", marginTop: "0.75rem", width: "100%", height: "450px", objectFit: "contain" }}
+          style={{
+            borderRadius: "0.75rem",
+            marginTop: "0.75rem",
+            width: "100%",
+            height: "100%",
+            maxHeight: "450px",
+            objectFit: "contain",
+            backgroundColor: palette.neutral.light,
+          }}
+          quality={100}
           src={`http://localhost:4000/public/${picturePath}`}
+          onDoubleClick={patchLikeHandler}
         />
       )}
-      <FlexBetween mt="0.25rem">
+      <FlexBetween mt="1rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
             <IconButton onClick={patchLikeHandler}>
@@ -95,14 +103,18 @@ const PostWidget = ({
                 <FavoriteBorderOutlined />
               )}
             </IconButton>
-            <Typography>{likeCount}</Typography>
+            <Typography sx={{ color: palette.neutral.mediumMain }}>
+              {likeCount}
+            </Typography>
           </FlexBetween>
 
           <FlexBetween gap="0.3rem">
             <IconButton onClick={() => setHasComments(!hasComments)}>
               <ChatBubbleOutlineOutlined />
             </IconButton>
-            <Typography>{comments.length}</Typography>
+            <Typography sx={{ color: palette.neutral.mediumMain }}>
+              {comments.length}
+            </Typography>
           </FlexBetween>
         </FlexBetween>
 
@@ -115,7 +127,13 @@ const PostWidget = ({
           {comments.map((comment, i) => (
             <Box key={`${name}-${i}`}>
               <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+              <Typography
+                sx={{
+                  color: palette.neutral.mediumMain,
+                  m: "0.5rem 0",
+                  pl: "1rem",
+                }}
+              >
                 {comment}
               </Typography>
             </Box>

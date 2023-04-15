@@ -23,8 +23,9 @@ const ConnectionList = ({
 }: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { connection, token } = useSelector((state: ReduxState) => {
+  const { userId, connection, token } = useSelector((state: ReduxState) => {
     return {
+      userId: state.user?._id,
       connection: state.user?.connections,
       token: state.token,
     };
@@ -73,10 +74,12 @@ const ConnectionList = ({
           </Typography>
         </Box>
       </FlexBetween>
-      <ConnectionIcon
-        patchConnection={patchConnection}
-        isConnection={isConnection}
-      />
+      {connectionId !== userId && (
+        <ConnectionIcon
+          patchConnection={patchConnection}
+          isConnection={isConnection}
+        />
+      )}
     </FlexBetween>
   );
 };

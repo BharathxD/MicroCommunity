@@ -14,6 +14,7 @@ const UserImage = ({ image, size = 60 }: Props) => {
       <Image
         style={{ objectFit: "cover", borderRadius: "50%" }}
         width={size}
+        quality={50}
         height={size}
         alt="User Profile"
         src={imageUri}
