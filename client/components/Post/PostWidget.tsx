@@ -7,13 +7,21 @@ import {
   ChatBubbleOutlineOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Skeleton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FlexBetween from "../UI/FlexBetween";
 import WidgetWrapper from "../Wrappers/WidgetWrapper";
 import Image from "next/image";
 import ConnectionList from "../Connections/ConnectionList";
+import Toast from "../UI/Toast";
 
 type Props = {
   postId: string;
@@ -65,6 +73,7 @@ const PostWidget = ({
 
   return (
     <WidgetWrapper mb="15px">
+      <Toast />
       <ConnectionList
         connectionId={postUserId}
         name={name}
@@ -119,7 +128,13 @@ const PostWidget = ({
           </FlexBetween>
         </FlexBetween>
 
-        <IconButton>
+        <IconButton
+          onClick={async () => {
+            await navigator.clipboard.writeText(
+              `http://localhost:4000/public/${picturePath}`
+            );
+          }}
+        >
           <ShareOutlined />
         </IconButton>
       </FlexBetween>
