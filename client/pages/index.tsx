@@ -5,10 +5,11 @@ import AdvertWidget from "@/components/Advertisements/AdvertWidget";
 import UserWidget from "@/components/User/UserWidget";
 import HomePageLayout from "@/layout/HomePageLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { ReduxState } from "@/types/state.types";
+import { Post, ReduxState } from "@/types/state.types";
 import { useRouter } from "next/router";
 import Loading from "@/components/UI/Loading";
 import Head from "next/head";
+import { getPosts } from "@/api/post.api";
 
 import MiddleSectionWrapper from "@/components/Wrappers/HomepageWrappers/MiddleSectionWrapper";
 import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
@@ -16,6 +17,7 @@ import { setLoading } from "@/state/auth";
 import LeftSectionWrapper from "@/components/Wrappers/HomepageWrappers/LeftSectionWrapper";
 import PostsWidget from "@/components/Post/PostsWidget";
 import UserPostWidget from "@/components/Post/UserPostWidget";
+import { NextPageContext } from "next";
 
 export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
@@ -54,7 +56,7 @@ export default function Home(): ReactElement {
             <Divider orientation="vertical" flexItem />
             <MiddleSectionWrapper>
               <UserPostWidget />
-              <Divider sx={{ margin: "1.25rem"}} />
+              <Divider sx={{ margin: "1.25rem" }} />
               <PostsWidget />
             </MiddleSectionWrapper>
             <Divider orientation="vertical" flexItem />
@@ -74,4 +76,16 @@ export default function Home(): ReactElement {
 
 Home.getLayout = function (page: ReactElement) {
   return <HomePageLayout>{page}</HomePageLayout>;
+};
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const req = context.req;
+  // @ts-ignore
+  const accessToken = req?.cookies?.accessToken;
+  const posts: Post[] | null = await getPosts(accessToken);
+  return {
+    props: {
+      posts: posts || null,
+    },
+  };
 };

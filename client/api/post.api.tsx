@@ -36,16 +36,22 @@ export const patchLike = async (postId: string) => {
   }
 };
 
-export const getPosts = async (userId?: string): Promise<Post[] | null> => {
+export const getPosts = async (
+  userId?: string,
+  token?: string
+): Promise<Post[] | null> => {
   try {
     const URI = userId ? `${POST_BASE_URL}/${userId}/posts` : POST_BASE_URL;
 
     const response = await axios.get<Post[]>(URI, {
       withCredentials: true,
+      headers: {
+        Authorization: token && `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     });
     return response.data;
   } catch (error: any) {
     console.log(`Cannot fetch the posts: ${error}}`);
-    return null;
   }
 };

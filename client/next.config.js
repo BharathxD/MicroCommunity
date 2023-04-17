@@ -7,7 +7,6 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96], // specify image sizes for automatic resizing
     loader: "default", // specify image loader, options: 'default', 'imgix', 'cloudinary', etc.
     placeholder: "empty", // specify image placeholder, options: 'empty', 'emptyImage', 'blurred', 'emptyDataUrl', etc.
-    optimizeImages: true, // specify whether to disable image optimization
     remotePatterns: [
       {
         protocol: "http",
