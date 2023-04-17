@@ -73,7 +73,6 @@ const PostWidget = ({
 
   return (
     <WidgetWrapper mb="15px">
-      <Toast />
       <ConnectionList
         connectionId={postUserId}
         name={name}
