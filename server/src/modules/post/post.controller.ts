@@ -21,7 +21,7 @@ export const createPostHandler = async (
 ) => {
   try {
     const { description, picturePath } = req.body;
-    const { _id } = res.locals.user
+    const { _id } = res.locals.user;
     const foundUser = await findUserById(_id);
     if (!foundUser) {
       return res
