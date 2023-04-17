@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "@/state/auth";
 import PostWidget from "./PostWidget";
+import { Post, ReduxState } from "@/types/state.types";
 import { getPosts } from "@/api/post.api";
 import { Box } from "@mui/material";
-import { ReduxState } from "@/types/state.types";
 
 type Props = {
   userId?: string;
@@ -18,8 +18,10 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const posts = await (isProfile ? getPosts(userId) : getPosts());
-        dispatch(setPosts(posts));
+        const posts: Post[] | null = await (isProfile
+          ? getPosts(userId)
+          : getPosts());
+        dispatch(setPosts({ posts }));
       } catch (error) {
         console.error(error);
         // TODO: handle the error, for example by displaying an error message to the user
@@ -27,11 +29,11 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
     };
     fetchPosts();
   }, [dispatch, isProfile, userId]);
-
   return (
     <Box>
-      {posts.length > 0 &&
-        posts.map((post) => (
+      {posts &&
+        posts.length >= 0 &&
+        posts.map((post: Post) => (
           <PostWidget
             key={post._id}
             postId={post._id}
