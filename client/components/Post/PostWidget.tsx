@@ -50,6 +50,9 @@ const PostWidget = ({
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const token = useSelector((state: ReduxState) => state.token);
+  const [message, setMessage] = useState<{
+    content: string;
+  } | null>(null);
   const loggedInUserId = useSelector((state: ReduxState) => state.user?._id);
   const likeCount = Object.keys(likes).length;
   if (!loggedInUserId) {
@@ -71,92 +74,107 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  if (message) {
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  }
+
   return (
-    <WidgetWrapper mb="15px">
-      <ConnectionList
-        connectionId={postUserId}
-        name={name}
-        subtitle={location}
-        userPicturePath={userPicturePath}
-      />
-      <Typography color={main} sx={{ mt: "1rem", p: "0.25rem" }}>
-        {description}
-      </Typography>
-      {picturePath && (
-        <Image
-          width={100}
-          height={100}
-          alt="post"
-          style={{
-            borderRadius: "0.75rem",
-            marginTop: "0.75rem",
-            width: "100%",
-            height: "100%",
-            maxHeight: "450px",
-            objectFit: "contain",
-            border: "1px solid rgba( 255, 255, 255, 0.01 )",
-            backgroundColor: palette.neutral.light,
-          }}
-          quality={100}
-          src={`http://localhost:4000/public/${picturePath}`}
-          onDoubleClick={patchLikeHandler}
+    <>
+      {message && (
+        <Toast
+          message={message.content}
+          toastOnClick={() => setMessage(null)}
         />
       )}
-      <FlexBetween mt="1rem">
-        <FlexBetween gap="1rem">
-          <FlexBetween gap="0.3rem">
-            <IconButton onClick={patchLikeHandler}>
-              {isLiked ? (
-                <FavoriteOutlined sx={{ color: primary }} />
-              ) : (
-                <FavoriteBorderOutlined />
-              )}
-            </IconButton>
-            <Typography sx={{ color: palette.neutral.mediumMain }}>
-              {likeCount}
-            </Typography>
-          </FlexBetween>
-
-          <FlexBetween gap="0.3rem">
-            <IconButton onClick={() => setHasComments(!hasComments)}>
-              <ChatBubbleOutlineOutlined />
-            </IconButton>
-            <Typography sx={{ color: palette.neutral.mediumMain }}>
-              {comments.length}
-            </Typography>
-          </FlexBetween>
-        </FlexBetween>
-
-        <IconButton
-          onClick={async () => {
-            await navigator.clipboard.writeText(
-              `http://localhost:4000/public/${picturePath}`
-            );
-          }}
-        >
-          <ShareOutlined />
-        </IconButton>
-      </FlexBetween>
-      {hasComments && (
-        <Box mt="0.5rem">
-          {comments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
-              <Divider />
-              <Typography
-                sx={{
-                  color: palette.neutral.mediumMain,
-                  m: "0.5rem 0",
-                  pl: "1rem",
-                }}
-              >
-                {comment}
+      <WidgetWrapper mb="15px">
+        <ConnectionList
+          connectionId={postUserId}
+          name={name}
+          subtitle={location}
+          userPicturePath={userPicturePath}
+        />
+        <Typography color={main} sx={{ mt: "1rem", p: "0.25rem" }}>
+          {description}
+        </Typography>
+        {picturePath && (
+          <Image
+            width={100}
+            height={100}
+            alt="post"
+            style={{
+              borderRadius: "0.75rem",
+              marginTop: "0.75rem",
+              width: "100%",
+              height: "100%",
+              maxHeight: "450px",
+              objectFit: "contain",
+              border: "1px solid rgba( 255, 255, 255, 0.01 )",
+              backgroundColor: palette.neutral.light,
+            }}
+            quality={100}
+            src={`http://localhost:4000/public/${picturePath}`}
+            onDoubleClick={patchLikeHandler}
+          />
+        )}
+        <FlexBetween mt="1rem">
+          <FlexBetween gap="1rem">
+            <FlexBetween gap="0.3rem">
+              <IconButton onClick={patchLikeHandler}>
+                {isLiked ? (
+                  <FavoriteOutlined sx={{ color: primary }} />
+                ) : (
+                  <FavoriteBorderOutlined />
+                )}
+              </IconButton>
+              <Typography sx={{ color: palette.neutral.mediumMain }}>
+                {likeCount}
               </Typography>
-            </Box>
-          ))}
-          <Divider />
-        </Box>
-      )}
-    </WidgetWrapper>
+            </FlexBetween>
+
+            <FlexBetween gap="0.3rem">
+              <IconButton onClick={() => setHasComments(!hasComments)}>
+                <ChatBubbleOutlineOutlined />
+              </IconButton>
+              <Typography sx={{ color: palette.neutral.mediumMain }}>
+                {comments.length}
+              </Typography>
+            </FlexBetween>
+          </FlexBetween>
+
+          <IconButton
+            onClick={async () => {
+              await navigator.clipboard.writeText(
+                `http://localhost:4000/public/${picturePath}`
+              );
+              setMessage({ content: "Copied the link to your clipboard." });
+            }}
+          >
+            <ShareOutlined />
+          </IconButton>
+        </FlexBetween>
+        {hasComments && (
+          <Box mt="0.5rem">
+            {comments.map((comment, i) => (
+              <Box key={`${name}-${i}`}>
+                <Divider />
+                <Typography
+                  sx={{
+                    color: palette.neutral.mediumMain,
+                    m: "0.5rem 0",
+                    pl: "1rem",
+                  }}
+                >
+                  {comment}
+                </Typography>
+              </Box>
+            ))}
+            <Divider />
+          </Box>
+        )}
+      </WidgetWrapper>
+    </>
   );
 };
 

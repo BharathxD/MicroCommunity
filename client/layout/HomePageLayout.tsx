@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { ReduxState } from "@/types/state.types";
 import { themeSettings } from "@/themes/theme";
+
 import Header from "./Header";
 import { setUser } from "@/state/auth";
 import { fetchUserData } from "@/api/user.api";
+import Toast from "@/components/UI/Toast";
 
 interface Props {
   children: React.ReactNode;
@@ -16,23 +18,20 @@ const HomePageLayout: React.FC<Props> = ({
   children,
   withoutHeader = false,
 }) => {
-  const { mode, user, token } = useSelector((state: ReduxState) => {
-    return { mode: state.mode, user: state.user, token: state.token };
+  const { mode, _id, token } = useSelector((state: ReduxState) => {
+    return { mode: state.mode, _id: state.user?._id, token: state.token };
   });
-
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const dispatch = useDispatch();
+  const memoizedDispatch = useMemo(() => dispatch, [dispatch]);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const data = await fetchUserData(user?._id); // Use optional chaining to access _id safely
-      dispatch(setUser(data));
+      const data = await fetchUserData(_id);
+      memoizedDispatch(setUser(data));
     };
-    if (user?._id) {
-      // Add a null check before calling fetchUserData
-      fetchUser();
-    }
-  }, [user, dispatch]);
+    fetchUser();
+  }, [_id, memoizedDispatch, token]);
 
   const content = withoutHeader ? (
     children

@@ -83,6 +83,7 @@ const UserPostWidget = () => {
               border: "1px solid rgba(255, 255, 255, 0.1)",
               position: "relative",
               height: isNonMobileScreens ? "auto" : "50px",
+              mr: "-10px",
             }}
           />
           <ImageIcon prevState={hasImage} setHasImage={setHasImage} />
@@ -92,10 +93,9 @@ const UserPostWidget = () => {
           sx={{
             color: "#f4f4f4",
             backgroundColor: palette.primary.main,
-            borderRadius: "5px 1rem 1rem 5px",
+            borderRadius: "1rem",
             height: isNonMobileScreens ? "60px" : "50px",
-            width: "50px",
-            padding: "1rem 2rem",
+            padding: "1rem",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             "&:hover": {
               backgroundColor:
