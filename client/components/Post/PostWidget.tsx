@@ -13,6 +13,7 @@ import {
   IconButton,
   Skeleton,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
@@ -53,6 +54,7 @@ const PostWidget = ({
   const [message, setMessage] = useState<{
     content: string;
   } | null>(null);
+  const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
   const loggedInUserId = useSelector((state: ReduxState) => state.user?._id);
   const likeCount = Object.keys(likes).length;
   if (!loggedInUserId) {
@@ -88,7 +90,7 @@ const PostWidget = ({
           toastOnClick={() => setMessage(null)}
         />
       )}
-      <WidgetWrapper mb="15px">
+      <WidgetWrapper mb={"20px"}>
         <ConnectionList
           connectionId={postUserId}
           name={name}

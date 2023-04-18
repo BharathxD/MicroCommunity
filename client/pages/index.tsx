@@ -46,7 +46,11 @@ export default function Home(): ReactElement {
       <Head>
         <title>Homepage</title>
       </Head>
-      <Box bgcolor={palette.background.default} minHeight={"100vh"}>
+      <Box
+        bgcolor={palette.background.default}
+        minHeight={"100vh"}
+        padding={isNonMobileScreen ? "0" : "10px"}
+      >
         {isLoading && <Loading />}
         {!isLoading && (
           <HompageWrapper>

@@ -7,7 +7,7 @@ const MiddleSectionWrapper = ({ children }: { children: ReactNode }) => {
     <Box
       sx={{
         flexBasis: isNonMobileScreen ? "42%" : "100%",
-        mt: isNonMobileScreen ? 0 : "2rem",
+        mt: "0",
       }}
     >
       {children}

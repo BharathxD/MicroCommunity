@@ -30,7 +30,9 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
     fetchPosts();
   }, [dispatch, isProfile, userId]);
   return (
-    <Box>
+    <Box sx={{
+      marginBottom: "-20px"
+    }}>
       {posts &&
         posts.length >= 0 &&
         posts.map((post: Post) => (
