@@ -26,6 +26,7 @@ const UserPostWidget = () => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const name = useSelector((state: ReduxState) => state.user?.fname);
 
   const [hasImage, setHasImage] = useState<boolean>(false);
   const [image, setImage] = useState<null | File>(null);
@@ -67,11 +68,10 @@ const UserPostWidget = () => {
             gap: "1rem",
             justifyContent: "center",
             alignItems: "center",
-            mr: "-10px",
           }}
         >
           <InputBase
-            placeholder="What's on your mind..."
+            placeholder={`What's on your mind ${name}...`}
             onChange={(e) => setPost(e.target.value)}
             value={post}
             sx={{
