@@ -16,12 +16,14 @@ const Toast = ({
         color="info"
         sx={{
           position: "fixed",
-          left: "25px",
           bottom: "25px",
+          left: "40%",
           width: "max-content",
           minWidth: "300px",
           border: "1px solid rgba( 255, 255, 255, 0.1 )",
           d: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           flexDirection: "row",
           zIndex: "100",
           cursor: "pointer",

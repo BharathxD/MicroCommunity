@@ -59,7 +59,7 @@ const UserPostWidget = () => {
       }}
     >
       <FlexBetween gap="1rem">
-        {isNonMobileScreens && <UserImage image={picturePath} />}
+        {isNonMobileScreens && <UserImage image={picturePath} br="1rem" />}
         <Box
           width="100%"
           sx={{
