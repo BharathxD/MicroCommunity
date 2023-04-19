@@ -50,16 +50,12 @@ export const fetchSpecificUserConnections = async (
 
 export const fetchUserConnections = async (
   token: string | null,
-  userId?: string | string[] | undefined
 ) => {
   try {
     if (!token) {
       return null;
     }
-    const URI = userId
-      ? `${USER_BASE_URL}/${userId}/connections`
-      : USER_BASE_URL;
-    const response = await axios.get(URI, {
+    const response = await axios.get(`${USER_BASE_URL}/connections`, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",

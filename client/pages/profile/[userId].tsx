@@ -5,11 +5,13 @@ import UserPostWidget from "@/components/Post/UserPostWidget";
 import UserWidget from "@/components/User/UserWidget";
 import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
 import HomePageLayout from "@/layout/HomePageLayout";
+import { setProfile, setUser } from "@/state/auth";
 import { ReduxState, User } from "@/types/state.types";
 import { useMediaQuery, Box, useTheme } from "@mui/material";
 import { NextPageContext } from "next";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 type Props = {
   userId: string;
@@ -17,7 +19,8 @@ type Props = {
 };
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+  const user = useSelector((state: ReduxState) => state.profile);
   const { userId } = useRouter().query;
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
   const { palette } = useTheme();
@@ -25,10 +28,10 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const user = await fetchUserData(userId);
-      setUser(user);
+      dispatch(setProfile(user));
     };
     fetchUser();
-  }, [userId]);
+  }, [userId, dispatch]);
 
   if (!user) return null;
 

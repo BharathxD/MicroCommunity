@@ -27,6 +27,8 @@ router.get("/search/:userId", requireUser, getUserHandler);
 
 router.get("/connections", requireUser, getUserConnectionsHandler);
 
+router.get("/:userId/connections", requireUser, getUserConnectionsHandler);
+
 router.patch("/connections/:connectionId", requireUser, connectionHandler);
 
 export default router;

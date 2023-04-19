@@ -82,7 +82,6 @@ export const getUserConnectionsHandler = async (_: Request, res: Response) => {
   try {
     const userId = res.locals.user._id;
     const user = await findUserById(userId);
-
     if (!user) {
       return res
         .status(StatusCodes.NOT_FOUND)
