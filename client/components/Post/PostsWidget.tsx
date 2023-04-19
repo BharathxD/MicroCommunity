@@ -7,7 +7,7 @@ import { getPosts } from "@/api/post.api";
 import { Box } from "@mui/material";
 
 type Props = {
-  userId?: string;
+  userId?: string | string[] | undefined;
   isProfile?: boolean;
 };
 
@@ -30,9 +30,11 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
     fetchPosts();
   }, [dispatch, isProfile, userId]);
   return (
-    <Box sx={{
-      marginBottom: "-20px"
-    }}>
+    <Box
+      sx={{
+        marginBottom: "-20px",
+      }}
+    >
       {posts &&
         posts.length >= 0 &&
         posts.map((post: Post) => (

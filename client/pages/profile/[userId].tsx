@@ -1,16 +1,29 @@
 import { fetchUserData } from "@/api/user.api";
-import { User } from "@/types/state.types";
+import Connections from "@/components/Connections";
+import PostsWidget from "@/components/Post/PostsWidget";
+import UserPostWidget from "@/components/Post/UserPostWidget";
+import UserWidget from "@/components/User/UserWidget";
+import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
+import HomePageLayout from "@/layout/HomePageLayout";
+import { ReduxState, User } from "@/types/state.types";
+import { useMediaQuery, Box, useTheme } from "@mui/material";
 import { NextPageContext } from "next";
 import Head from "next/head";
-import { Fragment, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Fragment, ReactElement, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 type Props = {
   userId: string;
   user: User;
 };
 
-const ProfilePage = ({ userId, user }: Props) => {
-  const [getUser, setUser] = useState<User | null>(null);
+const ProfilePage = () => {
+  const [user, setUser] = useState(null);
+  const { userId } = useRouter().query;
+  const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
+  const { palette } = useTheme();
+
   useEffect(() => {
     const fetchUser = async () => {
       const user = await fetchUserData(userId);
@@ -18,17 +31,36 @@ const ProfilePage = ({ userId, user }: Props) => {
     };
     fetchUser();
   }, [userId]);
+
+  if (!user) return null;
+
   return (
-    <Fragment>
-      <Head>
-        <title>{`${user.fname} ${user.lname}`}</title>
-      </Head>
-      <div>
-        <p>{getUser?.fname}</p>
-        <p>{user?._id || "Undefined by the Server"}</p>
-      </div>
-    </Fragment>
+    <Box
+      bgcolor={palette.background.default}
+      minHeight={"100vh"}
+      padding={isNonMobileScreen ? "25px" : "10px"}
+    >
+      <Box display="flex" justifyContent="center" gap="50px">
+        <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
+          <UserWidget />
+          <Box m="2rem 0" />
+          <Connections />
+        </Box>
+        <Box
+          flexBasis={isNonMobileScreen ? "42%" : undefined}
+          mt={isNonMobileScreen ? undefined : "2rem"}
+        >
+          <UserPostWidget />
+          <Box m="2rem 0" />
+          <PostsWidget userId={userId} isProfile={true} />
+        </Box>
+      </Box>
+    </Box>
   );
+};
+
+ProfilePage.getLayout = function (page: ReactElement) {
+  return <HomePageLayout>{page}</HomePageLayout>;
 };
 
 export const getServerSideProps = async (context: NextPageContext) => {

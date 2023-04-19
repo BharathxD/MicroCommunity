@@ -46,13 +46,14 @@ export const fetchUserConnections = async (token: string | null) => {
 };
 
 export const fetchUserData = async (
-  _id: string | undefined,
+  _id: string | string[] | undefined,
   token?: string | null
 ) => {
   try {
     if (!_id) {
       return null;
     }
+    _id = _id instanceof Array ? _id[0] : _id;
     const response = await axios.get(`${USER_BASE_URL}/search/${_id}`, {
       withCredentials: true,
       headers: {

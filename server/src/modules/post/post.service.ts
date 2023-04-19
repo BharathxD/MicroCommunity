@@ -10,6 +10,7 @@ export const getAllPosts = async () => {
 };
 
 export const getPostByUserId = async (query: string) => {
+  console.log(query);
   return await PostModel.find({ query });
 };
 
