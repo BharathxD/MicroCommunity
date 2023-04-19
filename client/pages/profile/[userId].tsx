@@ -8,10 +8,8 @@ import HomePageLayout from "@/layout/HomePageLayout";
 import { ReduxState, User } from "@/types/state.types";
 import { useMediaQuery, Box, useTheme } from "@mui/material";
 import { NextPageContext } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import { Fragment, ReactElement, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { ReactElement, useEffect, useState } from "react";
 
 type Props = {
   userId: string;
@@ -44,7 +42,7 @@ const ProfilePage = () => {
         <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
           <UserWidget />
           <Box m="2rem 0" />
-          <Connections />
+          <Connections userId={userId} />
         </Box>
         <Box
           flexBasis={isNonMobileScreen ? "42%" : undefined}

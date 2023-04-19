@@ -7,8 +7,13 @@ import { setConnections } from "@/state/auth";
 import { fetchUserConnections } from "@/api/user.api";
 import ConnectionList from "./ConnectionList";
 
-const Connections = () => {
+type Props = {
+  userId?: string | string[] | undefined;
+};
+
+const Connections = ({ userId }: Props) => {
   const dispatch = useDispatch();
+  userId = userId instanceof Array ? userId[0] : userId;
   const { palette } = useTheme();
   const user = useSelector((state: ReduxState) => {
     return state.user;
@@ -18,7 +23,7 @@ const Connections = () => {
   useEffect(() => {
     const getConnections = async () => {
       try {
-        const data = await fetchUserConnections(token);
+        const data = await fetchUserConnections(token, userId);
         dispatch(setConnections({ connections: data }));
       } catch (error) {
         console.error(error);
