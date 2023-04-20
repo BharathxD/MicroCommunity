@@ -18,6 +18,7 @@ import LeftSectionWrapper from "@/components/Wrappers/HomepageWrappers/LeftSecti
 import PostsWidget from "@/components/Post/PostsWidget";
 import UserPostWidget from "@/components/Post/UserPostWidget";
 import { NextPageContext } from "next";
+import React from "react";
 
 type Props = {
   posts: Post[];
@@ -34,11 +35,16 @@ export default function Home({ posts }: Props): ReactElement {
   useEffect(() => {
     dispatch(setProfile(null));
     dispatch(setLoading({ isLoading: true }));
-    if (!token) {
-      router.push("/auth");
-    } else {
-      dispatch(setLoading({ isLoading: false }));
-    }
+    const timeout = setTimeout(() => {
+      if (!token) {
+        router.push("/auth");
+      } else {
+        dispatch(setLoading({ isLoading: false }));
+      }
+    }, 500);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
   return (

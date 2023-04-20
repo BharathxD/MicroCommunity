@@ -6,7 +6,7 @@ import { setProfile } from "@/state/auth";
 import { ReduxState, User } from "@/types/state.types";
 import { useMediaQuery, Box, useTheme } from "@mui/material";
 import { NextPageContext } from "next";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
