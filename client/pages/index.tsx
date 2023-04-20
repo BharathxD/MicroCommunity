@@ -34,16 +34,11 @@ export default function Home({ posts }: Props): ReactElement {
   useEffect(() => {
     dispatch(setProfile(null));
     dispatch(setLoading({ isLoading: true }));
-    const timeout = setTimeout(() => {
-      if (!token) {
-        router.push("/auth");
-      } else {
-        dispatch(setLoading({ isLoading: false }));
-      }
-    }, 500);
-    return () => {
-      clearTimeout(timeout);
-    };
+    if (!token) {
+      router.push("/auth");
+    } else {
+      dispatch(setLoading({ isLoading: false }));
+    }
   }, []);
 
   return (

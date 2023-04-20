@@ -7,12 +7,15 @@ const Logo = () => {
   const letterSpacing = isNonMobileScreens ? "1px" : "";
   const palette = theme.palette;
   const primaryLight = palette.neutral.dark;
+  const handleRedirect = () => {
+    Router.push("/");
+  };
   return (
     <Typography
       fontWeight="bold"
       fontSize={isNonMobileScreens ? "2.25rem" : "1.75rem"}
       color={palette.primary.dark}
-      onClick={() => Router.push("/")}
+      onClick={handleRedirect}
       sx={{
         letterSpacing,
         "&hover": {
