@@ -1,4 +1,3 @@
-import { Close } from "@mui/icons-material";
 import { Alert, Box, Tooltip } from "@mui/material";
 
 const Toast = ({

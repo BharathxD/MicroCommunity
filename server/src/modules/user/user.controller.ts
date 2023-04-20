@@ -78,9 +78,13 @@ export const getUserHandler = async (
   }
 };
 
-export const getUserConnectionsHandler = async (req: Request, res: Response) => {
+export const getUserConnectionsHandler = async (
+  req: Request,
+  res: Response
+) => {
   try {
-    const userId = req.params.userId !== "null" ? req.params.userId : res.locals.user._id;
+    const userId =
+      req.params.userId !== "null" ? req.params.userId : res.locals.user._id;
     const user = await findUserById(userId);
     if (!user) {
       return res

@@ -5,7 +5,7 @@ const base = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const POST_BASE_URL = `${base}/api/post`;
 
-export const createPost = async (payload: FormData, token: string | null) => {
+export const createPost = async (payload: FormData) => {
   try {
     const response = await axios.post(`${POST_BASE_URL}`, payload, {
       withCredentials: true,
