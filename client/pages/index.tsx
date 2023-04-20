@@ -1,5 +1,5 @@
 import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
-import { Fragment, ReactElement, useEffect } from "react";
+import { Fragment, ReactElement, memo, useEffect } from "react";
 import Connections from "@/components/Connections";
 import AdvertWidget from "@/components/Advertisements/AdvertWidget";
 import UserWidget from "@/components/User/UserWidget";
@@ -19,7 +19,11 @@ import PostsWidget from "@/components/Post/PostsWidget";
 import UserPostWidget from "@/components/Post/UserPostWidget";
 import { NextPageContext } from "next";
 
-export default function Home(): ReactElement {
+type Props = {
+  posts: Post[];
+};
+
+export default function Home({ posts }: Props): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
   const router = useRouter();
   const token = useSelector((state: ReduxState) => state.token);
@@ -29,9 +33,6 @@ export default function Home(): ReactElement {
 
   useEffect(() => {
     dispatch(setProfile(null));
-  }, []);
-
-  useEffect(() => {
     dispatch(setLoading({ isLoading: true }));
     const timeout = setTimeout(() => {
       if (!token) {
@@ -43,7 +44,7 @@ export default function Home(): ReactElement {
     return () => {
       clearTimeout(timeout);
     };
-  }, [token, router, dispatch]);
+  }, []);
 
   return (
     <Fragment>
@@ -91,9 +92,10 @@ export const getServerSideProps = async (context: NextPageContext) => {
   // @ts-ignore
   const accessToken = req?.cookies?.accessToken;
   const posts: Post[] | null = await getPosts(accessToken);
+  console.log(posts);
   return {
     props: {
-      posts: posts || null,
+      posts: null,
     },
   };
 };

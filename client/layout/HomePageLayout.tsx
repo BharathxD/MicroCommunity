@@ -7,7 +7,6 @@ import { themeSettings } from "@/themes/theme";
 import Header from "./Header";
 import { setUser } from "@/state/auth";
 import { fetchUserData } from "@/api/user.api";
-import Toast from "@/components/UI/Toast";
 
 interface Props {
   children: React.ReactNode;
@@ -31,7 +30,7 @@ const HomePageLayout: React.FC<Props> = ({
       memoizedDispatch(setUser(data));
     };
     fetchUser();
-  }, []);
+  }, [_id, memoizedDispatch]);
 
   const content = withoutHeader ? (
     children
