@@ -1,33 +1,10 @@
 import { fetchUserData } from "@/api/user.api";
-import Connections from "@/components/Connections";
-import PostsWidget from "@/components/Post/PostsWidget";
-import UserPostWidget from "@/components/Post/UserPostWidget";
-import FlexBetween from "@/components/UI/FlexBetween";
 import Loading from "@/components/UI/Loading";
-import UserImage from "@/components/User/UserImage";
 import UserWidget from "@/components/User/UserWidget";
-import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
-import IconWrapper from "@/components/Wrappers/IconWrapper";
-import WidgetWrapper from "@/components/Wrappers/WidgetWrapper";
 import HomePageLayout from "@/layout/HomePageLayout";
-import { setProfile, setUser } from "@/state/auth";
+import { setProfile } from "@/state/auth";
 import { ReduxState, User } from "@/types/state.types";
-import {
-  ManageAccounts,
-  LocationOnOutlined,
-  WorkOutlineOutlined,
-  Twitter,
-  EditOutlined,
-  LinkedIn,
-} from "@mui/icons-material";
-import {
-  useMediaQuery,
-  Box,
-  useTheme,
-  Typography,
-  Divider,
-} from "@mui/material";
-import { dark } from "@mui/material/styles/createPalette";
+import { useMediaQuery, Box, useTheme } from "@mui/material";
 import { NextPageContext } from "next";
 import router, { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
