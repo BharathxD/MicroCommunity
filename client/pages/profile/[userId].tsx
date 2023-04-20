@@ -37,17 +37,40 @@ type Props = {
   user: User;
 };
 
-const ProfilePage = ({ user }: Props) => {
+const ProfilePage = () => {
   const { userId } = useRouter().query;
   const dispatch = useDispatch();
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
+  const user = useSelector((state: ReduxState) => state.profile);
 
   const { palette } = useTheme();
 
-  if (!user) {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const user = await fetchUserData(userId);
+        if (user) {
+          dispatch(setProfile(user));
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchUser();
+  }, [userId]);
+
+  if (isLoading) {
     return (
-      <Box bgcolor={palette.background.default} minHeight={"100vh"}>
-        <Loading />;
+      <Box
+        bgcolor={palette.background.default}
+        minHeight={"100vh"}
+        padding={isNonMobileScreen ? "25px" : "10px"}
+      >
+        <Loading />
       </Box>
     );
   }
@@ -58,130 +81,7 @@ const ProfilePage = ({ user }: Props) => {
       minHeight={"100vh"}
       padding={isNonMobileScreen ? "25px" : "10px"}
     >
-      <WidgetWrapper display="flex" gap="20px" flexDirection="column">
-        <FlexBetween
-          gap="0.5rem"
-          pb="1.1rem"
-          onClick={() => router.push(`/profile/${userId}`)}
-        >
-          <FlexBetween gap="1.25rem">
-            <UserImage image={user.picturePath} />
-            <Box>
-              <Typography
-                variant="h4"
-                color={palette.neutral.dark}
-                fontWeight="500"
-                pb="0.25rem"
-                sx={{
-                  "&:hover": {
-                    color: palette.neutral.main,
-                    cursor: "pointer",
-                  },
-                }}
-              >
-                {user.fname} {user.lname}
-              </Typography>
-              <Typography color={palette.neutral.medium}>
-                {user.connections.length} Connections
-              </Typography>
-            </Box>
-          </FlexBetween>
-          <IconWrapper>
-            <ManageAccounts color="action" fontSize="large" />
-          </IconWrapper>
-        </FlexBetween>
-
-        <Divider />
-
-        <Box p="1rem 0">
-          <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
-            <LocationOnOutlined
-              fontSize="medium"
-              sx={{ color: palette.neutral.main }}
-            />
-            <Typography color={palette.neutral.medium}>
-              {user.location}
-            </Typography>
-          </Box>
-          <Box display="flex" alignItems="center" gap="1rem">
-            <WorkOutlineOutlined
-              fontSize="medium"
-              sx={{ color: palette.neutral.main }}
-            />
-            <Typography color={palette.neutral.medium}>
-              {user.occupation}
-            </Typography>
-          </Box>
-        </Box>
-
-        <Divider />
-
-        <Box p="1rem 0">
-          <FlexBetween mb="0.5rem">
-            <Typography color={palette.neutral.medium}>
-              {"Who's viewed your profile"}
-            </Typography>
-            <Typography color={palette.neutral.main} fontWeight="500">
-              {user.viewedProfile}
-            </Typography>
-          </FlexBetween>
-          <FlexBetween>
-            <Typography color={palette.neutral.medium}>
-              Impressions of your post
-            </Typography>
-            <Typography color={palette.neutral.main} fontWeight="500">
-              {user.impressions}
-            </Typography>
-          </FlexBetween>
-        </Box>
-
-        <Divider />
-
-        <Box p="1rem 0">
-          <Typography
-            fontSize="1rem"
-            color={palette.neutral.main}
-            fontWeight="500"
-            mb="1rem"
-          >
-            Social Profiles
-          </Typography>
-
-          <FlexBetween gap="1rem" mb="0.5rem">
-            <FlexBetween gap="1rem">
-              <Twitter color="action" fontSize="large" />
-              <Box>
-                <Typography color={palette.neutral.main} fontWeight="500">
-                  Twitter
-                </Typography>
-                <Typography color={palette.neutral.medium}>
-                  Social Network
-                </Typography>
-              </Box>
-            </FlexBetween>
-            <IconWrapper>
-              <EditOutlined sx={{ color: palette.neutral.main }} />
-            </IconWrapper>
-          </FlexBetween>
-
-          <FlexBetween gap="1rem">
-            <FlexBetween gap="1rem">
-              <LinkedIn color="action" fontSize="large" />
-              <Box>
-                <Typography color={palette.neutral.main} fontWeight="500">
-                  Linkedin
-                </Typography>
-                <Typography color={palette.neutral.medium}>
-                  Network Platform
-                </Typography>
-              </Box>
-            </FlexBetween>
-            <IconWrapper>
-              <EditOutlined sx={{ color: palette.neutral.main }} />
-            </IconWrapper>
-          </FlexBetween>
-        </Box>
-      </WidgetWrapper>
+      <UserWidget externalUserId={user?._id} />
     </Box>
   );
 };

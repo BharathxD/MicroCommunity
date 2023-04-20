@@ -65,7 +65,7 @@ const UserWidget = ({ externalUserId }: Props) => {
         onClick={() => router.push(`/profile/${userId}`)}
       >
         <FlexBetween gap="1.25rem">
-          <UserImage image={picturePath} />
+          <UserImage image={user.picturePath} />
           <Box>
             <Typography
               variant="h4"

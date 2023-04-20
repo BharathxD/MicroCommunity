@@ -27,14 +27,13 @@ const Connections = ({ userId, isProfile = false }: Props) => {
     const getConnections = async () => {
       try {
         const data = await fetchUserConnections(userId && userId);
-        console.log(data);
         dispatch(setConnections({ connections: data }));
       } catch (error) {
         console.error(error);
       }
     };
     getConnections();
-  }, [dispatch, token]);
+  }, []);
 
   return (
     <WidgetWrapper>
