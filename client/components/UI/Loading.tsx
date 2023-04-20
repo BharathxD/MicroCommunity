@@ -1,5 +1,5 @@
 import { ReduxState } from "@/types/state.types";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 
 const Loading = () => {

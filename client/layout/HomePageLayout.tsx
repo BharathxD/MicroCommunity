@@ -18,7 +18,7 @@ const HomePageLayout: React.FC<Props> = ({
   children,
   withoutHeader = false,
 }) => {
-  const { mode, _id, token } = useSelector((state: ReduxState) => {
+  const { mode, _id } = useSelector((state: ReduxState) => {
     return { mode: state.mode, _id: state.user?._id, token: state.token };
   });
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -31,7 +31,7 @@ const HomePageLayout: React.FC<Props> = ({
       memoizedDispatch(setUser(data));
     };
     fetchUser();
-  }, [_id, token]);
+  }, []);
 
   const content = withoutHeader ? (
     children

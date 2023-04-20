@@ -2,6 +2,7 @@ import { fetchUserData } from "@/api/user.api";
 import Connections from "@/components/Connections";
 import PostsWidget from "@/components/Post/PostsWidget";
 import UserPostWidget from "@/components/Post/UserPostWidget";
+import Loading from "@/components/UI/Loading";
 import UserWidget from "@/components/User/UserWidget";
 import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
 import HomePageLayout from "@/layout/HomePageLayout";
@@ -18,14 +19,31 @@ type Props = {
   user: User;
 };
 
-const ProfilePage = ({ userId, user }: Props) => {
+const ProfilePage = () => {
+  const { userId } = useRouter().query;
   const dispatch = useDispatch();
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
-  const userProfile = useSelector((state: ReduxState) => state.profile);
+  const router = useRouter();
+
   const { palette } = useTheme();
+
+  const user = useSelector((state: ReduxState) => state.profile);
+
   useEffect(() => {
-    dispatch(setProfile(user));
+    const fetchUser = async () => {
+      const user = await fetchUserData(userId);
+      dispatch(setProfile(user));
+    };
+    fetchUser();
   }, []);
+
+  if (!user) {
+    return (
+      <Box bgcolor={palette.background.default} minHeight={"100vh"}>
+        <Loading />;
+      </Box>
+    );
+  }
 
   return (
     <Box
