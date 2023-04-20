@@ -13,7 +13,7 @@ import { getPosts } from "@/api/post.api";
 
 import MiddleSectionWrapper from "@/components/Wrappers/HomepageWrappers/MiddleSectionWrapper";
 import HompageWrapper from "@/components/Wrappers/HomepageWrappers/HomepageWrapper";
-import { setLoading } from "@/state/auth";
+import { setLoading, setProfile } from "@/state/auth";
 import LeftSectionWrapper from "@/components/Wrappers/HomepageWrappers/LeftSectionWrapper";
 import PostsWidget from "@/components/Post/PostsWidget";
 import UserPostWidget from "@/components/Post/UserPostWidget";
@@ -26,6 +26,10 @@ export default function Home(): ReactElement {
   const { palette } = useTheme();
   const isLoading = useSelector((state: ReduxState) => state.isLoading);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setProfile(null));
+  }, []);
 
   useEffect(() => {
     dispatch(setLoading({ isLoading: true }));

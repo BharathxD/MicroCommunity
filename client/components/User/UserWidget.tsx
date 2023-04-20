@@ -17,8 +17,12 @@ import { ReduxState, User } from "@/types/state.types";
 import { fetchUserData } from "@/api/user.api";
 import IconWrapper from "../Wrappers/IconWrapper";
 
-const UserWidget = () => {
-  const userId = useSelector((state: ReduxState) => {
+type Props = {
+  externalUserId?: string;
+};
+
+const UserWidget = ({ externalUserId }: Props) => {
+  let userId = useSelector((state: ReduxState) => {
     return state.user?._id;
   });
   const picturePath = useSelector((state: ReduxState) => {
@@ -36,11 +40,11 @@ const UserWidget = () => {
       if (!userId && !token) {
         return;
       }
-      const userData = await fetchUserData(userId);
+      const userData = await fetchUserData(externalUserId ?? userId);
       setUser(userData);
     };
     getUserHandler();
-  }, [userId, token]);
+  }, [userId, token, externalUserId]);
   if (!user) {
     return null;
   }

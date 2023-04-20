@@ -32,9 +32,12 @@ export const authSlice = createSlice({
       state.token = null;
     },
     setConnections: (state, action) => {
-      if (state.user) {
-        state.user.connections = action.payload.connections;
+      if (!state.user) return;
+      if (state.profile !== null) {
+        state.profile.connections = action.payload.connections;
+        return;
       }
+      state.user.connections = action.payload.connections;
     },
     setPosts: (state, action) => {
       state.posts = action.payload.posts;

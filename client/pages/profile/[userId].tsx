@@ -18,22 +18,14 @@ type Props = {
   user: User;
 };
 
-const ProfilePage = () => {
+const ProfilePage = ({ userId, user }: Props) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: ReduxState) => state.profile);
-  const { userId } = useRouter().query;
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
+  const userProfile = useSelector((state: ReduxState) => state.profile);
   const { palette } = useTheme();
-
   useEffect(() => {
-    const fetchUser = async () => {
-      const user = await fetchUserData(userId);
-      dispatch(setProfile(user));
-    };
-    fetchUser();
-  }, [userId, dispatch]);
-
-  if (!user) return null;
+    dispatch(setProfile(user));
+  }, []);
 
   return (
     <Box
@@ -43,15 +35,14 @@ const ProfilePage = () => {
     >
       <Box display="flex" justifyContent="center" gap="50px">
         <Box flexBasis={isNonMobileScreen ? "26%" : undefined}>
-          <UserWidget />
+          <UserWidget externalUserId={user._id} />
           <Box m="2rem 0" />
-          <Connections userId={userId} />
+          <Connections userId={user._id} />
         </Box>
         <Box
           flexBasis={isNonMobileScreen ? "42%" : undefined}
           mt={isNonMobileScreen ? undefined : "2rem"}
         >
-          <UserPostWidget />
           <Box m="2rem 0" />
           <PostsWidget userId={userId} isProfile={true} />
         </Box>

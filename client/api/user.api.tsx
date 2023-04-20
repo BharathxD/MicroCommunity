@@ -12,12 +12,11 @@ export const patchConnectionHandler = async (
     const response = await axios.patch(
       `${USER_BASE_URL}/connections/${connectionId}`,
       {
-        withCredentials: true,
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
+      { withCredentials: true }
     );
     return await response.data;
   } catch (error: any) {
@@ -48,14 +47,11 @@ export const fetchSpecificUserConnections = async (
   }
 };
 
-export const fetchUserConnections = async (
-  token: string | null,
-) => {
+export const fetchUserConnections = async (userId?: string | null) => {
   try {
-    if (!token) {
-      return null;
-    }
-    const response = await axios.get(`${USER_BASE_URL}/connections`, {
+    const URI = `${USER_BASE_URL}/connections/${userId ?? "null"}`;
+    console.log(userId);
+    const response = await axios.get(URI, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",

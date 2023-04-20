@@ -31,7 +31,7 @@ const HomePageLayout: React.FC<Props> = ({
       memoizedDispatch(setUser(data));
     };
     fetchUser();
-  }, [_id, memoizedDispatch, token]);
+  }, [_id, token]);
 
   const content = withoutHeader ? (
     children
