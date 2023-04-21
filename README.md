@@ -15,6 +15,8 @@ This sophisticated website has been built with scalability in mind, utilizing ad
 
 [![My Skills](https://skillicons.dev/icons?i=ts,nextjs,mongodb,express,nodejs,react,redux,materialui,bash)](https://skillicons.dev)
 
+---
+
 ## Here's a Quick Glimpse
 
 #### PS: Construction still in progress... 🚧
