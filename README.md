@@ -13,6 +13,8 @@ A cutting-edge microblogging website designed to provide users with an social me
 
 This sophisticated website has been built with scalability in mind, utilizing advanced technologies to ensure high performance and reliability. The server-side components are powered by TypeScript, NodeJS, Express, and Zod, while the database is managed using MongoDB. The client-side is developed using state-of-the-art technologies such as React and Redux, ensuring a seamless and responsive user experience.
 
+[![My Skills](https://skillicons.dev/icons?i=ts,nextjs,mongodb,express,nodejs,react,redux,materialui,bash)](https://skillicons.dev)
+
 ## Here's a Quick Glimpse
 
 #### PS: Construction still in progress... 🚧
