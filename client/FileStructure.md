@@ -1,3 +1,5 @@
+## Client Side Folder Structure
+
 ``` bash
 -- client
     |-- .env.local

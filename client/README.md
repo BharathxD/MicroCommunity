@@ -25,3 +25,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | Homepage       | `/`                   |
 | Login/Register | `/auth`               |
 | User Profile   | `/profile/[..userId]` |
+
+## File Structure
+
+Click [`here`](./FileStructure.md) to view the file structure for the Client
