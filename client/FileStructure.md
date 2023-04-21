@@ -1,4 +1,4 @@
-```
+``` bash
 -- client
     |-- .env.local
     |-- .eslintrc.json
