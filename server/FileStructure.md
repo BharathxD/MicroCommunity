@@ -1,3 +1,5 @@
+## Server Side Folder Structure
+
 ``` bash
 |-- server
     |-- .env

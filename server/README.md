@@ -11,6 +11,10 @@ This has been built with scalability in mind
 | Auth Routes | `/api/auth` |
 | HealthCheck | `/`         |
 
+## File Structure
+
+Click [`here`](./FileStructure.md) to view the file structure for the Server
+
 ## Generate Encryption Keys
 
 Change to the project's root directory and execute the following bash command
