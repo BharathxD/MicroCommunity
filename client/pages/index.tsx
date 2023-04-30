@@ -93,7 +93,6 @@ export const getServerSideProps = async (context: NextPageContext) => {
   // @ts-ignore
   const accessToken = req?.cookies?.accessToken;
   const posts: Post[] | null = await getPosts(accessToken);
-  console.log(posts);
   return {
     props: {
       posts: null,

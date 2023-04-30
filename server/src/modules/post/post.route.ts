@@ -25,7 +25,6 @@ router.get("/:userId/posts", requireUser, getUserPostsHandler);
 router.post(
   "/",
   (req, res, next) => {
-    console.log(req.body);
     next();
   },
   requireUser,

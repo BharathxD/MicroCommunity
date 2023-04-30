@@ -50,7 +50,6 @@ export const fetchSpecificUserConnections = async (
 export const fetchUserConnections = async (userId?: string | null) => {
   try {
     const URI = `${USER_BASE_URL}/connections/${userId ?? "null"}`;
-    console.log(userId);
     const response = await axios.get(URI, {
       withCredentials: true,
       headers: {
