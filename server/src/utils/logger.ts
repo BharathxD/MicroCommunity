@@ -1,4 +1,4 @@
-import { pino } from "pino";
+import pino from "pino";
 
 const logger = pino({
   transport: {
@@ -6,7 +6,7 @@ const logger = pino({
     options: {
       colorize: true,
     },
-  },
+  }
 });
 
 export default logger;
