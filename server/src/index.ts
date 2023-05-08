@@ -5,25 +5,29 @@ import { connect } from "./utils/connect";
 import routes from "./routes";
 import gracefulShutdown from "./config/gracefulShutdown";
 import dotenv from "dotenv";
-dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const bootstrapServer = () => {
+  dotenv.config();
+  const app = express();
+  const PORT = process.env.PORT || 3000;
 
-//? Server Configuration
-configureApp(app);
+  //? Server Configuration
+  configureApp(app);
 
-const server = app.listen(PORT, async () => {
-  logger.info(`The server is running at http://localhost:${PORT}`);
-  //? Connect to the Database
-  await connect();
-  //? Handle Routes
-  routes(app);
-});
+  const server = app.listen(PORT, async () => {
+    logger.info(`The server is running at http://localhost:${PORT}`);
+    //? Connect to the Database
+    await connect();
+    //? Handle Routes
+    routes(app);
+  });
 
-//? Implement Graceful Shutdown
-const SIGNALS = ["SIGTERM", "SIGINT"];
+  //? Implement Graceful Shutdown
+  const SIGNALS = ["SIGTERM", "SIGINT"];
 
-SIGNALS.forEach((signal) => {
-  gracefulShutdown(signal, server);
-});
+  SIGNALS.forEach((signal) => {
+    gracefulShutdown(signal, server);
+  });
+}
+
+bootstrapServer();

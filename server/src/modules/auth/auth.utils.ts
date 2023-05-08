@@ -1,5 +1,4 @@
 import jwt, {
-  JsonWebTokenError,
   NotBeforeError,
   TokenExpiredError,
 } from "jsonwebtoken";
