@@ -19,12 +19,9 @@ import PostsWidget from "@/components/Post/PostsWidget";
 import UserPostWidget from "@/components/Post/UserPostWidget";
 import { NextPageContext } from "next";
 import React from "react";
+import Users from "@/components/Users/Users";
 
-type Props = {
-  posts: Post[];
-};
-
-export default function Home({ posts }: Props): ReactElement {
+export default function Home(): ReactElement {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
   const router = useRouter();
   const token = useSelector((state: ReduxState) => state.token);
@@ -36,6 +33,8 @@ export default function Home({ posts }: Props): ReactElement {
     dispatch(setProfile(null));
     dispatch(setLoading({ isLoading: true }));
     const timeout = setTimeout(() => {
+      const item = localStorage.getItem("token");
+      console.log(item);
       if (!token) {
         router.push("/auth");
       } else {
@@ -45,6 +44,7 @@ export default function Home({ posts }: Props): ReactElement {
     return () => {
       clearTimeout(timeout);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -62,6 +62,8 @@ export default function Home({ posts }: Props): ReactElement {
           <HompageWrapper>
             <LeftSectionWrapper>
               <UserWidget />
+              <Box sx={{ m: "2rem" }} />
+              <Users />
             </LeftSectionWrapper>
             <Divider orientation="vertical" flexItem />
             <MiddleSectionWrapper>

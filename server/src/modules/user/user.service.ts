@@ -1,10 +1,19 @@
 import UserModel, { User } from "./user.model";
-import { omit } from "lodash";
+import _, { omit } from "lodash";
 
 export const createUser = async (user: Omit<User, "comparePassword">) => {
   const createdUser = await UserModel.create(user);
   return omit(createdUser.toJSON(), "password");
 };
+
+export const findUsers = async () => {
+  const users = await UserModel.find({});
+  // console.log(users)
+  const usersWithoutPassword = users.map(user => {
+    return omit(user.toJSON(), "password");
+  });
+  return usersWithoutPassword;
+}
 
 export const findUserById = async (userId: string) => {
   return await UserModel.findById(userId);

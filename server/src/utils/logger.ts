@@ -6,7 +6,7 @@ const logger = pino({
     options: {
       colorize: true,
     },
-  }
+  },
 });
 
 export default logger;

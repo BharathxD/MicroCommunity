@@ -86,3 +86,14 @@ export const fetchUserData = async (
     console.log(`Cannot find Users: ${error.message}`);
   }
 };
+
+export const fetchAllUsers = async () => {
+  try {
+    const response = await axios.get(`${USER_BASE_URL}/all`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error: any) {
+    console.log(`Cannot find Users: ${error.message}`);
+  }
+};

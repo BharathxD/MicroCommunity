@@ -20,7 +20,9 @@ const routes = (app: Express) => {
   //? Error Handling
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     console.error(err.stack);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: "Internal Server Error" });
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send({ message: "Internal Server Error" });
   });
 };
 

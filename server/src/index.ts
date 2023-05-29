@@ -28,6 +28,6 @@ const bootstrapServer = () => {
   SIGNALS.forEach((signal) => {
     gracefulShutdown(signal, server);
   });
-}
+};
 
 bootstrapServer();

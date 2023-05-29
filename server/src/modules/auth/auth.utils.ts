@@ -1,7 +1,4 @@
-import jwt, {
-  NotBeforeError,
-  TokenExpiredError,
-} from "jsonwebtoken";
+import jwt, { NotBeforeError, TokenExpiredError } from "jsonwebtoken";
 import { privateKey, publicKey } from "../../utils/pemToString";
 
 type JwtPayload = Object | Buffer | string;

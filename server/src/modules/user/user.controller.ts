@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { createUser, findUserById } from "./user.service";
+import { createUser, findUserById, findUsers } from "./user.service";
 import {
   GetUserConnectionParams,
   HandleConnectionsParams,
   RegisterInput,
 } from "./user.schema";
 import logger from "../../utils/logger";
-import { omit } from "lodash";
+import _, { omit } from "lodash";
 import JWTService from "../auth/auth.utils";
 
 export const registerUserHandler = async (
@@ -73,6 +73,21 @@ export const getUserHandler = async (
     }
     const transformedUser = omit(user.toJSON(), "password");
     res.status(StatusCodes.OK).json(transformedUser);
+  } catch (error: any) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: error.message });
+  }
+};
+
+export const getAllUsersHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const users = await findUsers();
+    if (!users) {
+      throw new Error("No users found");
+    }
+    res.status(StatusCodes.OK).json(users);
   } catch (error: any) {
     res.status(StatusCodes.NOT_FOUND).json({ message: error.message });
   }

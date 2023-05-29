@@ -46,7 +46,7 @@ const UserPostWidget = () => {
       formData.append("picture", image);
       formData.append("picturePath", image.name);
     }
-    const posts = await createPost(formData, token);
+    const posts = await createPost(formData);
     dispatch(setPosts({ posts }));
     setImage(null);
     setPost("");

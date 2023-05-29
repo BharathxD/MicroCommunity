@@ -1,6 +1,6 @@
 ## Server Side Folder Structure
 
-``` bash
+```bash
 |-- server
     |-- .env
     |-- README.md

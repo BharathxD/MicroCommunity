@@ -33,6 +33,7 @@ const Connections = ({ userId, isProfile = false }: Props) => {
       }
     };
     getConnections();
+    // eslint-disable-next-line
   }, []);
 
   return (

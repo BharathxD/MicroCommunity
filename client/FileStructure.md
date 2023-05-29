@@ -1,6 +1,6 @@
 ## Client Side Folder Structure
 
-``` bash
+```bash
 -- client
     |-- .env.local
     |-- .eslintrc.json

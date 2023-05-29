@@ -25,4 +25,3 @@ export const configureApp = (app: Express) => {
     })
   );
 };
-

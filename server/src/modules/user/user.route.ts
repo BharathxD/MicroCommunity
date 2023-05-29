@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   connectionHandler,
+  getAllUsersHandler,
   getUserConnectionsHandler,
   getUserHandler,
   registerUserHandler,
@@ -22,6 +23,8 @@ router.post(
   processRequestBody(RegisterSchema.body),
   registerUserHandler
 );
+
+router.get("/all", requireUser, getAllUsersHandler);
 
 router.get("/search/:userId", requireUser, getUserHandler);
 

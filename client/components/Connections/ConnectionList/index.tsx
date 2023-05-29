@@ -13,6 +13,7 @@ type Props = {
   name: string;
   subtitle: string;
   userPicturePath: string;
+  isUserList?: boolean;
 };
 
 const ConnectionList = ({
@@ -20,6 +21,7 @@ const ConnectionList = ({
   name,
   subtitle,
   userPicturePath,
+  isUserList,
 }: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -35,16 +37,18 @@ const ConnectionList = ({
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
-  const isConnection = (connection as Connections[])?.find(
-    (connection: Connections) => connection._id === connectionId
-  );
+  const isConnection =
+    Array.isArray(connection) &&
+    (connection as Connections[])?.find(
+      (connection: Connections) => connection._id === connectionId
+    );
 
   const patchConnection = async () => {
     if (!token) {
       return;
     }
     const data = await patchConnectionHandler(connectionId, token);
-    dispatch(setConnections({ connections: data }));
+    if (!isUserList) dispatch(setConnections({ connections: data }));
   };
 
   return (
